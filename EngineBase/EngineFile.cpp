@@ -26,6 +26,11 @@ void UEngineFile::Close()
 	}
 }
 
+void UEngineFile::Read(void* _Data, size_t _Size)
+{
+	fread_s(_Data, _Size, _Size, 1, FileHandle);
+}
+
 void UEngineFile::Open(EIOOpenMode _OpenType, EIODataType _DataType)
 {
 	std::string Path = GetFullPath();
@@ -100,4 +105,14 @@ void UEngineFile::Load(UEngineSerializer& _Data)
 
 	_Data.BufferResize(static_cast<int>(Size));
 	fread(&_Data.Data[0], Size, 1, FileHandle);
+}
+
+std::string UEngineFile::GetString()
+{
+	Open(EIOOpenMode::Read, EIODataType::Text);
+	UEngineSerializer Ser;
+	Load(Ser);
+	Close();
+
+	return Ser.ToString();
 }

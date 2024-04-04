@@ -37,7 +37,11 @@ public:
 	void Save(UEngineSerializer& _Data);
 	void Load(UEngineSerializer& _Data);
 
+	void Read(void* _Data, size_t _Size);
+
 	void Close();
+
+	std::string GetString();
 
 protected:
 
