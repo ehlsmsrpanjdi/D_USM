@@ -3,20 +3,20 @@
 
 // Ό³Έν :
 class USpriteRenderer;
-class APlayer : public AActor
+class APlayBack : public AActor
 {
 	GENERATED_BODY(AActor)
 
 public:
 	// constrcuter destructer
-	APlayer();
-	~APlayer();
+	APlayBack();
+	~APlayBack();
 
 	// delete Function
-	APlayer(const APlayer& _Other) = delete;
-	APlayer(APlayer&& _Other) noexcept = delete;
-	APlayer& operator=(const APlayer& _Other) = delete;
-	APlayer& operator=(APlayer&& _Other) noexcept = delete;
+	APlayBack(const APlayBack& _Other) = delete;
+	APlayBack(APlayBack&& _Other) noexcept = delete;
+	APlayBack& operator=(const APlayBack& _Other) = delete;
+	APlayBack& operator=(APlayBack&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;

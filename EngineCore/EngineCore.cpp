@@ -90,9 +90,21 @@ void UEngineCore::EngineFrameUpdate()
 	float DeltaTime = MainTimer.TimeCheck();
 	UEngineInput::KeyCheckTick(DeltaTime);
 
+	GEngine->EngineWindow.CalculateMouseUpdate(DeltaTime);
+
 	if (nullptr != NextLevel)
 	{
+		if (nullptr != CurLevel)
+		{
+			CurLevel->LevelEnd(NextLevel.get());
+		}
+
+		NextLevel->LevelStart(CurLevel.get());
+
 		CurLevel = NextLevel;
+
+
+
 		NextLevel = nullptr;
 	}
 
