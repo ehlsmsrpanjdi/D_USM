@@ -49,7 +49,6 @@ void ContentsCore::Initialize()
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
-		
 		Dir.Move("Sound");
 		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav" });
 		for (UEngineFile& File : Files)
