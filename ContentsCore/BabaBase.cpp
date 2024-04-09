@@ -24,6 +24,10 @@ void ABabaBase::BeginPlay()
 	float4 Location4D = GetActorLocation();
 	Location2D.x = Location4D.X;
 	Location2D.y = Location4D.Y;
+
+	Renderer->CreateAnimation("Die", "Die");
+	Renderer->CreateAnimation("Idle", "Idle");
+	Renderer->CreateAnimation("Move", "Move");
 }
 
 void ABabaBase::Tick(float _DeltaTime)
@@ -64,7 +68,8 @@ void ABabaBase::GoBack(float _DeltaTime)
 	IsMoving = true;
 }
 
-void ABabaBase::Move(float _DeltaTime)
+
+void ABabaBase::Push_Stack(float _DeltaTime)
 {
 	if (ContentsHelper::Time <= MoveTime && Stack_Input.empty() != true) {
 		char Key = Stack_Input.top();
@@ -92,6 +97,4 @@ void ABabaBase::Move(float _DeltaTime)
 		}
 	}
 }
-
-
 

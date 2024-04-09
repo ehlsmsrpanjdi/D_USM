@@ -206,6 +206,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BabaState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentsCore.cpp">
       <SubType>
       </SubType>

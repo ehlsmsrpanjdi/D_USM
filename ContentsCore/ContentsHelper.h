@@ -3,6 +3,33 @@
 
 // Ό³Έν :
 
+struct float2D
+{
+	float x;
+	float y;
+
+	float2D operator*(const float& _Value) {
+		float ResultX = x * _Value;
+		float ResultY = y * _Value;
+		return float2D{ ResultX,ResultY };
+	}
+
+	float2D operator+(const float2D& _Value) {
+		float ResultX = x + _Value.x;
+		float ResultY = y + _Value.y;
+		return float2D{ ResultX,ResultY };
+	}
+
+	bool operator==(const float2D& _Value) {
+		if (x == _Value.x && y == _Value.y) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+};
+
 struct BabaState {
 	bool IsMove = false;
 	bool IsBaba = false;

@@ -30,6 +30,6 @@ void ARock::Tick(float _DeltaTime)
 	{
 		State.IsMove = false;
 	}
-	Move(_DeltaTime);
+	Push_Stack(_DeltaTime);
 	LerpMove(_DeltaTime);
 }

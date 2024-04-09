@@ -63,6 +63,9 @@
     <ClCompile Include="BabaBase.cpp">
       <Filter>Level\Actor\Base</Filter>
     </ClCompile>
+    <ClCompile Include="BabaState.cpp">
+      <Filter>Level\Actor\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">

@@ -1,35 +1,8 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <stack>
+#include <EngineCore/StateManager.h>
 #include "ContentsHelper.h"
-
-struct float2D
-{
-	float x;
-	float y;
-
-	float2D operator*(const float& _Value) {
-		float ResultX = x * _Value;
-		float ResultY = y * _Value;
-		return float2D{ ResultX,ResultY };
-	}
-
-	float2D operator+(const float2D& _Value) {
-		float ResultX = x + _Value.x;
-		float ResultY = y + _Value.y;
-		return float2D{ ResultX,ResultY };
-	}
-
-	bool operator==(const float2D& _Value) {
-		if (x == _Value.x && y == _Value.y) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-};
-
 
 // Ό³Έν :
 class USpriteRenderer;
@@ -49,7 +22,9 @@ public:
 	ABabaBase& operator=(ABabaBase&& _Other) noexcept = delete;
 
 	std::stack<char> Stack_Input;
+	UStateManager FSM_State;
 	BabaState State;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -59,7 +34,7 @@ protected:
 
 	void GoBack(float _DeltaTime);
 
-	void Move(float _DeltaTime);
+	void Push_Stack(float _DeltaTime);
 
 
 	inline void SetNextLocation2D(float _x, float _y) {
@@ -93,6 +68,18 @@ protected:
 	std::stack<float2D> Stack_Location;
 	USpriteRenderer* Renderer;
 
+
+	///////////////////////// BabaState
+	void StateInit();
+
+	void Die(float _DeltaTime);
+
+	void Idle(float _DeltaTime);
+	void IdleStart();
+
+	void MoveStart();
+	void Move(float _DeltaTime);
+	void MoveEnd();
 
 
 private:
