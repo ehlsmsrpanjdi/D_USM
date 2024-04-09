@@ -1,19 +1,19 @@
 #include "PreCompile.h"
-#include "Player.h"
+#include "Bababase.h"
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>
 
-APlayer::APlayer()
+ABabaBase::ABabaBase()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	InputOn();
 }
 
-APlayer::~APlayer()
+ABabaBase::~ABabaBase()
 {
 }
 
-void APlayer::BeginPlay()
+void ABabaBase::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -26,24 +26,24 @@ void APlayer::BeginPlay()
 	Location2D.y = Location4D.Y;
 }
 
-void APlayer::Tick(float _DeltaTime)
+void ABabaBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	Move(_DeltaTime);
 	LerpMove(_DeltaTime);
 }
 
-void APlayer::LerpMove(float _DeltaTime)
+void ABabaBase::LerpMove(float _DeltaTime)
 {
 	SetActorlocation2D(Lerp(MoveCoolTime));
 }
 
-float2D APlayer::Lerp(float _DeltaTime)
+float2D ABabaBase::Lerp(float _DeltaTime)
 {
 	if (ContentsHelper::Time < MoveTime && IsMoving == true) {
 		return Location2D * (MoveTime - ContentsHelper::Time) + NextLocation2D * (ContentsHelper::Time);
 	}
-	else if(IsMoving == true){
+	else if (IsMoving == true) {
 		IsMoving = false;
 		Location2D = NextLocation2D;
 		return Location2D;
@@ -53,7 +53,7 @@ float2D APlayer::Lerp(float _DeltaTime)
 	}
 }
 
-void APlayer::GoBack(float _DeltaTime)
+void ABabaBase::GoBack(float _DeltaTime)
 {
 	if (Stack_Location.empty() == true) {
 		return;
@@ -64,7 +64,7 @@ void APlayer::GoBack(float _DeltaTime)
 	IsMoving = true;
 }
 
-void APlayer::Move(float _DeltaTime)
+void ABabaBase::Move(float _DeltaTime)
 {
 	if (ContentsHelper::Time <= MoveTime && Stack_Input.empty() != true) {
 		char Key = Stack_Input.top();

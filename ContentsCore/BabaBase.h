@@ -33,20 +33,20 @@ struct float2D
 
 // Ό³Έν :
 class USpriteRenderer;
-class APlayer : public AActor
+class ABabaBase : public AActor
 {
 	GENERATED_BODY(AActor)
 
 public:
 	// constrcuter destructer
-	APlayer();
-	~APlayer();
+	ABabaBase();
+	~ABabaBase();
 
 	// delete Function
-	APlayer(const APlayer& _Other) = delete;
-	APlayer(APlayer&& _Other) noexcept = delete;
-	APlayer& operator=(const APlayer& _Other) = delete;
-	APlayer& operator=(APlayer&& _Other) noexcept = delete;
+	ABabaBase(const ABabaBase& _Other) = delete;
+	ABabaBase(ABabaBase&& _Other) noexcept = delete;
+	ABabaBase& operator=(const ABabaBase& _Other) = delete;
+	ABabaBase& operator=(ABabaBase&& _Other) noexcept = delete;
 
 	std::stack<char> Stack_Input;
 	BabaState State;
@@ -94,9 +94,9 @@ protected:
 	USpriteRenderer* Renderer;
 
 
-	
+
 private:
-	
+
 	float4 Color;
 	float2D Location2D{};
 	float2D NextLocation2D{};

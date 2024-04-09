@@ -22,6 +22,15 @@
     <ClInclude Include="TitleGameMode.h">
       <Filter>TitleLevel</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsHelper.h">
+      <Filter>Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>Level\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="BabaBase.h">
+      <Filter>Level\Actor\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -45,6 +54,15 @@
     <ClCompile Include="TitleGameMode.cpp">
       <Filter>TitleLevel</Filter>
     </ClCompile>
+    <ClCompile Include="ContentsHelper.cpp">
+      <Filter>Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>Level\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="BabaBase.cpp">
+      <Filter>Level\Actor\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -64,6 +82,12 @@
     </Filter>
     <Filter Include="TitleLevel\Actor">
       <UniqueIdentifier>{97338342-c0eb-479d-be11-0f033217b634}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper">
+      <UniqueIdentifier>{5cbfdc4b-326e-4384-9205-ced88a8edca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Actor\Base">
+      <UniqueIdentifier>{888c348b-77e0-4c1f-9a3d-8741e4e549ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
