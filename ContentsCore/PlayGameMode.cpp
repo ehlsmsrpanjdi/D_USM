@@ -41,44 +41,52 @@ void APlayGameMode::Tick(float _DeltaTime)
 	ActorsMove();
 }
 
+void APlayGameMode::Input()
+{
+	++Count;
+	IsInput = true;
+	ContentsHelper::Time = 0.f;
+}
+
 void APlayGameMode::ActorsMove()
 {
 	if (IsInput == false) {
 		if (true == IsDown('A'))
 		{
 			Key = 'A';
-			IsInput = true;
-			ContentsHelper::Time = 0.f;
+			Input();
 		}
 
 		if (true == IsDown('D'))
 		{
 			Key = 'D';
-			IsInput = true;
-			ContentsHelper::Time = 0.f;
+			Input();
 		}
 
 		if (true == IsDown('W'))
 		{
 			Key = 'W';
-			IsInput = true;
-			ContentsHelper::Time = 0.f;
+			Input();
 		}
 
 		if (true == IsDown('S'))
 		{
 			Key = 'S';
-			IsInput = true;
-			ContentsHelper::Time = 0.f;
+			Input();
 		}
 		if (true == IsDown('Z'))
 		{
+			if (Count == 0) {
+				return;
+			}
 			Key = 'Z';
+			Count--;
 			IsInput = true;
 			ContentsHelper::Time = 0.f;
 		}
 	}
 	if (Key != '0') {
+
 		for (auto Actor : Actors) {
 			if (Actor->State.IsMove == true || Key == 'Z') {
 				Actor->Stack_Input.push(Key);

@@ -28,13 +28,19 @@ void ABabaBase::BeginPlay()
 	Renderer->CreateAnimation("Die", "Die");
 	Renderer->CreateAnimation("Idle", "Idle");
 	Renderer->CreateAnimation("Move", "Move");
+
+	StateInit();
+	FSM_State.ChangeState("Idle");
+
 }
 
 void ABabaBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-	Move(_DeltaTime);
-	LerpMove(_DeltaTime);
+	
+	//Push_Stack(_DeltaTime);
+	//LerpMove(_DeltaTime);
+	FSM_State.Update(_DeltaTime);
 }
 
 void ABabaBase::LerpMove(float _DeltaTime)

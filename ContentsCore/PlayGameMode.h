@@ -25,6 +25,9 @@ protected:
 	char Key = '0';
 	std::vector<std::shared_ptr<ABabaBase>> Actors;
 	bool IsInput = false;
+	int Count = 0;
+
+	void Input();
 
 	void ActorsMove();
 
