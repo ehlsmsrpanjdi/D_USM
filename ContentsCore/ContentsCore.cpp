@@ -26,6 +26,15 @@ void ContentsCore::Initialize()
 			// 스프라이트로도 1장짜리로 로드가 된 상황이야.
 			UEngineSprite::Load(File.GetFullPath());
 		}
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Baba");
+		Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			// CuttingTest.png texture로도 한장이 로드가 됐고
+			// 스프라이트로도 1장짜리로 로드가 된 상황이야.
+			UEngineSprite::Load(File.GetFullPath());
+		}
 
 		// 로드폴더는 이렇게 한다고 칩시다.
 		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
@@ -42,7 +51,6 @@ void ContentsCore::Initialize()
 		// 이미 이 이름을 가진 스프라이트가 존재한다.
 		// 그러면 기존의 스프라이트 데이터는 날려버리고
 		// 자른 스프라이트 데이터 변경한다.
-		UEngineSprite::CreateCutting("CuttingTest.png", 4, 3);
 	}
 
 

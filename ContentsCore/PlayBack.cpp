@@ -19,7 +19,7 @@ void APlayBack::BeginPlay()
 	SetActorScale3D(FVector(1280.0f, 720.0f, 100.0f));
 
 	// 내부에서 샘플러도 같이 찾을
-	Renderer->SetSprite("Back.png");
+	Renderer->SetSprite("SelectMap_background.png");
 }
 
 void APlayBack::Tick(float _DeltaTime)

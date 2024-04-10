@@ -10,9 +10,6 @@
     <ClInclude Include="ContentsCore.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Level\Actor</Filter>
-    </ClInclude>
     <ClInclude Include="PlayBack.h">
       <Filter>Level\Actor</Filter>
     </ClInclude>
@@ -41,9 +38,6 @@
     </ClCompile>
     <ClCompile Include="ContentsCore.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Level\Actor</Filter>
     </ClCompile>
     <ClCompile Include="PlayBack.cpp">
       <Filter>Level\Actor</Filter>

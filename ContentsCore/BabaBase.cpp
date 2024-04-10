@@ -20,17 +20,20 @@ void ABabaBase::BeginPlay()
 	SetActorScale3D(FVector(200.0f, 200.0f, 100.0f));
 	State.IsMove = true;
 	// 내부에서 샘플러도 같이 찾을
-	Renderer->SetSprite("CharIdle0.png");
+	Renderer->SetSprite("CharDie.png");
 	float4 Location4D = GetActorLocation();
 	Location2D.x = Location4D.X;
 	Location2D.y = Location4D.Y;
 
-	Renderer->CreateAnimation("Die", "Die");
-	Renderer->CreateAnimation("Idle", "Idle");
-	Renderer->CreateAnimation("Move", "Move");
+	Renderer->SetAutoSize(5.0f, true);
+	Renderer->SetOrder(1);
 
-	StateInit();
-	FSM_State.ChangeState("Idle");
+	//Renderer->CreateAnimation("Die", "Die");
+	//Renderer->CreateAnimation("Idle", "Idle");
+	//Renderer->CreateAnimation("Move", "Move");
+
+	//StateInit();
+	//FSM_State.ChangeState("Idle");
 
 }
 
@@ -40,7 +43,7 @@ void ABabaBase::Tick(float _DeltaTime)
 	
 	//Push_Stack(_DeltaTime);
 	//LerpMove(_DeltaTime);
-	FSM_State.Update(_DeltaTime);
+	//FSM_State.Update(_DeltaTime);
 }
 
 void ABabaBase::LerpMove(float _DeltaTime)
