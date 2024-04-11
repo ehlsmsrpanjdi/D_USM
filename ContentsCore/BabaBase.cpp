@@ -2,6 +2,7 @@
 #include "Bababase.h"
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>
+//#include <EngineCore/EngineMaterial.h>
 
 ABabaBase::ABabaBase()
 {
@@ -27,7 +28,10 @@ void ABabaBase::BeginPlay()
 
 	Renderer->SetAutoSize(5.0f, true);
 	Renderer->SetOrder(1);
-
+	Renderer->SetMaterial("2DImage");
+	/*[=]() {Renderer->GetMaterial()->SetBlend("Overlay"); };*/
+	//Renderer->
+	Renderer->GetMaterial()->SetBlend("Overlay");
 	//Renderer->CreateAnimation("Die", "Die");
 	//Renderer->CreateAnimation("Idle", "Idle");
 	//Renderer->CreateAnimation("Move", "Move");

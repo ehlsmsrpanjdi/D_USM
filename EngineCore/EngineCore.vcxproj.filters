@@ -67,6 +67,15 @@
     <Filter Include="Contents">
       <UniqueIdentifier>{79f3532f-1e2a-401b-9409-9d5f6520e1d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{233623d1-a517-4881-8018-a6f15b94d09f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Imgui">
+      <UniqueIdentifier>{3c6c6f20-c74f-4e0a-91cd-9b7c1e3db232}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Contents">
+      <UniqueIdentifier>{6f96171b-a338-4dd1-824c-f6057bef5c52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -171,10 +180,42 @@
     <ClCompile Include="EngineSprite.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="EngineBlend.cpp">
+      <Filter>Resources\RenderingSetting</Filter>
+    </ClCompile>
     <ClCompile Include="StateManager.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
-    <ClCompile Include="EngineBlend.cpp" />
+    <ClCompile Include="EngineEditorGUI.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineEditorWindow.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDebugMsgWindow.cpp">
+      <Filter>Editor\Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -288,19 +329,57 @@
     <ClInclude Include="StateManager.h">
       <Filter>Contents</Filter>
     </ClInclude>
+    <ClInclude Include="EngineEditorGUI.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx11.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineEditorWindow.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDebugMsgWindow.h">
+      <Filter>Editor\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDefines.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="ThirdParty\DirectxTex\Debug\DirectXTex.lib">
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\Debug</Filter>
-    </Library>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.pdb">
+      <Filter>ThirdParty\DirectXTex\Debug</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
     <Library Include="ThirdParty\DirectxTex\Release\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\Release</Filter>
     </Library>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ThirdParty\DirectxTex\Debug\DirectXTex.pdb">
-      <Filter>ThirdParty\DirectXTex\Debug</Filter>
-    </None>
     <None Include="ThirdParty\DirectxTex\Release\DirectXTex.pdb">
       <Filter>ThirdParty\DirectXTex\Release</Filter>
     </None>
