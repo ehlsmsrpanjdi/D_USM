@@ -1,6 +1,6 @@
 #pragma once
 #define MoveTime 1.f
-
+#define MoveLength 32.f
 // Ό³Έν :
 
 struct float2D

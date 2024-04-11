@@ -5,6 +5,7 @@
 #include <EngineCore/Camera.h>
 #include "ContentsHelper.h"
 #include "Rock.h"
+#include <iterator>
 
 APlayGameMode::APlayGameMode()
 {}
@@ -21,9 +22,7 @@ void APlayGameMode::BeginPlay()
 
 	std::shared_ptr<ABabaBase> Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 
-	std::shared_ptr<ARock> Rock = GetWorld()->SpawnActor<ARock>("Rock");
-
-	Baba_Actors.push_back(Player);
+	Baba_Actors[Player->GetTile64()].push_back(Player);
 	Player->SetBabaLocation(0, 2);
 	std::shared_ptr<APlayBack> Back = GetWorld()->SpawnActor<APlayBack>("PlayBack");
 	Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
@@ -70,16 +69,24 @@ void APlayGameMode::Baba_Input()
 		}
 	}
 }
+
 void APlayGameMode::Stack_Push(char _Key)
 {
 	Stack_Input.push(_Key);
 	ContentsHelper::Time = 0.f;
-	for (std::shared_ptr<ABabaBase> _BabaBase : Baba_Actors) {
-		_BabaBase->BabaInput = Key;
-		_BabaBase->IndexPlus(_BabaBase->Info);
-		_BabaBase->InfoUpdate();
-		_BabaBase->LerpMove();
-	}
+
+		for (std::pair<const __int64, std::list<std::shared_ptr<ABabaBase>>> &Iter : Baba_Actors)
+		{
+			std::list<std::shared_ptr<ABabaBase>> &BabaBase = Iter.second;
+			for (std::shared_ptr<ABabaBase> &_BabaBase : BabaBase) {
+				_BabaBase->SetKey(_Key);
+				_BabaBase->IndexPlus(_BabaBase->Info);
+				_BabaBase->InfoUpdate();
+				_BabaBase->LerpMove();
+				Change_Baba.push_back(_BabaBase);
+			}
+		}
+
 }
 void APlayGameMode::Stack_Pop()
 {
@@ -88,11 +95,27 @@ void APlayGameMode::Stack_Pop()
 		Temp_Key = Stack_Input.top();
 		Stack_Input.pop();
 		ContentsHelper::Time = 0.f;
-		for (std::shared_ptr<ABabaBase> _BabaBase : Baba_Actors) {
-			_BabaBase->BabaInput = Temp_Key;
-			_BabaBase->IndexMinus(_BabaBase->Info);
-			_BabaBase->InfoUpdate();
-			_BabaBase->PopLerpMove();
+		for (std::pair<const __int64, std::list<std::shared_ptr<ABabaBase>>> &Iter : Baba_Actors)
+		{
+			std::list<std::shared_ptr<ABabaBase>> &BabaBase = Iter.second;
+			for (std::shared_ptr<ABabaBase> &_BabaBase : BabaBase) {
+				_BabaBase->SetKey(Temp_Key);
+				_BabaBase->IndexMinus(_BabaBase->Info);
+				_BabaBase->InfoUpdate();
+				_BabaBase->PopLerpMove();
+			}
+		}
+	}
+}
+
+void APlayGameMode::Change_BabaPos()
+{
+	for (std::pair<const __int64, std::list<std::shared_ptr<ABabaBase>>> Iter : Baba_Actors)
+	{
+		std::list<std::shared_ptr<ABabaBase>> &BabaBase = Iter.second;
+		for (std::shared_ptr<ABabaBase> &ChangeBabas : Change_Baba) {
+			BabaBase.remove(ChangeBabas);
+			Baba_Actors[ChangeBabas->GetTile64()].push_back(ChangeBabas);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/GameMode.h>
 #include <stack>
+#include "ContentsHelper.h"
 
 class ABabaBase;
 // Ό³Έν :
@@ -23,7 +24,9 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	char Key = '0';
-	std::vector<std::shared_ptr<ABabaBase>> Baba_Actors;
+	std::map <__int64, std::list<std::shared_ptr<ABabaBase>>> Baba_Actors;
+	std::vector<std::shared_ptr<ABabaBase>> Change_Baba;
+	//std::vector<std::shared_ptr<ABabaBase>> Baba_Actors;
 	std::stack<char> Stack_Input;
 	bool IsInput = false;
 	int Count = 0;
@@ -32,6 +35,7 @@ protected:
 
 	void Stack_Push(char _Key);
 	void Stack_Pop();
+	void Change_BabaPos();
 
 private:
 };

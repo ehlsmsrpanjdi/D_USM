@@ -18,11 +18,7 @@ void ABabaBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(32.0f, 32.0f, 1.0f));
-	State.IsMove = true;
-	// 내부에서 샘플러도 같이 찾을
-	Renderer->SetSprite("CharDie.png");
-	Renderer->SetAutoSize(1, true);
+	Renderer->SetAutoSize(1.5, true);
 	float4 Location4D = GetActorLocation();
 	Location2D.x = Location4D.X;
 	Location2D.y = Location4D.Y;
@@ -47,7 +43,7 @@ void ABabaBase::BeginPlay()
 	Renderer->CreateAnimation("Baba_Up_3", "Baba_Up_3.png", 0.1f);
 	Renderer->CreateAnimation("Baba_Up_4", "Baba_Up_4.png", 0.1f);
 
-	BabaInput = 'A';
+	BabaInput = '0';
 	Renderer->ChangeAnimation("Baba_Right_1");
 }
 
@@ -55,6 +51,7 @@ void ABabaBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	SetActorlocation2D(Lerp(_DeltaTime));
+	DebugMessageFunction();
 }
 
 void ABabaBase::LerpMove()
@@ -63,25 +60,25 @@ void ABabaBase::LerpMove()
 	{
 	case 'W':
 	{
-		NextLocation2D = Location2D + float2D{ 0.f, 32.f };
+		NextLocation2D = Location2D + float2D{ 0.f, MoveLength };
 		Info.Tile.Y += 1;
 	}
 	break;
 	case 'A':
 	{
-		NextLocation2D = Location2D + float2D{ -32.f, 0.f };
+		NextLocation2D = Location2D + float2D{ -MoveLength, 0.f };
 		Info.Tile.X -= 1;
 	}
 	break;
 	case 'S':
 	{
-		NextLocation2D = Location2D + float2D{ 0.f, -32.f };
+		NextLocation2D = Location2D + float2D{ 0.f, -MoveLength };
 		Info.Tile.Y -= 1;
 	}
 	break;
 	case 'D':
 	{
-		NextLocation2D = Location2D + float2D{ 32.f, 0.f };
+		NextLocation2D = Location2D + float2D{ MoveLength, 0.f };
 		Info.Tile.X += 1;
 	}
 	break;
@@ -96,25 +93,25 @@ void ABabaBase::PopLerpMove()
 	{
 	case 'W':
 	{
-		NextLocation2D = Location2D + float2D{ 0.f, -32.f };
+		NextLocation2D = Location2D + float2D{ 0.f, -MoveLength };
 		Info.Tile.Y -= 1;
 	}
 	break;
 	case 'A':
 	{
-		NextLocation2D = Location2D + float2D{ 32.f, 0.f };
+		NextLocation2D = Location2D + float2D{ MoveLength, 0.f };
 		Info.Tile.X += 1;
 	}
 	break;
 	case 'S':
 	{
-		NextLocation2D = Location2D + float2D{ 0.f, 32.f };
+		NextLocation2D = Location2D + float2D{ 0.f, MoveLength };
 		Info.Tile.Y += 1;
 	}
 	break;
 	case 'D':
 	{
-		NextLocation2D = Location2D + float2D{ -32.f, 0.f };
+		NextLocation2D = Location2D + float2D{ -MoveLength, 0.f };
 		Info.Tile.X -= 1;
 	}
 	break;
@@ -180,8 +177,22 @@ std::string ABabaBase::InputToButton(char _Input)
 		return "Right";
 		break;
 	default:
+		return "";
 		MsgBoxAssert(std::to_string(_Input) + " 이 값은 도대체 왜 들어감??");
 		break;
+	}
+}
+
+void ABabaBase::DebugMessageFunction()
+{
+	{
+		std::string Msg = std::format("PlayerPos : {}\n", std::to_string(Info.Tile.X) + "  " + std::to_string(Info.Tile.Y));
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("MousePos : {}\n", GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }
 

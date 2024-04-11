@@ -3,13 +3,16 @@
 #include <stack>
 #include <EngineCore/StateManager.h>
 #include "ContentsHelper.h"
+#include <EngineCore/EngineDebugMsgWindow.h>
+#include <EngineCore/EngineCore.h>
+
 
 // Ό³Έν :
 
 struct BabaInfo {
 	int AnimationIndex = 1;
 	BabaObject Who = BabaObject::Baba;
-	TilePoint Tile;
+	TilePoint Tile = {};
 };
 
 class APlayGameMode;
@@ -30,9 +33,8 @@ public:
 	ABabaBase& operator=(ABabaBase&& _Other) noexcept = delete;
 
 	char BabaInput = '0';
-	UStateManager FSM_State;
-	BabaState State;
 	BabaInfo Info;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -58,8 +60,8 @@ protected:
 	}
 
 	inline float2D TileReturn() {
-		float X = Info.Tile.X * 64;
-		float Y = Info.Tile.Y * 64;
+		float X = Info.Tile.X * MoveLength;
+		float Y = Info.Tile.Y * MoveLength;
 		return float2D{ X,Y };
 	}
 
@@ -69,7 +71,17 @@ protected:
 		SetLocation2D(TileReturn());
 	}
 
+	void SetKey(char _Key) {
+		BabaInput = _Key;
+	}
 
+	TilePoint GetTile() {
+		return Info.Tile;
+	}
+
+	__int64 GetTile64() {
+		return Info.Tile.Location;
+	}
 
 	void SetActorlocation2D(float2D _Value) {
 		SetActorLocation(float4{ _Value.x, _Value.y });
@@ -81,6 +93,8 @@ protected:
 	void IndexMinus(BabaInfo& _Info);
 	void InfoUpdate();
 	std::string InputToButton(char _Input);
+
+	void DebugMessageFunction();
 
 
 private:
