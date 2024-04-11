@@ -450,12 +450,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="ThirdParty\Debug\DirectXTex.lib" />
-    <Library Include="ThirdParty\Release\DirectXTex.lib" />
+    <Library Include="ThirdParty\DirectxTex\Debug\DirectXTex.lib" />
+    <Library Include="ThirdParty\DirectxTex\Release\DirectXTex.lib" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ThirdParty\Debug\DirectXTex.pdb" />
-    <None Include="ThirdParty\Release\DirectXTex.pdb" />
+    <None Include="ThirdParty\DirectxTex\Debug\DirectXTex.pdb" />
+    <None Include="ThirdParty\DirectxTex\Release\DirectXTex.pdb" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
