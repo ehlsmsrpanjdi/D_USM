@@ -3,7 +3,7 @@
 
 
 
-float ContentsHelper::Time = 0.f;
+float ContentsHelper::Time = 2.f;
 
 ContentsHelper::ContentsHelper()
 {
@@ -15,7 +15,7 @@ ContentsHelper::~ContentsHelper()
 
 void ContentsHelper::CoolTimeCheck(float _DeltaTime)
 {
-	if (Time <= MoveTime) {
+	if (Time < MoveTime) {
 		Time += _DeltaTime * 10.f;
 	}
 	else {

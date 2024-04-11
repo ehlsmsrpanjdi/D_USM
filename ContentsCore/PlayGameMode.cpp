@@ -23,9 +23,7 @@ void APlayGameMode::BeginPlay()
 
 	std::shared_ptr<ARock> Rock = GetWorld()->SpawnActor<ARock>("Rock");
 
-	Actors.push_back(Player);
-	Actors.push_back(Rock);
-
+	Baba_Actors.push_back(Player);
 	std::shared_ptr<APlayBack> Back = GetWorld()->SpawnActor<APlayBack>("PlayBack");
 	Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
 	InputOn();
@@ -35,66 +33,65 @@ void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	ContentsHelper::CoolTimeCheck(_DeltaTime);
-	if (ContentsHelper::Time >= MoveTime) {
-		IsInput = false;
-	}
-	ActorsMove();
+	Baba_Input();
 }
 
-void APlayGameMode::Input()
+void APlayGameMode::Baba_Input()
 {
-	++Count;
-	IsInput = true;
-	ContentsHelper::Time = 0.f;
-}
-
-void APlayGameMode::ActorsMove()
-{
-	if (IsInput == false) {
+	if (ContentsHelper::Time >= 1) {
 		if (true == IsDown('A'))
 		{
 			Key = 'A';
-			Input();
+			Stack_Push(Key);
 		}
 
 		if (true == IsDown('D'))
 		{
 			Key = 'D';
-			Input();
+			Stack_Push(Key);
 		}
 
 		if (true == IsDown('W'))
 		{
 			Key = 'W';
-			Input();
+			Stack_Push(Key);
 		}
 
 		if (true == IsDown('S'))
 		{
 			Key = 'S';
-			Input();
+			Stack_Push(Key);
 		}
 		if (true == IsDown('Z'))
 		{
-			if (Count == 0) {
-				return;
-			}
 			Key = 'Z';
-			Count--;
-			IsInput = true;
-			ContentsHelper::Time = 0.f;
+			Stack_Pop();
 		}
 	}
-	if (Key != '0') {
-
-		for (auto Actor : Actors) {
-			if (Actor->State.IsMove == true || Key == 'Z') {
-				Actor->Stack_Input.push(Key);
-			}
-			else if (Actor->State.IsMove == false) {
-				Actor->Stack_Input.push('0');
-			}
+}
+void APlayGameMode::Stack_Push(char _Key)
+{
+	Stack_Input.push(_Key);
+	ContentsHelper::Time = 0.f;
+	for (std::shared_ptr<ABabaBase> _BabaBase : Baba_Actors) {
+		_BabaBase->BabaInput = Key;
+		_BabaBase->IndexPlus(_BabaBase->Info);
+		_BabaBase->InfoUpdate();
+		_BabaBase->LerpMove();
+	}
+}
+void APlayGameMode::Stack_Pop()
+{
+	char Temp_Key;
+	if (Stack_Input.empty() != true) {
+		Temp_Key = Stack_Input.top();
+		Stack_Input.pop();
+		ContentsHelper::Time = 0.f;
+		for (std::shared_ptr<ABabaBase> _BabaBase : Baba_Actors) {
+			_BabaBase->BabaInput = Temp_Key;
+			_BabaBase->IndexMinus(_BabaBase->Info);
+			_BabaBase->InfoUpdate();
+			_BabaBase->PopLerpMove();
 		}
 	}
-	Key = '0';
 }

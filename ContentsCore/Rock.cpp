@@ -20,16 +20,16 @@ void ARock::BeginPlay()
 
 void ARock::Tick(float _DeltaTime)
 {
-	Super::Tick(_DeltaTime);
-	if (true == IsDown('E'))
-	{
-		State.IsMove = true;
-	}
+	//Super::Tick(_DeltaTime);
+	//if (true == IsDown('E'))
+	//{
+	//	State.IsMove = true;
+	//}
 
-	if (true == IsDown('R'))
-	{
-		State.IsMove = false;
-	}
-	Push_Stack(_DeltaTime);
-	LerpMove(_DeltaTime);
+	//if (true == IsDown('R'))
+	//{
+	//	State.IsMove = false;
+	//}
+	//Push_Stack(_DeltaTime);
+	//LerpMove(_DeltaTime);
 }

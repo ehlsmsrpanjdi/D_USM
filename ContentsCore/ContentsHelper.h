@@ -30,6 +30,12 @@ struct float2D
 	}
 };
 
+enum class BabaObject {
+	Baba,
+
+};
+
+
 struct BabaState {
 	bool IsMove = false;
 	bool IsBaba = false;

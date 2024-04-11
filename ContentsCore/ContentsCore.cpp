@@ -43,6 +43,23 @@ void ContentsCore::Initialize()
 			std::string Name = Directorys[i].GetFolderName();
 			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
+		
+		UEngineSprite::CreateCutting("Baba_Down_1.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Down_2.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Down_3.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Down_4.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Right_1.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Right_2.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Right_3.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Right_4.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Left_1.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Left_2.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Left_3.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Left_4.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Up_1.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Up_2.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Up_3.png", 3, 1);
+		UEngineSprite::CreateCutting("Baba_Up_4.png", 3, 1);
 
 		// 특정 스프라이트나 
 		// 특정 텍스처를 찾아서
