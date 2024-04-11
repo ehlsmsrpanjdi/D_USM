@@ -9,6 +9,7 @@
 struct BabaInfo {
 	int AnimationIndex = 1;
 	BabaObject Who = BabaObject::Baba;
+	TilePoint Tile;
 };
 
 class APlayGameMode;
@@ -48,9 +49,27 @@ protected:
 		Location2D = { _x,_y };
 	}
 
+	inline void SetLocation2D(float2D _2D) {
+		SetLocation2D(_2D.x, _2D.y);
+	}
+
 	inline float4 Location2Dto4D() {
 		return float4(Location2D.x, Location2D.y);
 	}
+
+	inline float2D TileReturn() {
+		float X = Info.Tile.X * 64;
+		float Y = Info.Tile.Y * 64;
+		return float2D{ X,Y };
+	}
+
+	void SetBabaLocation(int _X, int _Y) {
+		Info.Tile.X = static_cast<int>(_X);
+		Info.Tile.Y = static_cast<int>(_Y);
+		SetLocation2D(TileReturn());
+	}
+
+
 
 	void SetActorlocation2D(float2D _Value) {
 		SetActorLocation(float4{ _Value.x, _Value.y });

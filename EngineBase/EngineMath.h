@@ -3,6 +3,9 @@
 #include <cmath>
 #include <Windows.h>
 
+#include <DirectXPackedVector.h> // 다이렉트벡터 헤더
+#include <DirectXCollision.h> 
+
 
 // 설명 :
 class UEngineMath
@@ -223,7 +226,7 @@ public:
 	}
 
 	// p1 p2          d1의 비율로 간다.
-	static float4 Lerp(float4 p1, float4 p2, float d1) 
+	static float4 Lerp(float4 p1, float4 p2, float d1)
 	{
 		return (p1 * (1.0f - d1)) + (p2 * d1);
 	}
@@ -280,7 +283,7 @@ public:
 
 
 	// 나 자신이 길이 1짜리로 변경되는 것.
-	void Normalize2D() 
+	void Normalize2D()
 	{
 		float Size = Size2D();
 		if (0.0f < Size && false == isnan(Size))
@@ -329,7 +332,7 @@ public:
 		return "[X : " + std::to_string(X) + " Y : " + std::to_string(Y) + " Z : " + std::to_string(Z) + " W : " + std::to_string(W) + "]";
 	}
 
-	float4 Half2D()
+	float4 Half2D() const
 	{
 		return { hX(), hY() };
 	}
@@ -502,23 +505,23 @@ public:
 	{
 		struct
 		{
-			float v00; 
-			float v01; 
+			float v00;
+			float v01;
 			float v02;
 			float v03;
 
-			float v10; 
-			float v11; 
+			float v10;
+			float v11;
 			float v12;
 			float v13;
 
-			float v20; 
-			float v21; 
+			float v20;
+			float v21;
 			float v22;
 			float v23;
 
-			float v30; 
-			float v31; 
+			float v30;
+			float v31;
 			float v32;
 			float v33;
 		};

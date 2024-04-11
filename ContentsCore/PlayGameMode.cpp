@@ -24,6 +24,7 @@ void APlayGameMode::BeginPlay()
 	std::shared_ptr<ARock> Rock = GetWorld()->SpawnActor<ARock>("Rock");
 
 	Baba_Actors.push_back(Player);
+	Player->SetBabaLocation(0, 2);
 	std::shared_ptr<APlayBack> Back = GetWorld()->SpawnActor<APlayBack>("PlayBack");
 	Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
 	InputOn();

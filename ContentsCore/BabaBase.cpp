@@ -3,6 +3,7 @@
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>
 
+
 ABabaBase::ABabaBase()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
@@ -17,15 +18,15 @@ void ABabaBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(200.0f, 200.0f, 100.0f));
+	SetActorScale3D(FVector(32.0f, 32.0f, 1.0f));
 	State.IsMove = true;
 	// 내부에서 샘플러도 같이 찾을
 	Renderer->SetSprite("CharDie.png");
+	Renderer->SetAutoSize(1, true);
 	float4 Location4D = GetActorLocation();
 	Location2D.x = Location4D.X;
 	Location2D.y = Location4D.Y;
 
-	Renderer->SetAutoSize(5.0f, true);
 	Renderer->SetOrder(1);
 	Renderer->SetMaterial("2DImage");
 
@@ -63,21 +64,25 @@ void ABabaBase::LerpMove()
 	case 'W':
 	{
 		NextLocation2D = Location2D + float2D{ 0.f, 32.f };
+		Info.Tile.Y += 1;
 	}
 	break;
 	case 'A':
 	{
 		NextLocation2D = Location2D + float2D{ -32.f, 0.f };
+		Info.Tile.X -= 1;
 	}
 	break;
 	case 'S':
 	{
 		NextLocation2D = Location2D + float2D{ 0.f, -32.f };
+		Info.Tile.Y -= 1;
 	}
 	break;
 	case 'D':
 	{
 		NextLocation2D = Location2D + float2D{ 32.f, 0.f };
+		Info.Tile.X += 1;
 	}
 	break;
 	default:
@@ -92,21 +97,25 @@ void ABabaBase::PopLerpMove()
 	case 'W':
 	{
 		NextLocation2D = Location2D + float2D{ 0.f, -32.f };
+		Info.Tile.Y -= 1;
 	}
 	break;
 	case 'A':
 	{
 		NextLocation2D = Location2D + float2D{ 32.f, 0.f };
+		Info.Tile.X += 1;
 	}
 	break;
 	case 'S':
 	{
 		NextLocation2D = Location2D + float2D{ 0.f, 32.f };
+		Info.Tile.Y += 1;
 	}
 	break;
 	case 'D':
 	{
 		NextLocation2D = Location2D + float2D{ -32.f, 0.f };
+		Info.Tile.X -= 1;
 	}
 	break;
 	default:
@@ -170,10 +179,8 @@ std::string ABabaBase::InputToButton(char _Input)
 	case 'D':
 		return "Right";
 		break;
-	case 'Z':
-		return "Back";
-		break;
 	default:
+		MsgBoxAssert(std::to_string(_Input) + " 이 값은 도대체 왜 들어감??");
 		break;
 	}
 }

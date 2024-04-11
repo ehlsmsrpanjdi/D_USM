@@ -30,6 +30,17 @@ struct float2D
 	}
 };
 
+struct TilePoint {
+	union
+	{
+		struct
+		{
+			int X;
+			int Y;
+		};
+		__int64 Location;
+	};
+};
 enum class BabaObject {
 	Baba,
 
