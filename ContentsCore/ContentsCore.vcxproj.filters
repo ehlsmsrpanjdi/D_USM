@@ -16,9 +16,6 @@
     <ClInclude Include="TitleLogo.h">
       <Filter>TitleLevel\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="TitleGameMode.h">
-      <Filter>TitleLevel</Filter>
-    </ClInclude>
     <ClInclude Include="ContentsHelper.h">
       <Filter>Helper</Filter>
     </ClInclude>
@@ -47,9 +44,6 @@
     </ClCompile>
     <ClCompile Include="TitleLogo.cpp">
       <Filter>TitleLevel\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleGameMode.cpp">
-      <Filter>TitleLevel</Filter>
     </ClCompile>
     <ClCompile Include="ContentsHelper.cpp">
       <Filter>Helper</Filter>

@@ -23,12 +23,12 @@ void APlayGameMode::BeginPlay()
 
 	std::shared_ptr<ABabaBase> Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 
-	Baba_Actors[Player->GetTile64()].push_back(Player);
 	Player->SetBabaLocation(0, 2, 'D');
+	Baba_Actors[Player->GetTile64()].push_back(Player);
 
 	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-	Baba_Actors[Player->GetTile64()].push_back(Player);
 	Player->SetBabaLocation(4, 2, 'W');
+	Baba_Actors[Player->GetTile64()].push_back(Player);
 
 
 	std::shared_ptr<APlayBack> Back = GetWorld()->SpawnActor<APlayBack>("PlayBack");
@@ -57,6 +57,7 @@ void APlayGameMode::Baba_Input()
 		break;
 	case 'Z':
 		Stack_Pop();
+		break;
 	default:
 		break;
 	}
@@ -73,8 +74,6 @@ void APlayGameMode::Stack_Push(char _Key)
 		for (std::shared_ptr<ABabaBase>& _BabaBase : BabaBase) {
 			_BabaBase->SetKey(_Key);
 			_BabaBase->LerpMove();
-			//_BabaBase->IndexPlus(_BabaBase->Info);
-			//_BabaBase->InfoUpdate();
 			Change_Baba.push_back(_BabaBase);
 		}
 	}
@@ -93,8 +92,6 @@ void APlayGameMode::Stack_Pop()
 			for (std::shared_ptr<ABabaBase>& _BabaBase : BabaBase) {
 				_BabaBase->SetKey(Temp_Key);
 				_BabaBase->PopLerpMove();
-				//_BabaBase->IndexMinus(_BabaBase->Info);
-				//_BabaBase->InfoUpdate();
 			}
 		}
 	}
@@ -137,6 +134,7 @@ void APlayGameMode::BabaInputCheck()
 		else if (true == IsDown('Z'))
 		{
 			Stack_Pop();
+			Change_BabaPos();
 			return;
 		}
 		else {
@@ -153,6 +151,7 @@ void APlayGameMode::BabaInputCheck()
 		}
 		if (true == CanActive) {
 			Baba_Input();
+			Change_BabaPos();
 		}
 	}
 }

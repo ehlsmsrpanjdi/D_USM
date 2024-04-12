@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "ContentsCore.h"
 #include "PlayGameMode.h"
-#include "TitleGameMode.h"
 #include <EngineCore/EngineSprite.h>
 
 ContentsCore::ContentsCore() 
@@ -89,7 +88,6 @@ void ContentsCore::Initialize()
 	}
 
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
-	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->ChangeLevel("PlayLevel");
 
 
