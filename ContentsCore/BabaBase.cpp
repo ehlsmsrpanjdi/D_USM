@@ -51,6 +51,7 @@ void ABabaBase::BeginPlay()
 
 	BabaInput = '0';
 	Renderer->ChangeAnimation("Baba_Right_1");
+
 }
 
 void ABabaBase::Tick(float _DeltaTime)
@@ -62,6 +63,7 @@ void ABabaBase::Tick(float _DeltaTime)
 
 void ABabaBase::LerpMove()
 {
+	PrevTile = Info.Tile;
 	switch (BabaInput)
 	{
 	case 'W':
@@ -132,6 +134,7 @@ void ABabaBase::PopLerpMove()
 	if (IsMove == false) {
 		return;
 	}
+	PrevTile = Info.Tile;
 	switch (BabaInput)
 	{
 	case 'W':

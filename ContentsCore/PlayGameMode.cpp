@@ -99,18 +99,25 @@ void APlayGameMode::Stack_Pop()
 
 void APlayGameMode::Change_BabaPos()
 {
-	for (std::pair<const __int64, std::list<std::shared_ptr<ABabaBase>>> Iter : Baba_Actors)
-	{
-		std::list<std::shared_ptr<ABabaBase>>& BabaBase = Iter.second;
-		for (std::shared_ptr<ABabaBase>& ChangeBabas : Change_Baba) {
-			BabaBase.remove(ChangeBabas);
-			Baba_Actors[ChangeBabas->GetTile64()].push_back(ChangeBabas);
-		}
-	}
+	//for (std::pair<const __int64, std::list<std::shared_ptr<ABabaBase>>> Iter : Baba_Actors)
+	//{
+	//	std::list<std::shared_ptr<ABabaBase>>& BabaBase = Iter.second;
+	//	for (std::shared_ptr<ABabaBase>& ChangeBabas : Change_Baba) {
+	//		if(Baba_Actors.contains(ChangeBabas))
+	//		Baba_Actors[ChangeBabas->GetPrevTile64()].remove(ChangeBabas);
+	//		Baba_Actors[ChangeBabas->GetTile64()].push_back(ChangeBabas);
+	//	}
+	//}
+	
+
+
 }
 
 void APlayGameMode::BabaInputCheck()
 {
+	if (false == IsAnykeyDown()) {
+		return;
+	}
 	if (ContentsHelper::Time >= 1) {
 		if (true == IsDown('A'))
 		{

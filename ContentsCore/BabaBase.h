@@ -92,12 +92,19 @@ protected:
 		return Info.Tile.Location;
 	}
 
+	TilePoint GetPrevTile() {
+		return PrevTile;
+	}
+
+	__int64 GetPrevTile64() {
+		return PrevTile.Location;
+	}
+
 	void SetActorlocation2D(float2D _Value) {
 		SetActorLocation(float4{ _Value.x, _Value.y });
 	}
 
 	USpriteRenderer* Renderer;
-
 	void IndexPlus(BabaInfo& _Info);
 	void IndexMinus(BabaInfo& _Info);
 	void InfoUpdate();
@@ -113,5 +120,6 @@ private:
 	float4 Color;
 	float2D Location2D{};
 	float2D NextLocation2D{};
+	TilePoint PrevTile;
 };
 
