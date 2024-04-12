@@ -28,6 +28,9 @@
     <ClInclude Include="BabaBase.h">
       <Filter>Level\Actor\Base</Filter>
     </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -60,6 +63,9 @@
     <ClCompile Include="BabaState.cpp">
       <Filter>Level\Actor\Base</Filter>
     </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -85,6 +91,9 @@
     </Filter>
     <Filter Include="Level\Actor\Base">
       <UniqueIdentifier>{888c348b-77e0-4c1f-9a3d-8741e4e549ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TileMap">
+      <UniqueIdentifier>{ca90a8e3-1496-4ec6-8940-fce7318af1fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

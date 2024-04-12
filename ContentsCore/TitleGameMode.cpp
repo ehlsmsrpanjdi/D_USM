@@ -16,9 +16,9 @@ void ATitleGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
-	GetWorld()->SpawnActor<ATitleLogo>("TitleLogo");
+	//std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
+	//Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+	//GetWorld()->SpawnActor<ATitleLogo>("TitleLogo");
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)

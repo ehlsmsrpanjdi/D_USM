@@ -36,7 +36,7 @@ protected:
 	void Stack_Push(char _Key);
 	void Stack_Pop();
 	void Change_BabaPos();
-
+	void BabaInputCheck();
 private:
 };
 

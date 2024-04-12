@@ -1,12 +1,18 @@
 #include "PreCompile.h"
 #include "Bababase.h"
+#include "TileMap.h"
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/DefaultSceneComponent.h>
 
 
 ABabaBase::ABabaBase()
 {
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
+
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer->SetupAttachment(Root);
+	SetRoot(Root);
 	InputOn();
 }
 
@@ -60,35 +66,72 @@ void ABabaBase::LerpMove()
 	{
 	case 'W':
 	{
-		NextLocation2D = Location2D + float2D{ 0.f, MoveLength };
-		Info.Tile.Y += 1;
+		if (TileMap::TileMove(TilePoint{ Info.Tile.X, Info.Tile.Y + 1 }) == true) {
+			Move_Stack.push(true);
+			NextLocation2D = Location2D + float2D{ 0.f, MoveLength };
+			Info.Tile.Y += 1;
+		}
+		else {
+			Move_Stack.push(false);
+		}
 	}
 	break;
 	case 'A':
 	{
-		NextLocation2D = Location2D + float2D{ -MoveLength, 0.f };
-		Info.Tile.X -= 1;
+		if (TileMap::TileMove(TilePoint{ Info.Tile.X - 1, Info.Tile.Y}) == true) {
+			Move_Stack.push(true);
+			NextLocation2D = Location2D + float2D{ -MoveLength, 0.f };
+			Info.Tile.X -= 1;
+		}
+		else {
+			Move_Stack.push(false);
+		}
+
 	}
 	break;
 	case 'S':
 	{
-		NextLocation2D = Location2D + float2D{ 0.f, -MoveLength };
-		Info.Tile.Y -= 1;
+		if (TileMap::TileMove(TilePoint{ Info.Tile.X, Info.Tile.Y - 1 }) == true) {
+			Move_Stack.push(true);
+			NextLocation2D = Location2D + float2D{ 0.f, -MoveLength };
+			Info.Tile.Y -= 1;
+		}
+		else {
+			Move_Stack.push(false);
+		}
+
 	}
 	break;
 	case 'D':
 	{
-		NextLocation2D = Location2D + float2D{ MoveLength, 0.f };
-		Info.Tile.X += 1;
+		if (TileMap::TileMove(TilePoint{ Info.Tile.X + 1, Info.Tile.Y}) == true) {
+			Move_Stack.push(true);
+			NextLocation2D = Location2D + float2D{ MoveLength, 0.f };
+			Info.Tile.X += 1;
+		}
+		else {
+			Move_Stack.push(false);
+		}
+
 	}
 	break;
 	default:
 		break;
 	}
+	if (true == Move_Stack.top()) {
+	IndexPlus(Info);
+	InfoUpdate();
+	}
 }
 
 void ABabaBase::PopLerpMove()
 {
+	bool IsMove = Move_Stack.top();
+	Move_Stack.pop();
+
+	if (IsMove == false) {
+		return;
+	}
 	switch (BabaInput)
 	{
 	case 'W':
@@ -118,6 +161,8 @@ void ABabaBase::PopLerpMove()
 	default:
 		break;
 	}
+	IndexMinus(Info);
+	InfoUpdate();
 }
 
 float2D ABabaBase::Lerp(float _DeltaTime)
@@ -149,11 +194,14 @@ void ABabaBase::IndexMinus(BabaInfo& _Info)
 
 void ABabaBase::InfoUpdate()
 {
-
+	char InputKey = BabaInput;
+	if (Move_Stack.empty() == true) {
+		InputKey = StartInput;
+	}
 	std::string AnimationName = "";
 	if (Info.Who == BabaObject::Baba) {
 		AnimationName.append("Baba_");
-		AnimationName.append(InputToButton(BabaInput) + "_");
+		AnimationName.append(InputToButton(InputKey) + "_");
 		AnimationName.append(std::to_string(Info.AnimationIndex));
 	}
 	//AnimationName.
@@ -181,6 +229,46 @@ std::string ABabaBase::InputToButton(char _Input)
 		MsgBoxAssert(std::to_string(_Input) + " 이 값은 도대체 왜 들어감??");
 		break;
 	}
+}
+
+bool ABabaBase::BabaActiveCheck(char _Input)
+{
+	switch (_Input)
+	{
+	case 'W':
+	{
+		if (TileMap::TileMove(TilePoint{ Info.Tile.X, Info.Tile.Y + 1 }) == true) {
+			return true;
+		}
+	}
+	break;
+	case 'A':
+	{
+		if (TileMap::TileMove(TilePoint{ Info.Tile.X - 1, Info.Tile.Y }) == true) {
+			return true;
+		}
+
+	}
+	break;
+	case 'S':
+	{
+		if (TileMap::TileMove(TilePoint{ Info.Tile.X, Info.Tile.Y - 1 }) == true) {
+			return true;
+		}
+
+	}
+	break;
+	case 'D':
+	{
+		if (TileMap::TileMove(TilePoint{ Info.Tile.X + 1, Info.Tile.Y }) == true) {
+			return true;
+		}
+	}
+	break;
+	default:
+		break;
+	}
+	return false;
 }
 
 void ABabaBase::DebugMessageFunction()

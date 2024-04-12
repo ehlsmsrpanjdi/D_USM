@@ -31,9 +31,6 @@
     <Filter Include="Object\Rendering">
       <UniqueIdentifier>{b1220329-bbb5-475a-af88-6656044db475}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Rendering\Component">
-      <UniqueIdentifier>{d6cf3cbc-9156-4119-87dc-ba04912b170b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\EngineContent">
       <UniqueIdentifier>{8297fd64-4ec6-41e4-9bae-de26c1c3d425}</UniqueIdentifier>
     </Filter>
@@ -76,6 +73,12 @@
     <Filter Include="Editor\Contents">
       <UniqueIdentifier>{6f96171b-a338-4dd1-824c-f6057bef5c52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component\Collision">
+      <UniqueIdentifier>{47092953-4437-4651-853a-50671698e893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component\Rendering">
+      <UniqueIdentifier>{d6cf3cbc-9156-4119-87dc-ba04912b170b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -109,7 +112,7 @@
       <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Object\Rendering\Component</Filter>
+      <Filter>Object\Component\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="TickObject.cpp">
       <Filter>Object</Filter>
@@ -175,7 +178,7 @@
       <Filter>Resources\Texture</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Object\Rendering\Component</Filter>
+      <Filter>Object\Component\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="EngineSprite.cpp">
       <Filter>Resources\Texture</Filter>
@@ -216,6 +219,9 @@
     <ClCompile Include="EngineDebugMsgWindow.cpp">
       <Filter>Editor\Contents</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Object\Component\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -249,7 +255,7 @@
       <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Object\Rendering\Component</Filter>
+      <Filter>Object\Component\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="TickObject.h">
       <Filter>Object</Filter>
@@ -318,7 +324,7 @@
       <Filter>ThirdParty\DirectXTex\Inc</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
-      <Filter>Object\Rendering\Component</Filter>
+      <Filter>Object\Component\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="EngineSprite.h">
       <Filter>Resources\Texture</Filter>
@@ -365,21 +371,22 @@
     <ClInclude Include="EngineDefines.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Object\Component\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="ThirdParty\DirectxTex\Debug\DirectXTex.lib">
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\Debug</Filter>
-    </Library>
-    <Library Include="ThirdParty\DirectxTex\Release\DirectXTex.lib">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Release\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\Release</Filter>
-    </Library>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ThirdParty\DirectxTex\Debug\DirectXTex.pdb">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.pdb">
       <Filter>ThirdParty\DirectXTex\Debug</Filter>
-    </None>
-    <None Include="ThirdParty\DirectxTex\Release\DirectXTex.pdb">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Release\DirectXTex.pdb">
       <Filter>ThirdParty\DirectXTex\Release</Filter>
-    </None>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

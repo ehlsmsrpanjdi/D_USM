@@ -33,6 +33,7 @@ public:
 	ABabaBase& operator=(ABabaBase&& _Other) noexcept = delete;
 
 	char BabaInput = '0';
+	char StartInput = '0';
 	BabaInfo Info;
 
 protected:
@@ -42,6 +43,10 @@ protected:
 	void LerpMove();
 	void PopLerpMove();
 	float2D Lerp(float _DeltaTime);
+
+	inline void SetNextLocation2D(float2D _2D) {
+		SetNextLocation2D(_2D.x, _2D.y);
+	}
 
 	inline void SetNextLocation2D(float _x, float _y) {
 		NextLocation2D = { _x,_y };
@@ -65,10 +70,14 @@ protected:
 		return float2D{ X,Y };
 	}
 
-	void SetBabaLocation(int _X, int _Y) {
+	void SetBabaLocation(int _X, int _Y, char _Input = 'D') {
 		Info.Tile.X = static_cast<int>(_X);
 		Info.Tile.Y = static_cast<int>(_Y);
+		BabaInput = _Input;
+		StartInput = _Input;
+		InfoUpdate();
 		SetLocation2D(TileReturn());
+		SetNextLocation2D(TileReturn());
 	}
 
 	void SetKey(char _Key) {
@@ -94,11 +103,13 @@ protected:
 	void InfoUpdate();
 	std::string InputToButton(char _Input);
 
+	bool BabaActiveCheck(char _Input);
+
 	void DebugMessageFunction();
 
 
 private:
-
+	std::stack<bool> Move_Stack;
 	float4 Color;
 	float2D Location2D{};
 	float2D NextLocation2D{};

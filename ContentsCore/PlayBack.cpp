@@ -2,10 +2,15 @@
 #include "PlayBack.h"
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/DefaultSceneComponent.h>
 
 APlayBack::APlayBack()
 {
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
+
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer->SetupAttachment(Root);
+	SetRoot(Root);
 	InputOn();
 }
 

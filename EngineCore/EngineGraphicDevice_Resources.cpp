@@ -85,7 +85,7 @@ void ShaderInit()
 	UEngineDirectory Dir;
 	Dir.MoveToSearchChild("EngineShader");
 
-	std::vector<UEngineFile> Files = Dir.GetAllFile({ ".fx", "hlsl" });
+	std::vector<UEngineFile> Files = Dir.GetAllFile({".fx", "hlsl"});
 
 	for (size_t i = 0; i < Files.size(); i++)
 	{
@@ -131,16 +131,16 @@ void ShaderInit()
 
 void SettingInit()
 {
-	//D3D11_FILL_MODE FillMode;
-	//D3D11_CULL_MODE CullMode;
-	//BOOL FrontCounterClockwise;
-	//INT DepthBias;
-	//FLOAT DepthBiasClamp;
-	//FLOAT SlopeScaledDepthBias;
-	//BOOL DepthClipEnable;
-	//BOOL ScissorEnable;
-	//BOOL MultisampleEnable;
-	//BOOL AntialiasedLineEnable;
+		//D3D11_FILL_MODE FillMode;
+		//D3D11_CULL_MODE CullMode;
+		//BOOL FrontCounterClockwise;
+		//INT DepthBias;
+		//FLOAT DepthBiasClamp;
+		//FLOAT SlopeScaledDepthBias;
+		//BOOL DepthClipEnable;
+		//BOOL ScissorEnable;
+		//BOOL MultisampleEnable;
+		//BOOL AntialiasedLineEnable;
 
 	{
 		D3D11_RASTERIZER_DESC Desc = {};
@@ -214,18 +214,68 @@ void SettingInit()
 
 	{
 		D3D11_BLEND_DESC Desc = {};
+
+		// true 투명처리가 투명이 될것인데.
+		// 이게 연산량이 높아서 false로 처리할 겁니다.
+		// directx의 기본공식으로 처리하는데 아무
 		Desc.AlphaToCoverageEnable = false;
+
+		// SV_Target0 0번타겟에 출력하겠다.
+		// false == 0번세팅으로 모두 통일
+		// true == 각기 넣어준 세팅 0번세팅으로 모두 통일
 		Desc.IndependentBlendEnable = false;
+
+		// float4 DestColor = 0011;
+		// float4 SrcColor = 0000;
+		
+		// float4 DestFilter = 0011;
+		// float4 SrcFilter = 0000;
+		// Result = DestColor * DestFilter (+) SrcColor * SrcFilter;
+
+		// D3D11_BLEND_OP_ADD             +
+		// D3D11_BLEND_OP_SUBTRACT        -
+
+
 		Desc.RenderTarget[0].BlendEnable = true;
 		Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		// Result = DestColor * DestFilter (+) SrcColor * SrcFilter;
 		Desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+
+		// Result = DestColor * DestFilter (+) SrcColor * (SrcFilter);
+		// SRCColor = 000(0)
+		// 1110 * 0000 = 0000
+		// SrcFilter = 0000
+		// 
 		Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+
+		// DestColor = 001(1)
+		// SRCColor = 000(1)
+		// DestFilter =  1 - 1
+		// DestColor *DestFilter ; 
+		
 		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+
 		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+
+		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
+
+		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+
+		//              D3D11_BLEND_INV_SRC_ALP                      D3D11_BLEND_SRC_ALPHA
+		// 0011    *       0000             +      100(0.5) *        1111
+		// (0011 * 0. 5 0.5 0.5 0.5 ) + (1001 * 0.5 0.5 0.5 0.5 ) => 1001
+
+		//      R   G    B   A
+		//      0   0   0.5  1
+		//  +   0.5 0    0   1
+		//      0.5 0   0.5  2
+
+
 		UEngineBlend::Create("EngineBase", Desc);
 	}
+
+
 	{
 		D3D11_BLEND_DESC Desc = {};
 		Desc.AlphaToCoverageEnable = false;
