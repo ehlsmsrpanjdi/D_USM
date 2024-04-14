@@ -114,6 +114,8 @@ protected:
 
 	void DebugMessageFunction();
 
+	void ChangeTile(std::map<__int64, std::list<ABabaBase*>>& _Baba_Actors);
+
 
 private:
 	std::stack<bool> Move_Stack;

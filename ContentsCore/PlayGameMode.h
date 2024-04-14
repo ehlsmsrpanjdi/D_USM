@@ -24,8 +24,8 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	char Key = '0';
-	std::map <__int64, std::list<std::shared_ptr<ABabaBase>>> Baba_Actors;
-	std::vector<std::shared_ptr<ABabaBase>> Change_Baba;
+	std::map <__int64, std::list<ABabaBase*>> Baba_Actors;
+	std::vector<ABabaBase*> Change_Baba;
 	//std::vector<std::shared_ptr<ABabaBase>> Baba_Actors;
 	std::stack<char> Stack_Input;
 	bool IsInput = false;

@@ -24,11 +24,11 @@ void APlayGameMode::BeginPlay()
 	std::shared_ptr<ABabaBase> Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 
 	Player->SetBabaLocation(0, 2, 'D');
-	Baba_Actors[Player->GetTile64()].push_back(Player);
+	Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
 	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	Player->SetBabaLocation(4, 2, 'W');
-	Baba_Actors[Player->GetTile64()].push_back(Player);
+	Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
 
 	std::shared_ptr<APlayBack> Back = GetWorld()->SpawnActor<APlayBack>("PlayBack");
@@ -68,10 +68,10 @@ void APlayGameMode::Stack_Push(char _Key)
 	Stack_Input.push(_Key);
 	ContentsHelper::Time = 0.f;
 
-	for (std::pair<const __int64, std::list<std::shared_ptr<ABabaBase>>>& Iter : Baba_Actors)
+	for (std::pair<const __int64, std::list<ABabaBase*>> Iter : Baba_Actors)
 	{
-		std::list<std::shared_ptr<ABabaBase>>& BabaBase = Iter.second;
-		for (std::shared_ptr<ABabaBase>& _BabaBase : BabaBase) {
+		std::list<ABabaBase*>& BabaBase = Iter.second;
+		for (ABabaBase* _BabaBase : BabaBase) {
 			_BabaBase->SetKey(_Key);
 			_BabaBase->LerpMove();
 			Change_Baba.push_back(_BabaBase);
@@ -86,10 +86,10 @@ void APlayGameMode::Stack_Pop()
 		Temp_Key = Stack_Input.top();
 		Stack_Input.pop();
 		ContentsHelper::Time = 0.f;
-		for (std::pair<const __int64, std::list<std::shared_ptr<ABabaBase>>>& Iter : Baba_Actors)
+		for (std::pair<const __int64, std::list<ABabaBase*>>& Iter : Baba_Actors)
 		{
-			std::list<std::shared_ptr<ABabaBase>>& BabaBase = Iter.second;
-			for (std::shared_ptr<ABabaBase>& _BabaBase : BabaBase) {
+			std::list<ABabaBase*>& BabaBase = Iter.second;
+			for (ABabaBase* _BabaBase : BabaBase) {
 				_BabaBase->SetKey(Temp_Key);
 				_BabaBase->PopLerpMove();
 			}
@@ -99,18 +99,10 @@ void APlayGameMode::Stack_Pop()
 
 void APlayGameMode::Change_BabaPos()
 {
-	//for (std::pair<const __int64, std::list<std::shared_ptr<ABabaBase>>> Iter : Baba_Actors)
-	//{
-	//	std::list<std::shared_ptr<ABabaBase>>& BabaBase = Iter.second;
-	//	for (std::shared_ptr<ABabaBase>& ChangeBabas : Change_Baba) {
-	//		if(Baba_Actors.contains(ChangeBabas))
-	//		Baba_Actors[ChangeBabas->GetPrevTile64()].remove(ChangeBabas);
-	//		Baba_Actors[ChangeBabas->GetTile64()].push_back(ChangeBabas);
-	//	}
-	//}
-	
-
-
+		for (ABabaBase* ChangeBabas : Change_Baba) {
+			ChangeBabas->ChangeTile(Baba_Actors);
+		}
+		Change_Baba.clear();
 }
 
 void APlayGameMode::BabaInputCheck()
@@ -149,10 +141,10 @@ void APlayGameMode::BabaInputCheck()
 		}
 
 		bool CanActive = false;
-		for (std::pair<const __int64, std::list<std::shared_ptr<ABabaBase>>>& Iter : Baba_Actors)
+		for (std::pair<const __int64, std::list<ABabaBase*>>& Iter : Baba_Actors)
 		{
-			std::list<std::shared_ptr<ABabaBase>>& BabaBase = Iter.second;
-			for (std::shared_ptr<ABabaBase>& _BabaBase : BabaBase) {
+			std::list<ABabaBase*>& BabaBase = Iter.second;
+			for (ABabaBase*& _BabaBase : BabaBase) {
 				CanActive = (CanActive || _BabaBase->BabaActiveCheck(Key));
 			}
 		}
