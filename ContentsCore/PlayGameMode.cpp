@@ -155,4 +155,30 @@ void APlayGameMode::BabaInputCheck()
 	}
 }
 
+void APlayGameMode::Baba_MoveCheck(ABabaBase* _Baba)
+{
+	switch (Key)
+	{
+	case 'W':
+		break;
+	case 'A':
+		break;
+	case 'S':
+		break;
+	case 'D':
+		break;
+	default:
+		break;
+	}
+
+}
+
+bool APlayGameMode::Baba_Near(TilePoint Tile, ABabaBase* _Baba)
+{
+	if(false ==_Baba->IsChecked)
+	if(Change_Baba.contain)
+	if(Baba_Actors[Tile.Location])
+	return false;
+}
+
 

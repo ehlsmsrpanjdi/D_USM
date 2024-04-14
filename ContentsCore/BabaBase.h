@@ -123,5 +123,6 @@ private:
 	float2D Location2D{};
 	float2D NextLocation2D{};
 	TilePoint PrevTile;
+	bool IsChecked = false;
 };
 

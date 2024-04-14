@@ -37,6 +37,10 @@ protected:
 	void Stack_Pop();
 	void Change_BabaPos();
 	void BabaInputCheck();
+	void Baba_MoveCheck(ABabaBase* _Baba);
+
+	bool Baba_Near(TilePoint _Tile, ABabaBase* _Baba);
+
 private:
 };
 
