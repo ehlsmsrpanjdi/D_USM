@@ -5,9 +5,11 @@
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/DefaultSceneComponent.h>
 
+int ABabaBase::a = 0;
 
 ABabaBase::ABabaBase()
 {
+	a++;
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
@@ -64,6 +66,10 @@ void ABabaBase::Tick(float _DeltaTime)
 void ABabaBase::LerpMove()
 {
 	PrevTile = Info.Tile;
+	if (CanMove == false) {
+		Move_Stack.push(false);
+		return;
+	}
 	switch (BabaInput)
 	{
 	case 'W':
@@ -72,6 +78,7 @@ void ABabaBase::LerpMove()
 			Move_Stack.push(true);
 			NextLocation2D = Location2D + float2D{ 0.f, MoveLength };
 			Info.Tile.Y += 1;
+			CanMove = false;
 		}
 		else {
 			Move_Stack.push(false);
@@ -84,6 +91,7 @@ void ABabaBase::LerpMove()
 			Move_Stack.push(true);
 			NextLocation2D = Location2D + float2D{ -MoveLength, 0.f };
 			Info.Tile.X -= 1;
+			CanMove = false;
 		}
 		else {
 			Move_Stack.push(false);
@@ -97,6 +105,7 @@ void ABabaBase::LerpMove()
 			Move_Stack.push(true);
 			NextLocation2D = Location2D + float2D{ 0.f, -MoveLength };
 			Info.Tile.Y -= 1;
+			CanMove = false;
 		}
 		else {
 			Move_Stack.push(false);
@@ -110,6 +119,7 @@ void ABabaBase::LerpMove()
 			Move_Stack.push(true);
 			NextLocation2D = Location2D + float2D{ MoveLength, 0.f };
 			Info.Tile.X += 1;
+			CanMove = false;
 		}
 		else {
 			Move_Stack.push(false);
@@ -128,12 +138,17 @@ void ABabaBase::LerpMove()
 
 void ABabaBase::PopLerpMove()
 {
-	bool IsMove = Move_Stack.top();
+	bool IsMove = false;
+	CanMove = false;
+	if (Move_Stack.empty() != true) {
+	IsMove = Move_Stack.top();
 	Move_Stack.pop();
+	}
 
 	if (IsMove == false) {
 		return;
 	}
+
 	PrevTile = Info.Tile;
 	switch (BabaInput)
 	{
@@ -274,6 +289,110 @@ bool ABabaBase::BabaActiveCheck(char _Input)
 	return false;
 }
 
+bool ABabaBase::BabaCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map)
+{
+	bool TempBool = false;
+	bool BoolCheck;
+		switch (_Input)
+		{
+		case 'W':
+		{
+			BoolCheck = TileMap::TileMove(TilePoint{ Info.Tile.X, Info.Tile.Y + 1 });
+			if (BoolCheck == true) {
+				std::list<ABabaBase*>& _List = _Map[Info.Tile.Location + TilePoint{ 0,1 }.Location];
+				if (_List.empty() == true) {
+					_Vec.push_back(this);
+					CanMove = true;
+					IsChecked = true;
+					return true;
+				}
+				for (ABabaBase*& Baba : _List) {
+					TempBool = (TempBool || Baba->BabaCheck(_Input, _Vec, _Map));
+				}
+				if (true == TempBool) {
+					_Vec.push_back(this);
+					CanMove = true;
+					IsChecked = true;
+					return true;
+				}
+			}
+		}
+		break;
+		case 'A':
+		{
+			if (TileMap::TileMove(TilePoint{ Info.Tile.X - 1, Info.Tile.Y }) == true) {
+				std::list<ABabaBase*>& _List = _Map[Info.Tile.Location + TilePoint{ -1,0 }.Location];
+				if (true == _List.empty()) {
+					_Vec.push_back(this);
+					CanMove = true;
+					IsChecked = true;
+					return true;
+				}
+				for (ABabaBase*& Baba : _List) {
+					TempBool = (TempBool || Baba->BabaCheck(_Input, _Vec, _Map));
+				}
+				if (true == TempBool) {
+					_Vec.push_back(this);
+					CanMove = true;
+					IsChecked = true;
+					return true;
+				}
+			}
+
+		}
+		break;
+		case 'S':
+		{
+			if (TileMap::TileMove(TilePoint{ Info.Tile.X, Info.Tile.Y - 1 }) == true) {
+				std::list<ABabaBase*>& _List = _Map[Info.Tile.Location + TilePoint{ 0,-1 }.Location];
+				if (true == _List.empty()) {
+					_Vec.push_back(this);
+					CanMove = true;
+					IsChecked = true;
+					return true;
+				}
+				for (ABabaBase*& Baba : _List) {
+					TempBool = (TempBool || Baba->BabaCheck(_Input, _Vec, _Map));
+				}
+				if (true == TempBool) {
+					_Vec.push_back(this);
+					CanMove = true;
+					IsChecked = true;
+					return true;
+				}
+			}
+
+		}
+		break;
+		case 'D':
+		{
+			if (TileMap::TileMove(TilePoint{ Info.Tile.X + 1, Info.Tile.Y }) == true) {
+				std::list<ABabaBase*>& _List = _Map[Info.Tile.Location + TilePoint{ 1,0 }.Location];
+				if (true == _List.empty()) {
+					_Vec.push_back(this);
+					CanMove = true;
+					IsChecked = true;
+					return true;
+				}
+				for (ABabaBase*& Baba : _List) {
+					TempBool = (TempBool || Baba->BabaCheck(_Input, _Vec, _Map));
+				}
+				if (true == TempBool) {
+					_Vec.push_back(this);
+					CanMove = true;
+					IsChecked = true;
+					return true;
+				}
+			}
+		}
+		break;
+		default:
+			break;
+		}
+		IsChecked = true;
+		return false;
+}
+
 void ABabaBase::DebugMessageFunction()
 {
 	{
@@ -283,6 +402,11 @@ void ABabaBase::DebugMessageFunction()
 
 	{
 		std::string Msg = std::format("MousePos : {}\n", GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("BabaIndex : {}\n", std::to_string(a));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }

@@ -7,6 +7,8 @@
 #include "Rock.h"
 #include "TileMap.h"
 #include <iterator>
+#include <EngineCore/EngineDebugMsgWindow.h>
+#include <EngineCore/EngineCore.h>
 
 APlayGameMode::APlayGameMode()
 {}
@@ -31,8 +33,8 @@ void APlayGameMode::BeginPlay()
 	Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
 
-	std::shared_ptr<APlayBack> Back = GetWorld()->SpawnActor<APlayBack>("PlayBack");
-	Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
+	//std::shared_ptr<ABabaBase> Back = GetWorld()->SpawnActor<ABabaBase>("PlayBack");
+	//Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
 	TileMap::TileSet(10, 10);
 
 	InputOn();
@@ -42,7 +44,16 @@ void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	ContentsHelper::CoolTimeCheck(_DeltaTime);
+	if (ContentsHelper::Time >= 1) {
+		CanInput = true;
+	}
+	else {
+		CanInput = false;
+	}
+	if (CanInput == true) {
 	BabaInputCheck();
+	}
+	DebugMessageFunction();
 }
 
 void APlayGameMode::Baba_Input()
@@ -68,13 +79,12 @@ void APlayGameMode::Stack_Push(char _Key)
 	Stack_Input.push(_Key);
 	ContentsHelper::Time = 0.f;
 
-	for (std::pair<const __int64, std::list<ABabaBase*>> Iter : Baba_Actors)
+	for (std::pair<const __int64, std::list<ABabaBase*>>& Iter : Baba_Actors)
 	{
 		std::list<ABabaBase*>& BabaBase = Iter.second;
-		for (ABabaBase* _BabaBase : BabaBase) {
+		for (ABabaBase*& _BabaBase : BabaBase) {
 			_BabaBase->SetKey(_Key);
 			_BabaBase->LerpMove();
-			Change_Baba.push_back(_BabaBase);
 		}
 	}
 
@@ -89,9 +99,10 @@ void APlayGameMode::Stack_Pop()
 		for (std::pair<const __int64, std::list<ABabaBase*>>& Iter : Baba_Actors)
 		{
 			std::list<ABabaBase*>& BabaBase = Iter.second;
-			for (ABabaBase* _BabaBase : BabaBase) {
+			for (ABabaBase*& _BabaBase : BabaBase) {
 				_BabaBase->SetKey(Temp_Key);
 				_BabaBase->PopLerpMove();
+				Change_Baba.push_back(_BabaBase);
 			}
 		}
 	}
@@ -99,10 +110,10 @@ void APlayGameMode::Stack_Pop()
 
 void APlayGameMode::Change_BabaPos()
 {
-		for (ABabaBase* ChangeBabas : Change_Baba) {
-			ChangeBabas->ChangeTile(Baba_Actors);
-		}
-		Change_Baba.clear();
+	for (ABabaBase*& ChangeBabas : Change_Baba) {
+		ChangeBabas->ChangeTile(Baba_Actors);
+	}
+	Change_Baba.clear();
 }
 
 void APlayGameMode::BabaInputCheck()
@@ -111,29 +122,41 @@ void APlayGameMode::BabaInputCheck()
 		return;
 	}
 	if (ContentsHelper::Time >= 1) {
+		for (std::pair<const __int64, std::list<ABabaBase*>>& Iter : Baba_Actors)
+		{
+			std::list<ABabaBase*>& BabaBase = Iter.second;
+			for (ABabaBase*& _BabaBase : BabaBase) {
+				_BabaBase->IsChecked = false;
+			}
+		}
 		if (true == IsDown('A'))
 		{
 			Key = 'A';
+			CanInput = false;
 		}
 
 		else if (true == IsDown('D'))
 		{
 			Key = 'D';
+			CanInput = false;
 		}
 
 		else if (true == IsDown('W'))
 		{
 			Key = 'W';
+			CanInput = false;
 		}
 
 		else if (true == IsDown('S'))
 		{
 			Key = 'S';
+			CanInput = false;
 		}
 		else if (true == IsDown('Z'))
 		{
 			Stack_Pop();
 			Change_BabaPos();
+			CanInput = false;
 			return;
 		}
 		else {
@@ -145,7 +168,11 @@ void APlayGameMode::BabaInputCheck()
 		{
 			std::list<ABabaBase*>& BabaBase = Iter.second;
 			for (ABabaBase*& _BabaBase : BabaBase) {
-				CanActive = (CanActive || _BabaBase->BabaActiveCheck(Key));
+				if (_BabaBase->IsChecked == true) {
+					continue;
+				}
+				bool Temp = _BabaBase->BabaCheck(Key, Change_Baba, Baba_Actors);
+				CanActive = (CanActive || Temp);
 			}
 		}
 		if (true == CanActive) {
@@ -155,30 +182,59 @@ void APlayGameMode::BabaInputCheck()
 	}
 }
 
-void APlayGameMode::Baba_MoveCheck(ABabaBase* _Baba)
+void APlayGameMode::DebugMessageFunction()
 {
-	switch (Key)
 	{
-	case 'W':
-		break;
-	case 'A':
-		break;
-	case 'S':
-		break;
-	case 'D':
-		break;
-	default:
-		break;
+		std::string Msg = std::format("Change BABA : {}\n", std::to_string(Change_Baba.size()));
+		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
+	//{
+	//	std::string Msg = std::format("MousePos : {}\n", GetActorLocation().ToString());
+	//	UEngineDebugMsgWindow::PushMsg(Msg);
+	//}
 }
 
-bool APlayGameMode::Baba_Near(TilePoint Tile, ABabaBase* _Baba)
-{
-	if(false ==_Baba->IsChecked)
-	if(Change_Baba.contain)
-	if(Baba_Actors[Tile.Location])
-	return false;
-}
+//void APlayGameMode::Baba_MoveCheck(ABabaBase* _Baba)
+//{
+//	switch (Key)
+//	{
+//	case 'W':
+//		break;
+//	case 'A':
+//		break;
+//	case 'S':
+//		break;
+//	case 'D':
+//		break;
+//	default:
+//		break;
+//	}
+//
+//}
+//
+//bool APlayGameMode::Baba_Near(TilePoint _Tile, ABabaBase* _Baba)
+//{
+//	TilePoint TempTile = _Tile;
+//	switch (Key)
+//	{
+//	case 'W': {
+//		std::list<ABabaBase*>& List = Baba_Actors[TempTile.Location];
+//		for (ABabaBase* Baba : List) {
+//			/*Baba->BabaActiveCheck();*/
+//		}
+//	}
+//			break;
+//	case 'A':
+//		break;
+//	case 'S':
+//		break;
+//	case 'D':
+//		break;
+//	default:
+//		break;
+//	}
+//	return false;
+//}
 
 

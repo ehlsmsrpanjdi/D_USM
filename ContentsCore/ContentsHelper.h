@@ -40,6 +40,20 @@ struct TilePoint {
 		};
 		__int64 Location;
 	};
+
+
+	TilePoint operator+(TilePoint& _Point) {
+		int TempX = X + _Point.X;
+		int TempY = Y + _Point.Y;
+		return TilePoint{ TempX, TempY };
+	}
+
+	TilePoint operator+(TilePoint _Point) {
+		int TempX = X + _Point.X;
+		int TempY = Y + _Point.Y;
+		return TilePoint{TempX, TempY};
+	}
+
 };
 enum class BabaObject {
 	Baba,

@@ -26,6 +26,8 @@ public:
 	ABabaBase();
 	~ABabaBase();
 
+	static int a;
+
 	// delete Function
 	ABabaBase(const ABabaBase& _Other) = delete;
 	ABabaBase(ABabaBase&& _Other) noexcept = delete;
@@ -111,6 +113,7 @@ protected:
 	std::string InputToButton(char _Input);
 
 	bool BabaActiveCheck(char _Input);
+	bool BabaCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map);
 
 	void DebugMessageFunction();
 
@@ -124,5 +127,6 @@ private:
 	float2D NextLocation2D{};
 	TilePoint PrevTile;
 	bool IsChecked = false;
+	bool CanMove = false;
 };
 
