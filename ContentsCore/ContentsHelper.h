@@ -57,14 +57,8 @@ struct TilePoint {
 };
 enum class BabaObject {
 	Baba,
+	Rock,
 
-};
-
-
-struct BabaState {
-	bool IsMove = false;
-	bool IsBaba = false;
-	bool IsPush = false;
 };
 
 class ContentsHelper

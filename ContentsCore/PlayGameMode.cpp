@@ -24,14 +24,26 @@ void APlayGameMode::BeginPlay()
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
 	std::shared_ptr<ABabaBase> Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-
+	Player->StateInit(true, true, true);
 	Player->SetBabaLocation(0, 2, 'D');
 	Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
+
+
+	//Player = GetWorld()->SpawnActor<ABabaBase>("Player");
+	//Player->StateInit(true, true, true);
+	//Player->SetBabaLocation(4, 2, 'W');
+	//Baba_Actors[Player->GetTile64()].push_back(Player.get());
+
 	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-	Player->SetBabaLocation(4, 2, 'W');
+	Player->StateInit(false, false , true);
+	Player->SetBabaLocation(8, 4, 'W');
 	Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
+	//Player = GetWorld()->SpawnActor<ABabaBase>("Player");
+	//Player->StateInit(false, true, false);
+	//Player->SetBabaLocation(5, 5, 'W');
+	//Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
 	//std::shared_ptr<ABabaBase> Back = GetWorld()->SpawnActor<ABabaBase>("PlayBack");
 	//Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
@@ -172,6 +184,9 @@ void APlayGameMode::BabaInputCheck()
 			std::list<ABabaBase*>& BabaBase = Iter.second;
 			for (ABabaBase*& _BabaBase : BabaBase) {
 				if (_BabaBase->IsChecked == true) {
+					continue;
+				}
+				if (_BabaBase->State.IsMove == false) {
 					continue;
 				}
 				bool Temp = _BabaBase->BabaCheck(Key, Change_Baba, Baba_Actors);
