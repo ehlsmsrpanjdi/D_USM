@@ -414,8 +414,9 @@ void ABabaBase::DebugMessageFunction()
 void ABabaBase::ChangeTile(std::map<__int64, std::list<ABabaBase*>>& _Baba_Actors)
 {
 	if (GetPrevTile64() != Info.Tile.Location) {
-		_Baba_Actors[GetPrevTile64()].remove(this);
+		if (_Baba_Actors[GetPrevTile64()].remove(this)) {
 		_Baba_Actors[GetTile64()].push_back(this);
+		}
 	}
 }
 

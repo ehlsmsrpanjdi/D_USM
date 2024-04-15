@@ -99,6 +99,9 @@ void APlayGameMode::Stack_Pop()
 		for (std::pair<const __int64, std::list<ABabaBase*>>& Iter : Baba_Actors)
 		{
 			std::list<ABabaBase*>& BabaBase = Iter.second;
+			if (BabaBase.empty() == true) {
+				continue;
+			}
 			for (ABabaBase*& _BabaBase : BabaBase) {
 				_BabaBase->SetKey(Temp_Key);
 				_BabaBase->PopLerpMove();
