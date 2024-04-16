@@ -2,6 +2,7 @@
 #include "Level.h"
 #include "GameMode.h"
 #include "Renderer.h"
+#include "Collision.h"
 #include "Camera.h"
 #include "EngineCore.h"
 #include "EngineRenderTarget.h"
@@ -69,6 +70,77 @@ void ULevel::Render(float _DeltaTime)
 	}
 }
 
+void ULevel::Destroy()
+{
+
+	for (std::pair<const int, std::list<std::shared_ptr<UCollision>>>& Group : Collisions)
+	{
+		std::list<std::shared_ptr<UCollision>>& GroupCollisions = Group.second;
+
+		std::list<std::shared_ptr<UCollision>>::iterator StartIter = GroupCollisions.begin();
+		std::list<std::shared_ptr<UCollision>>::iterator EndIter = GroupCollisions.end();
+
+
+		for (; StartIter != EndIter; )
+		{
+			std::shared_ptr<UCollision> CurCollision = *StartIter;
+
+			if (false == CurCollision->GetActor()->IsDestroy())
+			{
+				++StartIter;
+				continue;
+			}
+
+			StartIter = GroupCollisions.erase(StartIter);
+		}
+	}
+
+	for (std::pair<const int, std::list<std::shared_ptr<URenderer>>>& RenderGroup : Renderers)
+	{
+		std::list<std::shared_ptr<URenderer>>& GroupRenderers = RenderGroup.second;
+
+		std::list<std::shared_ptr<URenderer>>::iterator StartIter = GroupRenderers.begin();
+		std::list<std::shared_ptr<URenderer>>::iterator EndIter = GroupRenderers.end();
+
+
+		for (; StartIter != EndIter; )
+		{
+			std::shared_ptr<URenderer> CurRenderer = *StartIter;
+
+			if (false == CurRenderer->GetActor()->IsDestroy())
+			{
+				++StartIter;
+				continue;
+			}
+
+			StartIter = GroupRenderers.erase(StartIter);
+		}
+	}
+
+	for (std::pair<const int, std::list<std::shared_ptr<AActor>>>& TickGroup : Actors)
+	{
+		std::list<std::shared_ptr<AActor>>& GroupActors = TickGroup.second;
+
+		std::list<std::shared_ptr<AActor>>::iterator StartIter = GroupActors.begin();
+		std::list<std::shared_ptr<AActor>>::iterator EndIter = GroupActors.end();
+
+		for ( ; StartIter != EndIter; )
+		{
+			std::shared_ptr<AActor> CurActor = *StartIter;
+
+			if (false == CurActor->IsDestroy())
+			{
+				++StartIter;
+				continue;
+			}
+
+			CurActor->End();
+			StartIter = GroupActors.erase(StartIter);
+		}
+	}
+
+}
+
 void ULevel::PushActor(std::shared_ptr<AActor> _Actor)
 {
 	if (nullptr == _Actor)
@@ -94,6 +166,11 @@ void ULevel::PushRenderer(std::shared_ptr<URenderer> _Renderer)
 	Renderers[_Renderer->GetOrder()].push_front(_Renderer);
 }
 
+void ULevel::PushCollision(std::shared_ptr<UCollision> _Collision)
+{
+	Collisions[_Collision->GetOrder()].push_front(_Collision);
+}
+
 void ULevel::ChangeOrderRenderer(std::shared_ptr<URenderer> _Renderer, int _PrevOrder, int _ChangeOrder)
 {
 	// 안지워지고 
@@ -101,6 +178,15 @@ void ULevel::ChangeOrderRenderer(std::shared_ptr<URenderer> _Renderer, int _Prev
 
 	Renderers[_ChangeOrder].push_front(_Renderer);
 }
+
+void ULevel::ChangeOrderCollision(std::shared_ptr<UCollision> _Collision, int _PrevOrder, int _ChangeOrder)
+{
+	// 안지워지고 
+	Collisions[_PrevOrder].remove(_Collision);
+
+	Collisions[_ChangeOrder].push_front(_Collision);
+}
+
 
 void ULevel::LevelEnd(ULevel* _NextLevel)
 {

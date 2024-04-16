@@ -79,6 +79,9 @@
     <Filter Include="Object\Component\Rendering">
       <UniqueIdentifier>{d6cf3cbc-9156-4119-87dc-ba04912b170b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{9b0ed79c-f0c6-474e-bfbd-abd9de47fd79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -221,6 +224,9 @@
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Object\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDebug3D.cpp">
+      <Filter>Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -373,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Object\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDebug3D.h">
+      <Filter>Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

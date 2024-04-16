@@ -6,6 +6,7 @@
 #include <EngineCore/EngineTexture.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include "EngineEditorGUI.h"
+#include "EngineDebug3D.h"
 
 #include "Level.h"
 #include "GameMode.h"
@@ -124,13 +125,11 @@ void UEngineCore::EngineFrameUpdate()
 	// 게임에 요소들을 그리고
 
 	CurLevel->Render(DeltaTime);
-
+	UDebugRenderClass::DebugRender();
 	UEngineEditorGUI::GUIRender(DeltaTime);
-	
-	// 억지로 그냥 그려본다.
-
-	// 출력한다
 	EngineDevice.RenderEnd();
+
+	CurLevel->Destroy();
 }
 
 std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string& _Name, std::shared_ptr<AActor> _GameMode)
