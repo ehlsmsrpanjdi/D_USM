@@ -115,7 +115,7 @@ protected:
 	void InfoUpdate();
 	std::string InputToButton(char _Input);
 
-	bool BabaActiveCheck(char _Input);
+	bool BabaMapCheck(char _Input);
 	bool BabaCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map);
 
 	void DebugMessageFunction();
@@ -127,6 +127,12 @@ protected:
 	bool PushCheck();
 	void StateInit(BabaState _State);
 	void ActiveStateInit(ActiveState _State);
+
+	bool BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map);
+	bool BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map);
+	bool BabaNextTileCheck(std::map<__int64, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
+
+	TilePoint KeyTileReturn(char _Input);
 
 private:
 	std::stack<bool> Move_Stack;

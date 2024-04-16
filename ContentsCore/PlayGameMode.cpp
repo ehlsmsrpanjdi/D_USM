@@ -37,13 +37,13 @@ void APlayGameMode::BeginPlay()
 	//Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
 	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-	Player->StateInit(BabaState::IsBaba);
+	Player->StateInit(BabaState::IsRock);
 	Player->ActiveStateInit(ActiveState{ false, true, false });
 	Player->SetBabaLocation(8, 4, 'W');
 	Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
 	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-	Player->StateInit(BabaState::IsBaba);
+	Player->StateInit(BabaState::IsRock);
 	Player->ActiveStateInit(ActiveState{ false, true, false });
 	Player->SetBabaLocation(5, 4, 'W');
 	Baba_Actors[Player->GetTile64()].push_back(Player.get());
@@ -194,10 +194,12 @@ void APlayGameMode::BabaInputCheck()
 				if (_BabaBase->IsChecked == true) {
 					continue;
 				}
-				if (_BabaBase->AState.IsMove == false) {
+				if (_BabaBase->MoveCheck() == false) {
+					_BabaBase->CanMove = false;
 					continue;
 				}
-				bool Temp = _BabaBase->BabaCheck(Key, Change_Baba, Baba_Actors);
+				_BabaBase->CanMove = false;
+				bool Temp = _BabaBase->BabaMoveCheck(Key, Change_Baba, Baba_Actors);
 				CanActive = (CanActive || Temp);
 			}
 		}
@@ -215,52 +217,7 @@ void APlayGameMode::DebugMessageFunction()
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
-	//{
-	//	std::string Msg = std::format("MousePos : {}\n", GetActorLocation().ToString());
-	//	UEngineDebugMsgWindow::PushMsg(Msg);
-	//}
 }
 
-//void APlayGameMode::Baba_MoveCheck(ABabaBase* _Baba)
-//{
-//	switch (Key)
-//	{
-//	case 'W':
-//		break;
-//	case 'A':
-//		break;
-//	case 'S':
-//		break;
-//	case 'D':
-//		break;
-//	default:
-//		break;
-//	}
-//
-//}
-//
-//bool APlayGameMode::Baba_Near(TilePoint _Tile, ABabaBase* _Baba)
-//{
-//	TilePoint TempTile = _Tile;
-//	switch (Key)
-//	{
-//	case 'W': {
-//		std::list<ABabaBase*>& List = Baba_Actors[TempTile.Location];
-//		for (ABabaBase* Baba : List) {
-//			/*Baba->BabaActiveCheck();*/
-//		}
-//	}
-//			break;
-//	case 'A':
-//		break;
-//	case 'S':
-//		break;
-//	case 'D':
-//		break;
-//	default:
-//		break;
-//	}
-//	return false;
-//}
 
 

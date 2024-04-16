@@ -1,7 +1,8 @@
 #include "PreCompile.h"
 #include "ContentsHelper.h"
 
-ActiveState BabaUpdateHelper::ActiveBaba = {};
+ActiveState BabaUpdateHelper::ActiveBaba = {false, false, true};
+ActiveState BabaUpdateHelper::ActiveRock = { false, true, false};
 
 float ContentsHelper::Time = 2.f;
 
