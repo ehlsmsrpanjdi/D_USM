@@ -38,6 +38,8 @@ protected:
 	void Change_BabaPos();
 	void BabaInputCheck();
 	void DebugMessageFunction();
+	
+	void WordUpdate();
 
 private:
 

@@ -26,4 +26,9 @@ void AWord::WorldInit()
 	AState = { false, true, true };
 }
 
+void AWord::IsCheck()
+{
+	//if(this->BabaNextTileCheck())
+}
+
 // isbaba, ismove, ispush

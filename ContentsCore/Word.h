@@ -21,6 +21,7 @@ public:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void WorldInit();
+	void IsCheck();
 protected:
 
 private:

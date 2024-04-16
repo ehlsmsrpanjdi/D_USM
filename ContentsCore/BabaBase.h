@@ -115,12 +115,10 @@ protected:
 	std::string InputToButton(char _Input);
 
 	bool BabaMapCheck(char _Input);
-	bool BabaCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map);
 
 	void DebugMessageFunction();
 
 	void ChangeTile(std::map<__int64, std::list<ABabaBase*>>& _Baba_Actors);
-	void StateCheck();
 
 	bool MoveCheck();
 	bool PushCheck();

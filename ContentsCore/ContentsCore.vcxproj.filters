@@ -57,9 +57,6 @@
     <ClCompile Include="BabaBase.cpp">
       <Filter>Level\Actor\Base</Filter>
     </ClCompile>
-    <ClCompile Include="BabaState.cpp">
-      <Filter>Level\Actor\Base</Filter>
-    </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>TileMap</Filter>
     </ClCompile>
