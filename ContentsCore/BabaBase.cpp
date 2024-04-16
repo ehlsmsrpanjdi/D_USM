@@ -66,62 +66,9 @@ void ABabaBase::LerpMove()
 		Move_Stack.push(false);
 		return;
 	}
-	switch (BabaInput)
-	{
-	case 'W':
-	{
-		if (TileMap::TileMove(TilePoint{ Info.Tile.X, Info.Tile.Y + 1 }) == true) {
-			Move_Stack.push(true);
-			NextLocation2D = Location2D + float2D{ 0.f, MoveLength };
-			Info.Tile.Y += 1;
-		}
-		else {
-			Move_Stack.push(false);
-		}
-	}
-	break;
-	case 'A':
-	{
-		if (TileMap::TileMove(TilePoint{ Info.Tile.X - 1, Info.Tile.Y }) == true) {
-			Move_Stack.push(true);
-			NextLocation2D = Location2D + float2D{ -MoveLength, 0.f };
-			Info.Tile.X -= 1;
-		}
-		else {
-			Move_Stack.push(false);
-		}
 
-	}
-	break;
-	case 'S':
-	{
-		if (TileMap::TileMove(TilePoint{ Info.Tile.X, Info.Tile.Y - 1 }) == true) {
-			Move_Stack.push(true);
-			NextLocation2D = Location2D + float2D{ 0.f, -MoveLength };
-			Info.Tile.Y -= 1;
-		}
-		else {
-			Move_Stack.push(false);
-		}
+	KeyTileSet(BabaInput);
 
-	}
-	break;
-	case 'D':
-	{
-		if (TileMap::TileMove(TilePoint{ Info.Tile.X + 1, Info.Tile.Y }) == true) {
-			Move_Stack.push(true);
-			NextLocation2D = Location2D + float2D{ MoveLength, 0.f };
-			Info.Tile.X += 1;
-		}
-		else {
-			Move_Stack.push(false);
-		}
-
-	}
-	break;
-	default:
-		break;
-	}
 	if (true == Move_Stack.top()) {
 		IndexPlus(Info);
 		InfoUpdate();
@@ -140,36 +87,8 @@ void ABabaBase::PopLerpMove()
 		return;
 	}
 
-	PrevTile = Info.Tile;
-	switch (BabaInput)
-	{
-	case 'W':
-	{
-		NextLocation2D = Location2D + float2D{ 0.f, -MoveLength };
-		Info.Tile.Y -= 1;
-	}
-	break;
-	case 'A':
-	{
-		NextLocation2D = Location2D + float2D{ MoveLength, 0.f };
-		Info.Tile.X += 1;
-	}
-	break;
-	case 'S':
-	{
-		NextLocation2D = Location2D + float2D{ 0.f, MoveLength };
-		Info.Tile.Y += 1;
-	}
-	break;
-	case 'D':
-	{
-		NextLocation2D = Location2D + float2D{ -MoveLength, 0.f };
-		Info.Tile.X -= 1;
-	}
-	break;
-	default:
-		break;
-	}
+	KeyTileSetReverse(BabaInput);
+
 	IndexMinus(Info);
 	InfoUpdate();
 }
@@ -187,17 +106,21 @@ float2D ABabaBase::Lerp(float _DeltaTime)
 
 void ABabaBase::IndexPlus(BabaInfo& _Info)
 {
-	_Info.AnimationIndex++;
-	if (_Info.AnimationIndex >= 5) {
-		_Info.AnimationIndex = 1;
+	if (BState == BabaState::IsBaba) {
+		_Info.AnimationIndex++;
+		if (_Info.AnimationIndex >= 5) {
+			_Info.AnimationIndex = 1;
+		}
 	}
 }
 
 void ABabaBase::IndexMinus(BabaInfo& _Info)
 {
-	_Info.AnimationIndex--;
-	if (_Info.AnimationIndex <= 0) {
-		_Info.AnimationIndex = 4;
+	if (BState == BabaState::IsBaba) {
+		_Info.AnimationIndex--;
+		if (_Info.AnimationIndex <= 0) {
+			_Info.AnimationIndex = 4;
+		}
 	}
 }
 
@@ -208,13 +131,12 @@ void ABabaBase::InfoUpdate()
 		InputKey = StartInput;
 	}
 	std::string AnimationName = "";
-	if (Info.Who == BabaObject::Baba) {
+	if (BState == BabaState::IsBaba) {
 		AnimationName.append("Baba_");
 		AnimationName.append(InputToButton(InputKey) + "_");
 		AnimationName.append(std::to_string(Info.AnimationIndex));
+		Renderer->ChangeAnimation(AnimationName);
 	}
-	//AnimationName.
-	Renderer->ChangeAnimation(AnimationName);
 }
 
 std::string ABabaBase::InputToButton(char _Input)
@@ -595,4 +517,72 @@ TilePoint ABabaBase::KeyTileReturn(char _Input)
 		break;
 	}
 	return TempTile;
+}
+
+void ABabaBase::KeyTileSet(char _Input)
+{
+	switch (_Input)
+	{
+	case 'W':
+	{
+		NextLocation2D = Location2D + float2D{ 0.f, MoveLength };
+		Info.Tile.Y += 1;
+	}
+	break;
+	case 'A':
+	{
+		NextLocation2D = Location2D + float2D{ -MoveLength, 0.f };
+		Info.Tile.X -= 1;
+	}
+	break;
+	case 'S':
+	{
+		NextLocation2D = Location2D + float2D{ 0.f, -MoveLength };
+		Info.Tile.Y -= 1;
+	}
+	break;
+	case 'D':
+	{
+		NextLocation2D = Location2D + float2D{ MoveLength, 0.f };
+		Info.Tile.X += 1;
+	}
+	break;
+	default:
+		break;
+	}
+	Move_Stack.push(true);
+}
+
+void ABabaBase::KeyTileSetReverse(char _Input)
+{
+	PrevTile = Info.Tile;
+	switch (_Input)
+	{
+	case 'W':
+	{
+		NextLocation2D = Location2D + float2D{ 0.f, -MoveLength };
+		Info.Tile.Y -= 1;
+	}
+	break;
+	case 'A':
+	{
+		NextLocation2D = Location2D + float2D{ MoveLength, 0.f };
+		Info.Tile.X += 1;
+	}
+	break;
+	case 'S':
+	{
+		NextLocation2D = Location2D + float2D{ 0.f, MoveLength };
+		Info.Tile.Y += 1;
+	}
+	break;
+	case 'D':
+	{
+		NextLocation2D = Location2D + float2D{ -MoveLength, 0.f };
+		Info.Tile.X -= 1;
+	}
+	break;
+	default:
+		break;
+	}
 }

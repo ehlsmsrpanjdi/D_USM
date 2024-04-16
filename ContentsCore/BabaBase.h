@@ -11,7 +11,6 @@
 
 struct BabaInfo {
 	int AnimationIndex = 1;
-	BabaObject Who = BabaObject::Baba;
 	TilePoint Tile = {};
 };
 
@@ -133,6 +132,8 @@ protected:
 	bool BabaNextTileCheck(std::map<__int64, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
 
 	TilePoint KeyTileReturn(char _Input);
+	void KeyTileSet(char _Input);
+	void KeyTileSetReverse(char _Input);
 
 private:
 	std::stack<bool> Move_Stack;
