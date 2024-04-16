@@ -21,7 +21,11 @@ public:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void WorldInit();
-	void IsCheck();
+	void IsCheck(std::map<__int64, std::list<ABabaBase*>>& _Map);
+	bool WorldCheck(std::map<__int64, std::list<ABabaBase*>>& _Map, TilePoint _Tile, BabaState _Baba);
+
+	void BabaUpdate();
+
 protected:
 
 private:

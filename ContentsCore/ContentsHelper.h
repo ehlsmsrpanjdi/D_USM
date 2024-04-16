@@ -60,6 +60,8 @@ enum class BabaState {
 	IsNone = 0,
 	IsBaba,
 	IsRock,
+	IsWord,
+	IsActive,
 };
 
 struct ActiveState {
@@ -78,12 +80,6 @@ struct ActiveState {
 	bool IsMove = false;
 
 	BabaState ChangeState = BabaState::IsNone;
-};
-
-enum class BabaObject {
-	Baba,
-	Rock,
-
 };
 
 class BabaUpdateHelper {
