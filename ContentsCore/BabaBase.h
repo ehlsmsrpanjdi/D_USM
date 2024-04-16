@@ -15,11 +15,7 @@ struct BabaInfo {
 	TilePoint Tile = {};
 };
 
-struct BabaState {
-	bool IsMove = false;
-	bool IsBaba = false;
-	bool IsPush = false;
-};
+
 
 class APlayGameMode;
 class USpriteRenderer;
@@ -32,7 +28,8 @@ public:
 	ABabaBase();
 	~ABabaBase();
 
-	BabaState State;
+	BabaState BState = BabaState::IsBaba;
+	ActiveState AState = {false,false,false};
 
 	// delete Function
 	ABabaBase(const ABabaBase& _Other) = delete;
@@ -128,14 +125,15 @@ protected:
 
 	bool MoveCheck();
 	bool PushCheck();
-	void StateInit(bool _a, bool _b, bool _c);
+	void StateInit(BabaState _State);
+	void ActiveStateInit(ActiveState _State);
 
 private:
 	std::stack<bool> Move_Stack;
 	float4 Color;
 	float2D Location2D{};
 	float2D NextLocation2D{};
-	TilePoint PrevTile;
+	TilePoint PrevTile = { 0,0 };
 	bool IsChecked = false;
 	bool CanMove = false;
 };

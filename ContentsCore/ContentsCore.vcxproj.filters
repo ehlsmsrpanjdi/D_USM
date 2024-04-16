@@ -28,6 +28,9 @@
     <ClInclude Include="TileMap.h">
       <Filter>TileMap</Filter>
     </ClInclude>
+    <ClInclude Include="Word.h">
+      <Filter>Level\Actor\Word</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -60,6 +63,9 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>TileMap</Filter>
     </ClCompile>
+    <ClCompile Include="Word.cpp">
+      <Filter>Level\Actor\Word</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -88,6 +94,9 @@
     </Filter>
     <Filter Include="TileMap">
       <UniqueIdentifier>{ca90a8e3-1496-4ec6-8940-fce7318af1fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Actor\Word">
+      <UniqueIdentifier>{64f15921-8804-4dbb-be99-dd4e558d3567}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "ContentsHelper.h"
 
-
+ActiveState BabaUpdateHelper::ActiveBaba = {};
 
 float ContentsHelper::Time = 2.f;
 

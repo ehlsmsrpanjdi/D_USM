@@ -8,7 +8,6 @@
 ABabaBase::ABabaBase()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
-
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
@@ -437,20 +436,35 @@ void ABabaBase::StateCheck()
 bool ABabaBase::MoveCheck()
 {
 	bool Temp = true;
-	Temp = State.IsMove && Temp;
+	Temp = AState.IsMove && Temp;
 	return Temp;
 }
 
 bool ABabaBase::PushCheck()
 {
+	switch (BState)
+	{
+	case BabaState::IsNone:
+		break;
+	case BabaState::IsBaba:
+		
+		break;
+	case BabaState::IsRock:
+		break;
+	default:
+		break;
+	}
 	bool Temp = true;
-	Temp = State.IsPush && Temp;
+	Temp = AState.IsPush && Temp;
 	return Temp;
 }
 
-void ABabaBase::StateInit(bool _a, bool _b, bool _c)
+void ABabaBase::StateInit(BabaState _State)
 {
-	State.IsBaba = _a;
-	State.IsMove = _b;
-	State.IsPush = _c;
+	BState = _State;
+}
+
+void ABabaBase::ActiveStateInit(ActiveState _State)
+{
+	AState = _State;
 }

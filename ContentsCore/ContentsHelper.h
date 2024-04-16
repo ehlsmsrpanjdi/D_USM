@@ -55,9 +55,42 @@ struct TilePoint {
 	}
 
 };
+
+enum class BabaState {
+	IsNone = 0,
+	IsBaba,
+	IsRock,
+};
+
+struct ActiveState {
+	ActiveState() {
+		bool IsFloat = false;
+		bool IsPush = false;
+		bool IsMove = false;
+	}
+	ActiveState(bool _a, bool _b, bool _c) {
+		IsFloat = _a;
+		IsPush = _b;
+		IsMove = _c;
+	}
+	bool IsFloat = false;
+	bool IsPush = false;
+	bool IsMove = false;
+
+	BabaState ChangeState = BabaState::IsNone;
+};
+
 enum class BabaObject {
 	Baba,
 	Rock,
+
+};
+
+class BabaUpdateHelper {
+public:
+	static ActiveState ActiveBaba;
+	static ActiveState ActiveRock;
+
 
 };
 
