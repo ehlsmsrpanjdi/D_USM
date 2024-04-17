@@ -22,9 +22,11 @@ public:
 	void Tick(float _DeltaTime) override;
 	void WorldInit();
 	void IsCheck(std::map<__int64, std::list<ABabaBase*>>& _Map);
-	bool WorldCheck(std::map<__int64, std::list<ABabaBase*>>& _Map, TilePoint _Tile, BabaState _Baba);
+	BabaState WorldCheck(std::map<__int64, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
 
-	void BabaUpdate();
+	void ActiveUpdate(BabaState _Left, BabaState _Right);
+	void WordChange(ActiveState* _CurWord, BabaState _Which);
+	void ActiveChange(ActiveState* _CurWord, BabaState _Which);
 
 protected:
 

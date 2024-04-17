@@ -62,6 +62,17 @@ enum class BabaState {
 	IsRock,
 	IsWord,
 	IsActive,
+	IsIs,
+};
+
+enum class WordInfo {
+
+};
+
+struct ActiveInfo {
+	bool IsFloat = false;
+	bool IsPush = false;
+	bool IsMove = false;
 };
 
 struct ActiveState {
