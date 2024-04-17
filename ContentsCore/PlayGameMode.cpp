@@ -10,6 +10,8 @@
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineCore/EngineCore.h>
 #include "IsWord.h"
+#include "NameWord.h"
+#include "ActiveWord.h"
 
 APlayGameMode::APlayGameMode()
 {}
@@ -46,11 +48,9 @@ void APlayGameMode::BeginPlay()
 	Player->SetBabaLocation(5, 4, 'W');
 	Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
-	Player = GetWorld()->SpawnActor<IsWord>("Is");
-	Player->StateInit(BabaState::IsIs);
-	Player->SetBabaLocation(6, 6);
-	Baba_Actors[Player->GetTile64()].push_back(Player.get());
-
+	SpawnIs(6, 6);
+	SpawnName(3, 3, BabaState::IsRock);
+	SpawnActive(5, 5, BabaUpdateHelper::Push);
 
 	//Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	//Player->StateInit(false, true, false);
@@ -210,6 +210,7 @@ void APlayGameMode::BabaInputCheck()
 		if (true == CanActive) {
 			Baba_Input();
 			Change_BabaPos();
+			IsUpdate();
 		}
 	}
 }
@@ -221,6 +222,53 @@ void APlayGameMode::DebugMessageFunction()
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
+}
+
+void APlayGameMode::WordUpdate()
+{
+}
+
+void APlayGameMode::IsUpdate()
+{
+	BabaUpdateHelper::ActiveRock = BabaUpdateHelper::None;
+	for (IsWord* _Is : Is_Vec) {
+		_Is->UpCheck(Baba_Actors);
+		_Is->AxisCheck(Baba_Actors);
+	}
+}
+
+
+std::shared_ptr<IsWord> APlayGameMode::SpawnIs(TilePoint _Tile)
+{
+	std::shared_ptr<IsWord> Is = GetWorld()->SpawnActor<IsWord>("Word");
+	Is->SetOrder(1);
+	Is->StateInit(BabaState::IsWord);
+	Is->SetBabaLocation(_Tile);
+	Baba_Actors[Is->GetTile64()].push_back(Is.get());
+	Is_Vec.push_back(Is.get());
+	return Is;
+}
+
+std::shared_ptr<NameWord> APlayGameMode::SpawnName(TilePoint _Tile, BabaState _Info)
+{
+	std::shared_ptr<NameWord> Name = GetWorld()->SpawnActor<NameWord>("Name");
+	Name->SetOrder(1);
+	Name->StateInit(BabaState::IsWord);
+	Name->SetBabaLocation(_Tile);
+	Name->SetNameSet(_Info);
+	Baba_Actors[Name->GetTile64()].push_back(Name.get());
+	return Name;
+}
+
+std::shared_ptr<ActiveWord> APlayGameMode::SpawnActive(TilePoint _Tile, ActiveState _Info)
+{
+	std::shared_ptr<ActiveWord> Active = GetWorld()->SpawnActor<ActiveWord>("Active");
+	Active->SetOrder(1);
+	Active->StateInit(BabaState::IsActive);
+	Active->SetBabaLocation(_Tile);
+	Active->SetActive(_Info);
+	Baba_Actors[Active->GetTile64()].push_back(Active.get());
+	return Active;
 }
 
 

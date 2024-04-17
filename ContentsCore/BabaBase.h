@@ -88,6 +88,17 @@ protected:
 		SetActorlocation2D(TileReturn());
 		SetNextLocation2D(TileReturn());
 	}
+	void SetBabaLocation(TilePoint _Tile, char _Input = 'D') {
+		Info.Tile.X = static_cast<int>(_Tile.X);
+		Info.Tile.Y = static_cast<int>(_Tile.Y);
+		BabaInput = _Input;
+		StartInput = _Input;
+		InfoUpdate();
+		SetLocation2D(TileReturn());
+		SetActorlocation2D(TileReturn());
+		SetNextLocation2D(TileReturn());
+	}
+
 
 	void SetKey(char _Key) {
 		BabaInput = _Key;

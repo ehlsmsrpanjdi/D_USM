@@ -1,8 +1,11 @@
 #pragma once
 #include "BabaBase.h"
+#include <EngineCore/EngineCore.h>
 // Ό³Έν :
 class ActiveWord : public ABabaBase
 {
+
+	GENERATED_BODY(AActor)
 public:
 	// constructor destructor
 	ActiveWord();
@@ -14,9 +17,12 @@ public:
 	ActiveWord& operator=(const ActiveWord& _Other) = delete;
 	ActiveWord& operator=(ActiveWord&& _Other) noexcept = delete;
 
-	ActiveInfo ActiveName;
+	ActiveState ActiveName;
 
-	void SetActive(ActiveInfo _Info) {
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+
+	void SetActive(ActiveState _Info) {
 		ActiveName = _Info;
 	}
 
@@ -26,7 +32,7 @@ public:
 		ActiveName.IsMove = _IsMove;
 	}
 
-	ActiveInfo GetActive() {
+	ActiveState GetActive() {
 		return ActiveName;
 	}
 

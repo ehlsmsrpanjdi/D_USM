@@ -3,6 +3,7 @@
 // Ό³Έν :
 class NameWord : public ABabaBase
 {
+	GENERATED_BODY(AActor)
 public:
 	// constructor destructor
 	NameWord();
@@ -14,6 +15,10 @@ public:
 	NameWord& operator=(const NameWord& _Other) = delete;
 	NameWord& operator=(NameWord&& _Other) noexcept = delete;
 
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+
+	BabaState WordInfo = BabaState::IsWord;
 	void SetNameSet(BabaState _Word) {
 		WordInfo = _Word;
 	}
@@ -21,7 +26,6 @@ public:
 		return WordInfo;
 	}
 
-	BabaState WordInfo;
 protected:
 
 private:

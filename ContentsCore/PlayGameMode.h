@@ -4,6 +4,9 @@
 #include "ContentsHelper.h"
 
 class ABabaBase;
+class IsWord;
+class NameWord;
+class ActiveWord;
 // Ό³Έν :
 class APlayGameMode : public AGameMode
 {
@@ -26,7 +29,7 @@ protected:
 	char Key = '0';
 	std::map <__int64, std::list<ABabaBase*>> Baba_Actors;
 	std::vector<ABabaBase*> Change_Baba;
-	//std::vector<std::shared_ptr<ABabaBase>> Baba_Actors;
+	std::vector<IsWord*> Is_Vec;
 	std::stack<char> Stack_Input;
 	bool IsInput = false;
 	int Count = 0;
@@ -40,7 +43,21 @@ protected:
 	void DebugMessageFunction();
 	
 	void WordUpdate();
+	void IsUpdate();
 
+	std::shared_ptr<IsWord> SpawnIs(TilePoint _Tile);
+	std::shared_ptr<NameWord> SpawnName(TilePoint _Tile, BabaState _Info);
+	std::shared_ptr<ActiveWord> SpawnActive(TilePoint _Tile, ActiveState _Info);
+
+	std::shared_ptr<IsWord> SpawnIs(int _X, int _Y) {
+		return SpawnIs(TilePoint(_X, _Y));
+	}
+	std::shared_ptr<NameWord> SpawnName(int _X, int _Y, BabaState _Info) {
+		return SpawnName(TilePoint(_X, _Y),_Info);
+	}
+	std::shared_ptr<ActiveWord> SpawnActive(int _X, int _Y, ActiveState _Info) {
+		return SpawnActive(TilePoint(_X, _Y), _Info);
+	}
 private:
 
 	bool CanInput = false;

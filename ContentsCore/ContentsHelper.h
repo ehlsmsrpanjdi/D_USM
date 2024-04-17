@@ -41,6 +41,11 @@ struct TilePoint {
 		__int64 Location;
 	};
 
+	TilePoint() { X = 0; Y = 0; }
+	TilePoint(int _X, int _Y) {
+		X = _X;
+		Y = _Y;
+	}
 
 	TilePoint operator+(TilePoint& _Point) {
 		int TempX = X + _Point.X;
@@ -65,40 +70,33 @@ enum class BabaState {
 	IsIs,
 };
 
-struct ActiveInfo {
-	bool IsFloat = false;
-	bool IsPush = false;
-	bool IsMove = false;
-
-	void operator=(ActiveInfo _Info) {
-		IsFloat = _Info.IsFloat;
-		IsMove = _Info.IsMove;
-		IsPush = _Info.IsPush;
-	}
-
-	void InfoSet(ActiveInfo _Info) {
-		IsFloat = IsFloat || _Info.IsFloat;
-		IsMove = IsMove || _Info.IsMove;
-		IsPush = IsPush || _Info.IsPush;
-	}
-};
-
 struct ActiveState {
 	ActiveState() {
-		bool IsFloat = false;
-		bool IsPush = false;
-		bool IsMove = false;
+		IsFloat = false;
+		IsPush = false;
+		IsMove = false;
 	}
 	ActiveState(bool _a, bool _b, bool _c) {
 		IsFloat = _a;
 		IsPush = _b;
 		IsMove = _c;
 	}
+	void operator=(ActiveState _Info) {
+		IsFloat = _Info.IsFloat;
+		IsMove = _Info.IsMove;
+		IsPush = _Info.IsPush;
+	}
+
+	void InfoSet(ActiveState _Info) {
+		IsFloat = IsFloat || _Info.IsFloat;
+		IsMove = IsMove || _Info.IsMove;
+		IsPush = IsPush || _Info.IsPush;
+	}
+
 	bool IsFloat = false;
 	bool IsPush = false;
 	bool IsMove = false;
 
-	BabaState ChangeState = BabaState::IsNone;
 };
 
 class BabaUpdateHelper {
@@ -106,6 +104,10 @@ public:
 	static ActiveState ActiveBaba;
 	static ActiveState ActiveRock;
 	static ActiveState ActiveWord;
+
+	static ActiveState Push;
+	static ActiveState Move;
+	static ActiveState None;
 
 
 };

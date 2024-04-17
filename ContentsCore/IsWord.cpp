@@ -31,10 +31,13 @@ void IsWord::Tick(float _DeltaTime)
 
 void IsWord::UpCheck(std::map<__int64, std::list<ABabaBase*>>& _Map)
 {
-	TilePoint ATile = this->KeyTileReturn('A');
+	TilePoint ATile = this->KeyTileReturn('W');
 
 	ABabaBase* LeftWord = WorldCheck(_Map, ATile);
 
+	if (nullptr == LeftWord) {
+		return;
+	}
 	if (BabaState::IsWord != LeftWord->GetBstate()) {
 		return;
 	}
@@ -42,6 +45,10 @@ void IsWord::UpCheck(std::map<__int64, std::list<ABabaBase*>>& _Map)
 
 
 	ABabaBase* RightWord = WorldCheck(_Map, DTile);
+
+	if (nullptr == RightWord) {
+		return;
+	}
 
 	if (BabaState::IsNone == RightWord->GetBstate()) {
 		return;
@@ -54,17 +61,25 @@ void IsWord::UpCheck(std::map<__int64, std::list<ABabaBase*>>& _Map)
 
 void IsWord::AxisCheck(std::map<__int64, std::list<ABabaBase*>>& _Map)
 {
-	TilePoint ATile = this->KeyTileReturn('W');
+	TilePoint ATile = this->KeyTileReturn('A');
 
 	ABabaBase* LeftWord = WorldCheck(_Map, ATile);
+
+	if (nullptr == LeftWord) {
+		return;
+	}
 
 	if (BabaState::IsWord != LeftWord->GetBstate()) {
 		return;
 	}
-	TilePoint DTile = this->KeyTileReturn('S');
+	TilePoint DTile = this->KeyTileReturn('D');
 
 
 	ABabaBase* RightWord = WorldCheck(_Map, DTile);
+
+	if (nullptr == RightWord) {
+		return;
+	}
 
 	if (BabaState::IsNone == RightWord->GetBstate()) {
 		return;
@@ -133,14 +148,14 @@ void IsWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
 
 void IsWord::WordChange(ActiveState* _CurWord, ABabaBase* _Name)
 {
-	NameWord* Name = dynamic_cast<NameWord*>(_Name);
-	Name->GetNameSet();
+	//NameWord* Name = dynamic_cast<NameWord*>(_Name);
+	//Name->GetNameSet();
 }
 
 void IsWord::ActiveChange(ActiveState* _CurWord, ABabaBase* _Active)
 {
 	ActiveWord* Active = dynamic_cast<ActiveWord*>(_Active);
-	ActiveInfo Info = Active->GetActive();
+	ActiveState Info = Active->GetActive();
 	_CurWord->IsFloat = _CurWord->IsFloat || Info.IsFloat;
 	_CurWord->IsPush = _CurWord->IsPush || Info.IsPush;
 	_CurWord->IsMove = _CurWord->IsMove || Info.IsMove;

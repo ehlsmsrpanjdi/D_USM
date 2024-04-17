@@ -47,7 +47,7 @@ void ABabaBase::BeginPlay()
 	Renderer->SetSprite("Wall.png");
 
 	BabaInput = '0';
-	//Renderer->ChangeAnimation("Baba_Right_1");
+	Renderer->ChangeAnimation("Baba_Right_1");
 	
 
 }
