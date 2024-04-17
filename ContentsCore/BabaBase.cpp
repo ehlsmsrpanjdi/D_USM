@@ -11,7 +11,7 @@ ABabaBase::ABabaBase()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
-	InputOn();
+	Renderer->SetAutoSize(1.5, true);
 }
 
 ABabaBase::~ABabaBase()
@@ -21,11 +21,6 @@ ABabaBase::~ABabaBase()
 void ABabaBase::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Renderer->SetAutoSize(1.5, true);
-	float4 Location4D = GetActorLocation();
-	Location2D.x = Location4D.X;
-	Location2D.y = Location4D.Y;
 
 	Renderer->SetOrder(1);
 	Renderer->SetMaterial("2DImage");
@@ -248,6 +243,10 @@ bool ABabaBase::MoveCheck()
 	case BabaState::IsRock:
 		Temp = BabaUpdateHelper::ActiveRock.IsMove && Temp;
 		break;
+	case BabaState::IsWord:
+	case BabaState::IsIs:
+	case BabaState::IsActive:
+		Temp = BabaUpdateHelper::ActiveWord.IsMove && Temp;
 	default:
 		break;
 	}

@@ -105,6 +105,7 @@ class BabaUpdateHelper {
 public:
 	static ActiveState ActiveBaba;
 	static ActiveState ActiveRock;
+	static ActiveState ActiveWord;
 
 
 };

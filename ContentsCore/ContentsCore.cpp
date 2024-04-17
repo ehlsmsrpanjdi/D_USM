@@ -69,6 +69,8 @@ void ContentsCore::Initialize()
 		UEngineSprite::CreateCutting("Baba_Up_4.png", 3, 1);
 		UEngineSprite::CreateCutting("Wall.png", 18, 3);
 		UEngineSprite::CreateCutting("Is.png", 2, 3);
+		UEngineSprite::CreateCutting("Pull.png", 3, 3);
+		UEngineSprite::CreateCutting("Push.png", 3, 3);
 
 
 

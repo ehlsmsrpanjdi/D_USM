@@ -3,10 +3,12 @@
 #include "NameWord.h"
 #include "ActiveWord.h"
 #include <EngineCore/Actor.h>
-
+#include <EngineCore/DefaultSceneComponent.h>
+#include <EngineCore/SpriteRenderer.h>
 
 IsWord::IsWord()
 {
+
 }
 
 IsWord::~IsWord()
@@ -16,12 +18,15 @@ IsWord::~IsWord()
 void IsWord::BeginPlay()
 {
 	Super::BeginPlay();
-	Renderer
+	Renderer->SetOrder(2);
+	Renderer->SetMaterial("2DImage");
+	Renderer->SetSprite("is.png");
 }
 
 void IsWord::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	ABabaBase::Tick(_DeltaTime);
 }
 
 void IsWord::UpCheck(std::map<__int64, std::list<ABabaBase*>>& _Map)

@@ -3,6 +3,7 @@
 
 ActiveState BabaUpdateHelper::ActiveBaba = {false, false, true};
 ActiveState BabaUpdateHelper::ActiveRock = { false, true, false};
+ActiveState BabaUpdateHelper::ActiveWord = { false, true, false };
 
 float ContentsHelper::Time = 2.f;
 

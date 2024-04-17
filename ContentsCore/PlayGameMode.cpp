@@ -9,6 +9,7 @@
 #include <iterator>
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineCore/EngineCore.h>
+#include "IsWord.h"
 
 APlayGameMode::APlayGameMode()
 {}
@@ -44,6 +45,12 @@ void APlayGameMode::BeginPlay()
 	Player->StateInit(BabaState::IsRock);
 	Player->SetBabaLocation(5, 4, 'W');
 	Baba_Actors[Player->GetTile64()].push_back(Player.get());
+
+	Player = GetWorld()->SpawnActor<IsWord>("Is");
+	Player->StateInit(BabaState::IsIs);
+	Player->SetBabaLocation(6, 6);
+	Baba_Actors[Player->GetTile64()].push_back(Player.get());
+
 
 	//Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	//Player->StateInit(false, true, false);

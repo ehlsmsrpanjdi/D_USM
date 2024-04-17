@@ -85,6 +85,7 @@ protected:
 		StartInput = _Input;
 		InfoUpdate();
 		SetLocation2D(TileReturn());
+		SetActorlocation2D(TileReturn());
 		SetNextLocation2D(TileReturn());
 	}
 
