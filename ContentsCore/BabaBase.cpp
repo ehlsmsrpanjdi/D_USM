@@ -47,8 +47,13 @@ void ABabaBase::BeginPlay()
 	Renderer->CreateAnimation("Baba_Up_3", "Baba_Up_3.png", 0.1f);
 	Renderer->CreateAnimation("Baba_Up_4", "Baba_Up_4.png", 0.1f);
 
+	//Renderer->CreateAnimation("Wall", "Wall.png", std::vector<float>{ 0.1f }, std::vector<int>{ 2,4,5 });
+	//Renderer->ChangeAnimation("wall");
+	Renderer->SetSprite("Wall.png");
+
 	BabaInput = '0';
-	Renderer->ChangeAnimation("Baba_Right_1");
+	//Renderer->ChangeAnimation("Baba_Right_1");
+	
 
 }
 
@@ -274,11 +279,6 @@ bool ABabaBase::PushCheck()
 void ABabaBase::StateInit(BabaState _State)
 {
 	BState = _State;
-}
-
-void ABabaBase::ActiveStateInit(ActiveState _State)
-{
-	AState = _State;
 }
 
 bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map)

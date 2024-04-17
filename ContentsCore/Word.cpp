@@ -21,11 +21,6 @@ void AWord::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
-void AWord::WorldInit()
-{
-	AState = { false, true, true };
-}
-
 void AWord::IsCheck(std::map<__int64, std::list<ABabaBase*>>& _Map)
 {
 	TilePoint ATile = this->KeyTileReturn('A');

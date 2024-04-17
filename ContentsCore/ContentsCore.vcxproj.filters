@@ -31,6 +31,15 @@
     <ClInclude Include="Word.h">
       <Filter>Level\Actor\Word</Filter>
     </ClInclude>
+    <ClInclude Include="IsWord.h">
+      <Filter>Level\Actor\Word</Filter>
+    </ClInclude>
+    <ClInclude Include="NameWord.h">
+      <Filter>Level\Actor\Word</Filter>
+    </ClInclude>
+    <ClInclude Include="ActiveWord.h">
+      <Filter>Level\Actor\Word</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -61,6 +70,15 @@
       <Filter>TileMap</Filter>
     </ClCompile>
     <ClCompile Include="Word.cpp">
+      <Filter>Level\Actor\Word</Filter>
+    </ClCompile>
+    <ClCompile Include="IsWord.cpp">
+      <Filter>Level\Actor\Word</Filter>
+    </ClCompile>
+    <ClCompile Include="NameWord.cpp">
+      <Filter>Level\Actor\Word</Filter>
+    </ClCompile>
+    <ClCompile Include="ActiveWord.cpp">
       <Filter>Level\Actor\Word</Filter>
     </ClCompile>
   </ItemGroup>

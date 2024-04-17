@@ -65,14 +65,22 @@ enum class BabaState {
 	IsIs,
 };
 
-enum class WordInfo {
-
-};
-
 struct ActiveInfo {
 	bool IsFloat = false;
 	bool IsPush = false;
 	bool IsMove = false;
+
+	void operator=(ActiveInfo _Info) {
+		IsFloat = _Info.IsFloat;
+		IsMove = _Info.IsMove;
+		IsPush = _Info.IsPush;
+	}
+
+	void InfoSet(ActiveInfo _Info) {
+		IsFloat = IsFloat || _Info.IsFloat;
+		IsMove = IsMove || _Info.IsMove;
+		IsPush = IsPush || _Info.IsPush;
+	}
 };
 
 struct ActiveState {

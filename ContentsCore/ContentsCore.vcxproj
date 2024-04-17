@@ -163,6 +163,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ActiveWord.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BabaBase.h">
       <SubType>
       </SubType>
@@ -172,6 +176,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsHelper.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="IsWord.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="NameWord.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -202,6 +214,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActiveWord.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BabaBase.cpp">
       <SubType>
       </SubType>
@@ -211,6 +227,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentsHelper.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="IsWord.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="NameWord.cpp">
       <SubType>
       </SubType>
     </ClCompile>

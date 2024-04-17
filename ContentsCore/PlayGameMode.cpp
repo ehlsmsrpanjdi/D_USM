@@ -25,7 +25,6 @@ void APlayGameMode::BeginPlay()
 
 	std::shared_ptr<ABabaBase> Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	Player->StateInit(BabaState::IsBaba);
-	Player->ActiveStateInit(ActiveState{true, true, true});
 	Player->SetBabaLocation(0, 2, 'D');
 	Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
@@ -38,13 +37,11 @@ void APlayGameMode::BeginPlay()
 
 	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	Player->StateInit(BabaState::IsRock);
-	Player->ActiveStateInit(ActiveState{ false, true, false });
 	Player->SetBabaLocation(8, 4, 'W');
 	Baba_Actors[Player->GetTile64()].push_back(Player.get());
 
 	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	Player->StateInit(BabaState::IsRock);
-	Player->ActiveStateInit(ActiveState{ false, true, false });
 	Player->SetBabaLocation(5, 4, 'W');
 	Baba_Actors[Player->GetTile64()].push_back(Player.get());
 

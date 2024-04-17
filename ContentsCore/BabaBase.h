@@ -28,7 +28,7 @@ public:
 	~ABabaBase();
 
 	BabaState BState = BabaState::IsBaba;
-	ActiveState AState = {false,false,false};
+	//ActiveState AState = {false,false,false};
 
 	// delete Function
 	ABabaBase(const ABabaBase& _Other) = delete;
@@ -39,6 +39,10 @@ public:
 	char BabaInput = '0';
 	char StartInput = '0';
 	BabaInfo Info;
+
+	BabaState GetBstate() {
+		return BState;
+	}
 
 protected:
 	void BeginPlay() override;
@@ -123,7 +127,6 @@ protected:
 	bool MoveCheck();
 	bool PushCheck();
 	void StateInit(BabaState _State);
-	void ActiveStateInit(ActiveState _State);
 
 	bool BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map);
 	bool BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map);
