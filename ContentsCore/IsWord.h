@@ -21,9 +21,9 @@ public:
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-	void UpCheck(std::map<__int64, std::list<ABabaBase*>>& _Map);
-	void AxisCheck(std::map<__int64, std::list<ABabaBase*>>& _Map);
-	ABabaBase* WorldCheck(std::map<__int64, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
+	void UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map);
+	void AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map);
+	ABabaBase* WorldCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
 	
 
 	void ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right);

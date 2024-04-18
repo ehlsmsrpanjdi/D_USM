@@ -29,7 +29,7 @@ void APlayGameMode::BeginPlay()
 	std::shared_ptr<ABabaBase> Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	Player->StateInit(BabaState::IsBaba);
 	Player->SetBabaLocation(0, 2, 'D');
-	Baba_Actors[Player->GetTile64()].push_back(Player.get());
+	Baba_Actors[Player->GetTile()].push_back(Player.get());
 
 
 
@@ -41,12 +41,12 @@ void APlayGameMode::BeginPlay()
 	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	Player->StateInit(BabaState::IsRock);
 	Player->SetBabaLocation(8, 4, 'W');
-	Baba_Actors[Player->GetTile64()].push_back(Player.get());
+	Baba_Actors[Player->GetTile()].push_back(Player.get());
 
 	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	Player->StateInit(BabaState::IsRock);
 	Player->SetBabaLocation(5, 4, 'W');
-	Baba_Actors[Player->GetTile64()].push_back(Player.get());
+	Baba_Actors[Player->GetTile()].push_back(Player.get());
 
 	SpawnIs(6, 6);
 	SpawnName(3, 3, BabaState::IsRock);
@@ -103,7 +103,7 @@ void APlayGameMode::Stack_Push(char _Key)
 	Stack_Input.push(_Key);
 	ContentsHelper::Time = 0.f;
 
-	for (std::pair<const __int64, std::list<ABabaBase*>>& Iter : Baba_Actors)
+	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
 	{
 		std::list<ABabaBase*>& BabaBase = Iter.second;
 		for (ABabaBase*& _BabaBase : BabaBase) {
@@ -120,7 +120,7 @@ void APlayGameMode::Stack_Pop()
 		Temp_Key = Stack_Input.top();
 		Stack_Input.pop();
 		ContentsHelper::Time = 0.f;
-		for (std::pair<const __int64, std::list<ABabaBase*>>& Iter : Baba_Actors)
+		for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
 		{
 			std::list<ABabaBase*>& BabaBase = Iter.second;
 			if (BabaBase.empty() == true) {
@@ -149,7 +149,7 @@ void APlayGameMode::BabaInputCheck()
 		return;
 	}
 	if (ContentsHelper::Time >= 1) {
-		for (std::pair<const __int64, std::list<ABabaBase*>>& Iter : Baba_Actors)
+		for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
 		{
 			std::list<ABabaBase*>& BabaBase = Iter.second;
 			for (ABabaBase*& _BabaBase : BabaBase) {
@@ -191,7 +191,7 @@ void APlayGameMode::BabaInputCheck()
 		}
 
 		bool CanActive = false;
-		for (std::pair<const __int64, std::list<ABabaBase*>>& Iter : Baba_Actors)
+		for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
 		{
 			std::list<ABabaBase*>& BabaBase = Iter.second;
 			for (ABabaBase*& _BabaBase : BabaBase) {
@@ -244,7 +244,7 @@ std::shared_ptr<IsWord> APlayGameMode::SpawnIs(TilePoint _Tile)
 	Is->SetOrder(1);
 	Is->StateInit(BabaState::IsWord);
 	Is->SetBabaLocation(_Tile);
-	Baba_Actors[Is->GetTile64()].push_back(Is.get());
+	Baba_Actors[Is->GetTile()].push_back(Is.get());
 	Is_Vec.push_back(Is.get());
 	return Is;
 }
@@ -256,7 +256,7 @@ std::shared_ptr<NameWord> APlayGameMode::SpawnName(TilePoint _Tile, BabaState _I
 	Name->StateInit(BabaState::IsWord);
 	Name->SetBabaLocation(_Tile);
 	Name->SetNameSet(_Info);
-	Baba_Actors[Name->GetTile64()].push_back(Name.get());
+	Baba_Actors[Name->GetTile()].push_back(Name.get());
 	return Name;
 }
 
@@ -267,7 +267,7 @@ std::shared_ptr<ActiveWord> APlayGameMode::SpawnActive(TilePoint _Tile, ActiveSt
 	Active->StateInit(BabaState::IsActive);
 	Active->SetBabaLocation(_Tile);
 	Active->SetActive(_Info);
-	Baba_Actors[Active->GetTile64()].push_back(Active.get());
+	Baba_Actors[Active->GetTile()].push_back(Active.get());
 	return Active;
 }
 

@@ -56,9 +56,34 @@ struct TilePoint {
 	TilePoint operator+(TilePoint _Point) {
 		int TempX = X + _Point.X;
 		int TempY = Y + _Point.Y;
-		return TilePoint{TempX, TempY};
+		return TilePoint{ TempX, TempY };
 	}
 
+	bool operator<(const TilePoint& _Other) const
+	{
+		if ((X < _Other.X)) {
+			return true;
+		}
+		else if (X > _Other.X) {
+			return false;
+		}
+		else {
+			if (Y < _Other.Y) {
+				return true;
+			}
+			else {
+				return false;
+			}
+
+		}
+	}
+
+	bool operator!=(const TilePoint& _Other) const {
+		if (X == _Other.X && Y == _Other.Y) {
+			return false;
+		}
+		return true;
+	}
 };
 
 enum class BabaState {

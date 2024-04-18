@@ -27,7 +27,7 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	char Key = '0';
-	std::map <__int64, std::list<ABabaBase*>> Baba_Actors;
+	std::map <TilePoint, std::list<ABabaBase*>> Baba_Actors;
 	std::vector<ABabaBase*> Change_Baba;
 	std::vector<IsWord*> Is_Vec;
 	std::stack<char> Stack_Input;

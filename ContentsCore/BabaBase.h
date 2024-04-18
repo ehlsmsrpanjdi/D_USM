@@ -134,15 +134,15 @@ protected:
 
 	void DebugMessageFunction();
 
-	void ChangeTile(std::map<__int64, std::list<ABabaBase*>>& _Baba_Actors);
+	void ChangeTile(std::map<TilePoint, std::list<ABabaBase*>>& _Baba_Actors);
 
 	bool MoveCheck();
 	bool PushCheck();
 	void StateInit(BabaState _State);
 
-	bool BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map);
-	bool BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map);
-	bool BabaNextTileCheck(std::map<__int64, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
+	bool BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map);
+	bool BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map);
+	bool BabaNextTileCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
 
 	TilePoint KeyTileReturn(char _Input);
 	void KeyTileSet(char _Input);

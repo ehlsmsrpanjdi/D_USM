@@ -29,7 +29,7 @@ void IsWord::Tick(float _DeltaTime)
 	ABabaBase::Tick(_DeltaTime);
 }
 
-void IsWord::UpCheck(std::map<__int64, std::list<ABabaBase*>>& _Map)
+void IsWord::UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 	TilePoint ATile = this->KeyTileReturn('W');
 
@@ -59,7 +59,7 @@ void IsWord::UpCheck(std::map<__int64, std::list<ABabaBase*>>& _Map)
 
 }
 
-void IsWord::AxisCheck(std::map<__int64, std::list<ABabaBase*>>& _Map)
+void IsWord::AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 	TilePoint ATile = this->KeyTileReturn('A');
 
@@ -89,9 +89,9 @@ void IsWord::AxisCheck(std::map<__int64, std::list<ABabaBase*>>& _Map)
 
 }
 
-ABabaBase* IsWord::WorldCheck(std::map<__int64, std::list<ABabaBase*>>& _Map, TilePoint _Tile)
+ABabaBase* IsWord::WorldCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile)
 {
-	std::list<ABabaBase*>& _List = _Map[_Tile.Location];
+	std::list<ABabaBase*>& _List = _Map[_Tile];
 	if (_List.empty() == true) {
 		return nullptr;
 	}

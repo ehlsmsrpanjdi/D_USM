@@ -220,11 +220,11 @@ void ABabaBase::DebugMessageFunction()
 	//}
 }
 
-void ABabaBase::ChangeTile(std::map<__int64, std::list<ABabaBase*>>& _Baba_Actors)
+void ABabaBase::ChangeTile(std::map<TilePoint, std::list<ABabaBase*>>& _Baba_Actors)
 {
-	if (GetPrevTile64() != Info.Tile.Location) {
-		if (_Baba_Actors[GetPrevTile64()].remove(this)) {
-			_Baba_Actors[GetTile64()].push_back(this);
+	if (GetPrevTile() != Info.Tile) {
+		if (_Baba_Actors[GetPrevTile()].remove(this)) {
+			_Baba_Actors[GetTile()].push_back(this);
 		}
 	}
 }
@@ -280,7 +280,7 @@ void ABabaBase::StateInit(BabaState _State)
 	BState = _State;
 }
 
-bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map)
+bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 	if (MoveCheck() == false) {
 		return false;
@@ -299,7 +299,7 @@ bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 	}
 
 	bool CheckBool = true;
-	std::list<ABabaBase*>& _List = _Map[TempTile.Location];
+	std::list<ABabaBase*>& _List = _Map[TempTile];
 	for (ABabaBase*& Baba : _List) {
 		bool Check = Baba->BabaPushCheck(_Input, _Vec, _Map);
 		CheckBool = (CheckBool && Check);
@@ -320,7 +320,7 @@ bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 	return false;
 }
 
-bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<__int64, std::list<ABabaBase*>>& _Map)
+bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 
 	if (false == PushCheck()) {
@@ -346,7 +346,7 @@ bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 
 	else {
 		bool TempBool = true;
-		std::list<ABabaBase*>& _List = _Map[TempTile.Location];
+		std::list<ABabaBase*>& _List = _Map[TempTile];
 		for (ABabaBase*& Baba : _List) {
 			bool Temp = Baba->BabaPushCheck(_Input, _Vec, _Map);
 			TempBool = (TempBool && Temp);
@@ -365,9 +365,9 @@ bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 	}
 }
 
-bool ABabaBase::BabaNextTileCheck(std::map<__int64, std::list<ABabaBase*>>& _Map, TilePoint _Tile)
+bool ABabaBase::BabaNextTileCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile)
 {
-	std::list<ABabaBase*>& _List = _Map[_Tile.Location];
+	std::list<ABabaBase*>& _List = _Map[_Tile];
 	if (_List.empty() == true) {
 		return true;
 	}
