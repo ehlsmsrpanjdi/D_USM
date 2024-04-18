@@ -42,13 +42,13 @@ void ABabaBase::BeginPlay()
 	Renderer->CreateAnimation("Baba_Up_3", "Baba_Up_3.png", 0.1f);
 	Renderer->CreateAnimation("Baba_Up_4", "Baba_Up_4.png", 0.1f);
 
-	//Renderer->CreateAnimation("Wall", "Wall.png", std::vector<float>{ 0.1f }, std::vector<int>{ 2,4,5 });
-	//Renderer->ChangeAnimation("wall");
-	Renderer->SetSprite("Wall.png");
+	Renderer->CreateAnimation("Wall", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2,20,38 });
+	Renderer->ChangeAnimation("wall");
+	/*Renderer->SetSprite("Wall.png");*/
 
 	BabaInput = '0';
-	Renderer->ChangeAnimation("Baba_Right_1");
-	
+	/*Renderer->ChangeAnimation("Baba_Right_1");*/
+
 
 }
 
@@ -56,6 +56,7 @@ void ABabaBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	SetActorlocation2D(Lerp(_DeltaTime));
+	BabaUpdate();
 	DebugMessageFunction();
 }
 
@@ -472,4 +473,57 @@ void ABabaBase::KeyTileSetReverse(char _Input)
 	default:
 		break;
 	}
+}
+
+void ABabaBase::BabaUpdate()
+{
+	if (ContentsHelper::Time >= 1) {
+		bool Check = false;
+		switch (BState)
+		{
+		case BabaState::IsBaba:
+		{
+			Check = BState != BabaUpdateHelper::Baba;
+			if (Check) {
+				BState = BabaUpdateHelper::Baba;
+			}
+		}
+		break;
+		case BabaState::IsRock:
+		{
+			Check = BState != BabaUpdateHelper::Rock;
+			if (Check) {
+				BState = BabaUpdateHelper::Rock;
+			}
+		}
+		break;
+		}
+		if (true == Check) {
+			switch (BState)
+			{
+			case BabaState::IsBaba:
+			{
+				Babachange();
+			}
+			break;
+			case BabaState::IsRock:
+			{
+				RockChange();
+			}
+			break;
+			}
+		}
+	}
+}
+
+
+
+void ABabaBase::RockChange()
+{
+	Renderer->ChangeAnimation("wall");
+}
+
+void ABabaBase::Babachange()
+{
+	InfoUpdate();
 }

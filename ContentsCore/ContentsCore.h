@@ -16,6 +16,7 @@ public:
 
 protected:
 	void Initialize() override;
+	void ResourcesInit();
 private:
 
 };

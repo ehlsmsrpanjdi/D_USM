@@ -47,7 +47,7 @@ protected:
 
 	std::shared_ptr<IsWord> SpawnIs(TilePoint _Tile);
 	std::shared_ptr<NameWord> SpawnName(TilePoint _Tile, BabaState _Info);
-	std::shared_ptr<ActiveWord> SpawnActive(TilePoint _Tile, ActiveState _Info);
+	std::shared_ptr<ActiveWord> SpawnActive(TilePoint _Tile, std::string_view _Str);
 
 	std::shared_ptr<IsWord> SpawnIs(int _X, int _Y) {
 		return SpawnIs(TilePoint(_X, _Y));
@@ -55,8 +55,8 @@ protected:
 	std::shared_ptr<NameWord> SpawnName(int _X, int _Y, BabaState _Info) {
 		return SpawnName(TilePoint(_X, _Y),_Info);
 	}
-	std::shared_ptr<ActiveWord> SpawnActive(int _X, int _Y, ActiveState _Info) {
-		return SpawnActive(TilePoint(_X, _Y), _Info);
+	std::shared_ptr<ActiveWord> SpawnActive(int _X, int _Y, std::string_view _Str) {
+		return SpawnActive(TilePoint(_X, _Y), _Str);
 	}
 private:
 

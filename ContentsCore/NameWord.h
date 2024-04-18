@@ -26,6 +26,8 @@ public:
 		return WordInfo;
 	}
 
+	void NameWordChangeAnimation();
+
 protected:
 
 private:

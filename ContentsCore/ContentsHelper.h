@@ -100,27 +100,37 @@ struct ActiveState {
 		IsFloat = false;
 		IsPush = false;
 		IsMove = false;
+		IsStop = false;
+		IsPull = false;
 	}
-	ActiveState(bool _a, bool _b, bool _c) {
+	ActiveState(bool _a, bool _b, bool _c, bool _d, bool _e) {
 		IsFloat = _a;
 		IsPush = _b;
 		IsMove = _c;
+		IsStop = _d;
+		IsPull = _e;
 	}
 	void operator=(ActiveState _Info) {
 		IsFloat = _Info.IsFloat;
 		IsMove = _Info.IsMove;
 		IsPush = _Info.IsPush;
+		IsMove = _Info.IsMove;
+		IsPull = _Info.IsPull;
 	}
 
 	void InfoSet(ActiveState _Info) {
 		IsFloat = IsFloat || _Info.IsFloat;
 		IsMove = IsMove || _Info.IsMove;
 		IsPush = IsPush || _Info.IsPush;
+		IsMove = IsMove || _Info.IsMove;
+		IsPull = IsPull || _Info.IsPull;
 	}
 
 	bool IsFloat = false;
 	bool IsPush = false;
 	bool IsMove = false;
+	bool IsStop = false;
+	bool IsPull = false;
 
 };
 
@@ -132,7 +142,13 @@ public:
 
 	static ActiveState Push;
 	static ActiveState Move;
+	static ActiveState Stop;
+	static ActiveState Pull;
 	static ActiveState None;
+
+
+	static BabaState Baba;
+	static BabaState Rock;
 
 
 };

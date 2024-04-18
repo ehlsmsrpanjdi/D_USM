@@ -36,6 +36,8 @@ public:
 		return ActiveName;
 	}
 
+	void SetAnimation(std::string_view _Str);
+
 
 
 protected:

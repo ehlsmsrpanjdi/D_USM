@@ -50,7 +50,7 @@ void APlayGameMode::BeginPlay()
 
 	SpawnIs(6, 6);
 	SpawnName(3, 3, BabaState::IsRock);
-	SpawnActive(5, 5, BabaUpdateHelper::Push);
+	SpawnActive(5, 5, "Push");
 
 	//Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	//Player->StateInit(false, true, false);
@@ -75,9 +75,13 @@ void APlayGameMode::Tick(float _DeltaTime)
 		CanInput = false;
 	}
 	if (CanInput == true) {
-	BabaInputCheck();
+		BabaInputCheck();
 	}
 	DebugMessageFunction();
+
+	if (IsPress('Q')) {
+		BabaUpdateHelper::Baba = BabaState::IsRock;
+	}
 }
 
 void APlayGameMode::Baba_Input()
@@ -260,13 +264,34 @@ std::shared_ptr<NameWord> APlayGameMode::SpawnName(TilePoint _Tile, BabaState _I
 	return Name;
 }
 
-std::shared_ptr<ActiveWord> APlayGameMode::SpawnActive(TilePoint _Tile, ActiveState _Info)
+std::shared_ptr<ActiveWord> APlayGameMode::SpawnActive(TilePoint _Tile, std::string_view _Str)
 {
+	std::string Name = UEngineString::ToUpper(_Str);
+	ActiveState* Astate = nullptr;
+	if (Name._Equal("PUSH")) {
+		Astate = &BabaUpdateHelper::Push;
+	}
+	else if (Name._Equal("MOVE")) {
+		Astate = &BabaUpdateHelper::Move;
+	}
+	else if (Name._Equal("STOP")) {
+		Astate = &BabaUpdateHelper::Stop;
+	}
+	else if (Name._Equal("PULL")) {
+		Astate = &BabaUpdateHelper::Pull;
+	}
+	else {
+		MsgBoxAssert("ActiveName에 이상한거넣었음");
+	}
+
+
 	std::shared_ptr<ActiveWord> Active = GetWorld()->SpawnActor<ActiveWord>("Active");
 	Active->SetOrder(1);
 	Active->StateInit(BabaState::IsActive);
 	Active->SetBabaLocation(_Tile);
-	Active->SetActive(_Info);
+	Active->SetActive(*Astate);
+
+
 	Baba_Actors[Active->GetTile()].push_back(Active.get());
 	return Active;
 }

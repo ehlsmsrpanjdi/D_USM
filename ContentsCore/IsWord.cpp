@@ -20,7 +20,8 @@ void IsWord::BeginPlay()
 	Super::BeginPlay();
 	Renderer->SetOrder(2);
 	Renderer->SetMaterial("2DImage");
-	Renderer->SetSprite("is.png");
+	Renderer->CreateAnimation("Is", "Is.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 2, 4});
+	Renderer->ChangeAnimation("is");
 }
 
 void IsWord::Tick(float _DeltaTime)
@@ -104,52 +105,55 @@ ABabaBase* IsWord::WorldCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, 
 		}
 	}
 	return nullptr;
-
-	//std::list<ABabaBase*>& _List = _Map[_Tile.Location];
-	//if (_List.empty() == true) {
-	//	return BabaState::IsNone;
-	//}
-	//for (ABabaBase* _Baba : _List) {
-	//	if (_Baba->BState == BabaState::IsWord) {
-	//		return BabaState::IsWord;
-	//	}
-	//	else if (_Baba->BState == BabaState::IsActive) {
-	//		return BabaState::IsActive;
-	//	}
-	//}
-	//return BabaState::IsNone;
-
 }
 
 void IsWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
 {
 	ActiveState* Who = nullptr;
-	NameWord* _LeftName = dynamic_cast<NameWord*>(_Left);
-	switch (_LeftName->GetNameSet())
-	{
-	case BabaState::IsBaba:
-		Who = &BabaUpdateHelper::ActiveBaba;
-		break;
-	case BabaState::IsRock:
-		Who = &BabaUpdateHelper::ActiveRock;
-		break;
-	default:
-		return;
-		break;
-	}
+
 
 	if (BabaState::IsWord == _Right->GetBstate()) {
-		WordChange(Who, _Right);
+
+		WordChange(_Left, _Right);
 	}
+
 	else if (BabaState::IsActive == _Right->GetBstate()) {
+		NameWord* _LeftName = dynamic_cast<NameWord*>(_Left);
+		switch (_LeftName->GetNameSet())
+		{
+		case BabaState::IsBaba:
+			Who = &BabaUpdateHelper::ActiveBaba;
+			break;
+		case BabaState::IsRock:
+			Who = &BabaUpdateHelper::ActiveRock;
+			break;
+		default:
+			return;
+			break;
+		}
 		ActiveChange(Who, _Right);
 	}
 }
 
-void IsWord::WordChange(ActiveState* _CurWord, ABabaBase* _Name)
+void IsWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 {
-	//NameWord* Name = dynamic_cast<NameWord*>(_Name);
-	//Name->GetNameSet();
+	NameWord* FrontWord = dynamic_cast<NameWord*>(_CurWord);
+	NameWord* BackWord = dynamic_cast<NameWord*>(_Name);
+	BabaState FrontName = FrontWord->GetNameSet();
+	BabaState* State = nullptr;
+	switch (FrontName)
+	{
+	case BabaState::IsBaba:
+		State = &BabaUpdateHelper::Baba;
+		break;
+	case BabaState::IsRock:
+		State = &BabaUpdateHelper::Rock;
+		break;
+	default:
+		break;
+	}
+
+	*State = BackWord->GetNameSet();
 }
 
 void IsWord::ActiveChange(ActiveState* _CurWord, ABabaBase* _Active)

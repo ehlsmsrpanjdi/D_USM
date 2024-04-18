@@ -148,6 +148,11 @@ protected:
 	void KeyTileSet(char _Input);
 	void KeyTileSetReverse(char _Input);
 
+	void BabaUpdate();
+	void RockChange();
+	void Babachange();
+
+
 private:
 	std::stack<bool> Move_Stack;
 	float4 Color;

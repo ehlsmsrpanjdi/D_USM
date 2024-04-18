@@ -27,7 +27,7 @@ public:
 	
 
 	void ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right);
-	void WordChange(ActiveState* _CurWord, ABabaBase* _Name);
+	void WordChange(ABabaBase* _CurWord, ABabaBase* _Name);
 	void ActiveChange(ActiveState* _CurWord, ABabaBase* _Active);
 
 protected:
