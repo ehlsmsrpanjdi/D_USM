@@ -19,8 +19,8 @@ void NameWord::BeginPlay()
 	Renderer->SetOrder(2);
 	Renderer->SetMaterial("2DImage");
 	Renderer->SetSprite("Wall.png");
-	Renderer->CreateAnimation("Baba","Baba.Png");
-	Renderer->CreateAnimation("Wall", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 32 });
+	Renderer->CreateAnimation("BabaName","Baba.Png");
+	Renderer->CreateAnimation("WallName", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
 		
 }
 
@@ -37,14 +37,10 @@ void NameWord::NameWordChangeAnimation()
 	case BabaState::IsNone:
 		break;
 	case BabaState::IsBaba:
+		Renderer->ChangeAnimation("BabaName");
 		break;
 	case BabaState::IsRock:
-		break;
-	case BabaState::IsWord:
-		break;
-	case BabaState::IsActive:
-		break;
-	case BabaState::IsIs:
+		Renderer->ChangeAnimation("WallName");
 		break;
 	default:
 		break;

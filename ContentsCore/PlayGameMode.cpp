@@ -32,12 +32,6 @@ void APlayGameMode::BeginPlay()
 	Baba_Actors[Player->GetTile()].push_back(Player.get());
 
 
-
-	//Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-	//Player->StateInit(true, true, true);
-	//Player->SetBabaLocation(4, 2, 'W');
-	//Baba_Actors[Player->GetTile64()].push_back(Player.get());
-
 	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
 	Player->StateInit(BabaState::IsRock);
 	Player->SetBabaLocation(8, 4, 'W');
@@ -49,16 +43,9 @@ void APlayGameMode::BeginPlay()
 	Baba_Actors[Player->GetTile()].push_back(Player.get());
 
 	SpawnIs(6, 6);
-	SpawnName(3, 3, BabaState::IsRock);
-	SpawnActive(5, 5, "Push");
+	SpawnName(8, 8, BabaState::IsRock);
+	SpawnActive(4, 4, "Move");
 
-	//Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-	//Player->StateInit(false, true, false);
-	//Player->SetBabaLocation(5, 5, 'W');
-	//Baba_Actors[Player->GetTile64()].push_back(Player.get());
-
-	//std::shared_ptr<ABabaBase> Back = GetWorld()->SpawnActor<ABabaBase>("PlayBack");
-	//Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
 	TileMap::TileSet(10, 10);
 
 	InputOn();
@@ -234,6 +221,7 @@ void APlayGameMode::WordUpdate()
 
 void APlayGameMode::IsUpdate()
 {
+	BabaUpdateHelper::ActiveBaba = BabaUpdateHelper::None;
 	BabaUpdateHelper::ActiveRock = BabaUpdateHelper::None;
 	for (IsWord* _Is : Is_Vec) {
 		_Is->UpCheck(Baba_Actors);
@@ -260,6 +248,7 @@ std::shared_ptr<NameWord> APlayGameMode::SpawnName(TilePoint _Tile, BabaState _I
 	Name->StateInit(BabaState::IsWord);
 	Name->SetBabaLocation(_Tile);
 	Name->SetNameSet(_Info);
+	Name->NameWordChangeAnimation();
 	Baba_Actors[Name->GetTile()].push_back(Name.get());
 	return Name;
 }
@@ -289,6 +278,7 @@ std::shared_ptr<ActiveWord> APlayGameMode::SpawnActive(TilePoint _Tile, std::str
 	Active->SetOrder(1);
 	Active->StateInit(BabaState::IsActive);
 	Active->SetBabaLocation(_Tile);
+	Active->SetAnimation(Name);
 	Active->SetActive(*Astate);
 
 
