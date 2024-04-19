@@ -1,5 +1,7 @@
 #include "PreCompile.h"
 #include "Collision.h"
+#include "EngineDebug3D.h"
+#include "EngineCore.h"
 
 UCollision::UCollision() 
 {
@@ -49,6 +51,7 @@ bool UCollision::Collision(int _TargetGroup,
 {
 	// Group 상대 그룹
 
+
 	auto Test = GetWorld()->Collisions;
 
 	std::list<std::shared_ptr<UCollision>>& Group = GetWorld()->Collisions[_TargetGroup];
@@ -60,6 +63,11 @@ bool UCollision::Collision(int _TargetGroup,
 
 	for (std::shared_ptr<UCollision> OtherCollision : Group)
 	{
+		if (false == OtherCollision->IsActive())
+		{
+			continue;
+		}
+
 		ECollisionType ThisType = CollisionType;
 		ECollisionType OtherType = OtherCollision->CollisionType;
 
@@ -67,34 +75,39 @@ bool UCollision::Collision(int _TargetGroup,
 
 		if (true == Transform.Collision(ThisType, OtherType, OtherCollision->Transform))
 		{
-			bool IsFirst = false;
-
-			if (false == OtherCheck.contains(CollisionPtr))
+			if (false == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
 			{
-				IsFirst = true;
-			}
-			else {
-				IsFirst = false;
-			}
-
-			if (nullptr != _Enter || nullptr != _Exit)
-			{
-				OtherCheck.insert(CollisionPtr);
+				FirstCheck.insert(CollisionPtr);
+				if (nullptr != _Enter)
+				{
+					_Enter(OtherCollision);
+				}
 			}
 
-			if (true == IsFirst && nullptr != _Enter)
+			//if (true == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
+			//{
+			//	if (nullptr != _Enter)
+			//	{
+			//		_Enter(OtherCollision);
+			//	}
+			//}
+
+			
+			if (true == OtherCheck.contains(CollisionPtr))
 			{
-				_Enter(OtherCollision);
-			}
-			else if (false == IsFirst && nullptr != _Stay)
-			{
-				_Stay(OtherCollision);
+				if (nullptr != _Stay)
+				{
+					_Stay(OtherCollision);
+				}
 			}
 		}
-		else if(true == OtherCheck.contains(CollisionPtr) && nullptr != _Exit)
+		else if(true == OtherCheck.contains(CollisionPtr))
 		{
 			OtherCheck.erase(CollisionPtr);
-			_Exit(OtherCollision);
+			if (nullptr != _Exit)
+			{
+				_Exit(OtherCollision);
+			}
 		}
 	}
 
@@ -112,5 +125,63 @@ void UCollision::SetOrder(int _Order)
 	if (nullptr != GetWorld())
 	{
 		GetWorld()->ChangeOrderCollision(shared_from_this(), PrevOrder, _Order);
+	}
+}
+
+
+void UCollision::Tick(float _Delta)
+{
+	Super::Tick(_Delta);
+
+
+	for (UCollision* Col : FirstCheck)
+	{
+		OtherCheck.insert(Col);
+	}
+	FirstCheck.clear();
+
+
+	if (false == GEngine->IsDebug)
+	{
+		return;
+	}
+
+	switch (CollisionType)
+	{
+	case ECollisionType::Rect:
+	case ECollisionType::Box:
+	{
+		FTransform Trans = Transform;
+
+		float4 Scale;
+		float4 Rot;
+		float4 Pos;
+
+		Trans.ParentMat.Decompose(Scale, Rot, Pos);
+
+		float4x4 PScale;
+		float4x4 PPos;
+
+		PScale.Scale(Scale);
+		PPos.Scale(Pos);
+
+		Trans.World = Trans.ScaleMat * Trans.PositionMat * PScale * PPos;
+		Trans.WVP = Trans.World * Trans.View * Trans.Projection;
+
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Trans, float4::Black);
+		break;
+	}
+	case ECollisionType::CirCle:
+	case ECollisionType::Point:
+	case ECollisionType::Sphere:
+		break;
+	case ECollisionType::RotRect:
+	case ECollisionType::RotBox:
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Black);
+		break;
+	case ECollisionType::Max:
+		break;
+	default:
+		break;
 	}
 }

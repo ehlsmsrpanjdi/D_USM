@@ -10,13 +10,20 @@
 #include "EngineRasterizer.h"
 #include "EngineBlend.h"
 #include "EngineMaterial.h"
+#include "EngineSprite.h"
+
+#include "EngineRenderTarget.h"
 
 void UEngineGraphicDevice::EngineResourcesRelease()
 {
 	// 어차피 자동으로 지워지는 리소스들을 왜 굳이 여기서 클리어를 직접 해주지?
 	// 엔진이 종료되는 시점에 텍스처를 모두다 삭제한다.
+
 	UEngineSound::ResourcesRelease();
+	UEngineSprite::ResourcesRelease();
+	UEngineRenderTarget::ResourcesRelease();
 	UEngineTexture::ResourcesRelease();
+
 
 	// Mesh
 	UEngineVertexBuffer::ResourcesRelease();
@@ -28,6 +35,7 @@ void UEngineGraphicDevice::EngineResourcesRelease()
 	UEnginePixelShader::ResourcesRelease();
 	UEngineRasterizer::ResourcesRelease();
 	UEngineBlend::ResourcesRelease();
+
 
 	UEngineMaterial::ResourcesRelease();
 }
@@ -63,10 +71,10 @@ void MeshInit()
 		UEngineMesh::Create("Rect");
 
 		{
-			VertexData[0].POSITION *= 2.0f;
-			VertexData[1].POSITION *= 2.0f;
-			VertexData[2].POSITION *= 2.0f;
-			VertexData[3].POSITION *= 2.0f;
+			VertexData[0] = { {-1.0f, 1.0f, 0.0f, 1.0f} , {0.0f, 0.0f} };
+			VertexData[1] = { {1.0f, 1.0f, 0.0f, 1.0f} , {1.0f, 0.0f} };
+			VertexData[2] = { {1.0f, -1.0f, 0.0f, 1.0f}, {1.0f, 1.0f} };
+			VertexData[3] = { {-1.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f} };
 			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("FullRect", VertexData);
 		}
 
@@ -84,49 +92,7 @@ void ShaderInit()
 {
 	UEngineDirectory Dir;
 	Dir.MoveToSearchChild("EngineShader");
-
-	std::vector<UEngineFile> Files = Dir.GetAllFile({".fx", "hlsl"});
-
-	for (size_t i = 0; i < Files.size(); i++)
-	{
-		std::string FullPath = Files[i].GetFullPath();
-		std::string AllShaderCode = Files[i].GetString();
-
-		{
-			// 앞에서부터 뒤로
-			size_t ShaderEntryEnd = AllShaderCode.find("_VS("/*, 0*/);
-
-			if (std::string::npos != ShaderEntryEnd)
-			{
-				// 뒤에서부터 앞으로
-				size_t ShaderEntryStart = AllShaderCode.rfind(" ", ShaderEntryEnd);
-				std::string EntryName = AllShaderCode.substr(ShaderEntryStart + 1, ShaderEntryEnd - ShaderEntryStart - 1);
-				EntryName += "_VS";
-
-				UEngineVertexShader::Load(FullPath.c_str(), EntryName);
-			}
-		}
-
-		{
-			// 앞에서부터 뒤로
-			size_t ShaderEntryEnd = AllShaderCode.find("_PS("/*, 0*/);
-
-			if (std::string::npos != ShaderEntryEnd)
-			{
-				// 뒤에서부터 앞으로
-				size_t ShaderEntryStart = AllShaderCode.rfind(" ", ShaderEntryEnd);
-				std::string EntryName = AllShaderCode.substr(ShaderEntryStart + 1, ShaderEntryEnd - ShaderEntryStart - 1);
-				EntryName += "_PS";
-
-				UEnginePixelShader::Load(FullPath.c_str(), EntryName);
-			}
-		}
-	}
-
-	// UEngineVertexShader::Load("D:ENgineShader\MeshVertexShader", "AAAA_VS");
-
-	//UEngineVertexShader::Load("AAA.png", EntryName);
-	//UEngineVertexShader::Load("BBB.png", EntryName);
+	UEngineShader::AutoCompile(Dir);
 }
 
 void SettingInit()
@@ -166,6 +132,16 @@ void SettingInit()
 		// 레스터라이저 세팅
 		UEngineRasterizer::Create("EngineBase", Desc);
 	}
+
+	{
+		D3D11_RASTERIZER_DESC Desc = {};
+		Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+		Desc.AntialiasedLineEnable = TRUE;
+		Desc.DepthClipEnable = TRUE;
+		UEngineRasterizer::Create("Debug", Desc);
+	}
+
 
 	{
 		D3D11_SAMPLER_DESC Desc = {};
@@ -258,7 +234,7 @@ void SettingInit()
 
 		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 
-		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
+		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 
 		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
 
@@ -298,10 +274,31 @@ void SettingInit()
 void MaterialInit()
 {
 
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImage");
+		Mat->SetPixelShader("ImageShader.fx");
+		Mat->SetVertexShader("ImageShader.fx");
+	}
 
-	std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImage");
-	Mat->SetPixelShader("ImageShader.fx");
-	Mat->SetVertexShader("ImageShader.fx");
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Debug");
+		Mat->SetPixelShader("DebugShader.fx");
+		Mat->SetVertexShader("DebugShader.fx");
+		Mat->SetRasterizer("Debug");
+	}
+
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("TargetCopy");
+		Mat->SetPixelShader("TargetCopyShader.fx");
+		Mat->SetVertexShader("TargetCopyShader.fx");
+	}
+
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Blur");
+		Mat->SetPixelShader("BlurEffectShader.fx");
+		Mat->SetVertexShader("BlurEffectShader.fx");
+	}
+
 
 }
 
@@ -328,4 +325,6 @@ void UEngineGraphicDevice::EngineResourcesInit()
 	SettingInit();
 	MaterialInit();
 	EngineTextureInit();
+
+	UEngineRenderTarget::RenderTargetInit();
 }

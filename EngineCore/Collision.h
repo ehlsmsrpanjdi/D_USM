@@ -90,12 +90,13 @@ public:
 
 protected:
 	void BeginPlay() override;
+	void Tick(float _Delta) override;
 
 private:
 	ECollisionType CollisionType = ECollisionType::CirCle;
 
 	// 순환참조를 막자.
+	std::set<UCollision*> FirstCheck;
 	std::set<UCollision*> OtherCheck;
-
 };
 

@@ -36,7 +36,7 @@ public:
 		{
 			MsgBoxAssert("언리얼에서는 생성자에서밖에 컴포넌트를 생성할수 없습니다.");
 		}
-		
+
 		std::shared_ptr<UActorComponent> NewComponent = std::make_shared<ComponentType>();
 
 		PushComponent(NewComponent, _Name);
@@ -62,6 +62,16 @@ public:
 	void AddActorRotation(FVector _Value);
 	void AddActorLocation(FVector _Value);
 
+	inline USceneComponent* GetRoot() const
+	{
+		if (nullptr == RootComponent)
+		{
+			MsgBoxAssert("아직 루트를 지정하지 않았습니다.");
+		}
+
+		return RootComponent;
+	}
+
 	void SetRoot(USceneComponent* _Root)
 	{
 		if (nullptr != RootComponent)
@@ -83,6 +93,37 @@ public:
 	}
 
 	virtual void End() {};
+
+	// 걷뵈만 똑같게 만들려고 만든 인터페이스
+	template<typename WidgetType>
+	WidgetType* CreateWidget(ULevel* _Level, std::string_view _Name)
+	{
+		std::shared_ptr<UWidget> NewWidget = std::make_shared<WidgetType>();
+
+		WidgetInit(NewWidget, _Name);
+
+		return dynamic_cast<WidgetType*>(NewWidget.get());
+	}
+
+	template<typename Class>
+	std::vector<std::shared_ptr<Class>> GetComponentToClass()
+	{
+		std::vector<std::shared_ptr<Class>> FindVector;
+
+		for (size_t i = 0; i < Components.size(); i++)
+		{
+			std::shared_ptr<Class> ClassType = std::dynamic_pointer_cast<Class>(Components[i]);
+
+			if (nullptr != ClassType)
+			{
+				FindVector.push_back(ClassType);
+			}
+		}
+
+		return FindVector;
+	}
+
+
 
 protected:
 	void BeginPlay() override;
@@ -134,6 +175,8 @@ private:
 	static std::set<AActor*> InputActors;
 	static std::set<AActor*> PrevInputActors;
 
+
+	void WidgetInit(std::shared_ptr<UWidget> _Widget, std::string_view _Name);
 
 };
 

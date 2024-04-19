@@ -4,13 +4,17 @@
 
 UEngineEditorWindow::UEngineEditorWindow() 
 {
+	int a = 0;
 }
 
 UEngineEditorWindow::~UEngineEditorWindow() 
 {
 }
 
-	
+void UEngineEditorWindow::Tick(ULevel* Level, float _Delta)
+{
+
+}
 
 void UEngineEditorWindow::Begin()
 {

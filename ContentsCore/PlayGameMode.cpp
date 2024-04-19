@@ -12,6 +12,7 @@
 #include "IsWord.h"
 #include "NameWord.h"
 #include "ActiveWord.h"
+#include "BabaEditor.h"
 
 APlayGameMode::APlayGameMode()
 {}
@@ -45,6 +46,7 @@ void APlayGameMode::BeginPlay()
 	SpawnIs(6, 6);
 	SpawnName(8, 8, BabaState::IsRock);
 	SpawnActive(4, 4, "Move");
+	
 
 	TileMap::TileSet(10, 10);
 
@@ -210,7 +212,7 @@ void APlayGameMode::DebugMessageFunction()
 {
 	{
 		std::string Msg = std::format("Change BABA : {}\n", std::to_string(Change_Baba.size()));
-		UEngineDebugMsgWindow::PushMsg(Msg);
+		BabaEditor::PushMsg(Msg);
 	}
 
 }

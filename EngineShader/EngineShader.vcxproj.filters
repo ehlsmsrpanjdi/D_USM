@@ -7,6 +7,15 @@
     <Filter Include="Header">
       <UniqueIdentifier>{797b0f81-41dc-479f-a6fb-4e3bc03978f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{5834e415-c6e7-4638-85e2-d60475a5f03d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Target">
+      <UniqueIdentifier>{1349f829-1266-40c6-a1e3-1b19dcf69ce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{adbc2146-e38a-474e-8965-1b8231d60a1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ImageShader.fx">
@@ -14,6 +23,15 @@
     </FxCompile>
     <FxCompile Include="ColorShader.fx">
       <Filter>2D</Filter>
+    </FxCompile>
+    <FxCompile Include="DebugShader.fx">
+      <Filter>Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="TargetCopyShader.fx">
+      <Filter>Target</Filter>
+    </FxCompile>
+    <FxCompile Include="BlurEffectShader.fx">
+      <Filter>Effect</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

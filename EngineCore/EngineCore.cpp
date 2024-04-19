@@ -92,6 +92,7 @@ void UEngineCore::EngineOptionInit()
 
 void UEngineCore::EngineEnd()
 {
+	Levels.clear();
 	EngineDevice.EngineResourcesRelease();
 }
 
@@ -125,15 +126,17 @@ void UEngineCore::EngineFrameUpdate()
 	// 게임에 요소들을 그리고
 
 	CurLevel->Render(DeltaTime);
-	UDebugRenderClass::DebugRender();
-	UEngineEditorGUI::GUIRender(DeltaTime);
+	UDebugRenderClass::DebugRender(CurLevel.get());
+	UEngineEditorGUI::GUIRender(CurLevel.get(), DeltaTime);
 	EngineDevice.RenderEnd();
 
 	CurLevel->Destroy();
 }
 
-std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string& _Name, std::shared_ptr<AActor> _GameMode)
+std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string_view _Name, std::shared_ptr<AActor> _GameMode)
 {
+	std::string UpperName = UEngineString::ToUpper(_Name);
+
 	std::shared_ptr <AGameMode> GameModePtr = std::dynamic_pointer_cast<AGameMode>(_GameMode);
 
 	if (nullptr == GameModePtr)
@@ -143,7 +146,9 @@ std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string& _Name, std::sha
 	}
 
 	std::shared_ptr<ULevel> Level = std::make_shared<ULevel>();
+	Level->SetGameMode(GameModePtr);
+	Level->SetName(_Name);
 	Level->PushActor(_GameMode);
-	Levels[_Name] = Level;
+	Levels[UpperName] = Level;
 	return Level;
 }

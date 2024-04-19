@@ -2,23 +2,7 @@
 #include "Renderer.h"
 #include "EngineEnums.h"
 #include "EngineSprite.h"
-
-struct FCuttingData
-{
-	//       0, 0
-	float4 CuttingPosition;
-	//      0.5 0.5
-	float4 CuttingSize;
-	float4x4 PivotMat;
-};
-
-struct ResultColorValue
-{
-	float4 PlusColor = float4::Zero;
-	float4 MulColor = float4::One;
-	float4 AlphaColor = float4::One;
-};
-
+#include "EngineStruct.h"
 
 class UEngineSprite;
 class USpriteAnimation : public UNameObject
@@ -112,6 +96,17 @@ public:
 		Pivot = _Pivot;
 	}
 
+	inline FSpriteInfo GetCurInfo() const
+	{
+		return CurInfo;
+	}
+
+	void SetCurInfo(FSpriteInfo _CurInfo)
+	{
+		CurInfo = _CurInfo;
+		SetSpriteInfo(CurInfo);
+		CurAnimation = nullptr;
+	}
 	
 protected:
 	void Tick(float _DeltaTime) override;
@@ -123,12 +118,12 @@ private:
 	FSpriteInfo CurInfo;
 	EPivot Pivot = EPivot::MAX;
 	EEngineDir Dir = EEngineDir::MAX;
-	ResultColorValue ColorData;
-	FCuttingData CuttingDataValue;
 	std::shared_ptr<UEngineTexture> CurTexture = nullptr;
 	std::map<std::string, std::shared_ptr<USpriteAnimation>> Animations;
 	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
 	ETextureSampling SamplingValue = ETextureSampling::POINT;
 
+	FResultColorValue ColorData;
+	FCuttingData CuttingDataValue;
 };
 

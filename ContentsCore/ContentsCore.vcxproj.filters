@@ -40,6 +40,9 @@
     <ClInclude Include="ActiveWord.h">
       <Filter>Level\Actor\Word</Filter>
     </ClInclude>
+    <ClInclude Include="BabaEditor.h">
+      <Filter>MapEdit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -81,6 +84,9 @@
     <ClCompile Include="ActiveWord.cpp">
       <Filter>Level\Actor\Word</Filter>
     </ClCompile>
+    <ClCompile Include="BabaEditor.cpp">
+      <Filter>MapEdit</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -112,6 +118,9 @@
     </Filter>
     <Filter Include="Level\Actor\Word">
       <UniqueIdentifier>{64f15921-8804-4dbb-be99-dd4e558d3567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapEdit">
+      <UniqueIdentifier>{1d5bc643-d7cd-44a7-9944-0b0fff0910bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

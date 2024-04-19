@@ -82,6 +82,18 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{9b0ed79c-f0c6-474e-bfbd-abd9de47fd79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component\Rendering\Contents">
+      <UniqueIdentifier>{f4e06e9e-bc13-44fa-8e23-d0b3130c7c5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI">
+      <UniqueIdentifier>{4e22d4e5-cecd-412a-a937-0d622dd5d416}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI\Contents">
+      <UniqueIdentifier>{6a17afd8-9664-4dbe-a520-7c63fe26b9ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering\Contents">
+      <UniqueIdentifier>{595b519c-7147-45ad-b5d4-3f8d495027b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -180,9 +192,6 @@
     <ClCompile Include="EngineSampler.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Object\Component\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="EngineSprite.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
@@ -227,6 +236,27 @@
     </ClCompile>
     <ClCompile Include="EngineDebug3D.cpp">
       <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="TileRenderer.cpp">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineStruct.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUnit.cpp">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Object\UI\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurEffect.cpp">
+      <Filter>Object\Rendering\Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -329,9 +359,6 @@
     <ClInclude Include="ThirdParty\DirectxTex\inc\DirectXTex.h">
       <Filter>ThirdParty\DirectXTex\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Object\Component\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="EngineSprite.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
@@ -382,6 +409,27 @@
     </ClInclude>
     <ClInclude Include="EngineDebug3D.h">
       <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="TileRenderer.h">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineStruct.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUnit.h">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Object\UI\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurEffect.h">
+      <Filter>Object\Rendering\Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

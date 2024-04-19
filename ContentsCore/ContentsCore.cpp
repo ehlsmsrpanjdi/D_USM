@@ -2,6 +2,8 @@
 #include "ContentsCore.h"
 #include "PlayGameMode.h"
 #include <EngineCore/EngineSprite.h>
+#include "BabaEditor.h"
+#include <EngineCore/EngineEditorGUI.h>
 
 ContentsCore::ContentsCore()
 {
@@ -15,10 +17,9 @@ void ContentsCore::Initialize()
 {
 	ResourcesInit();
 
-
+	UEngineEditorGUI::CreateEditorWindow<BabaEditor>("BabaEditor");
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
 	GEngine->ChangeLevel("PlayLevel");
-
 
 }
 
