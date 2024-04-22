@@ -124,9 +124,7 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 			return;
 		}
 		UEngineSerializer Ser;
-		for (int i : TileData) {
-			Ser << i;
-		}
+		Ser << TileData;
 		std::string Str = FileName;
 		UEngineFile File = Dir.GetPathFromFile(Str + ".Data");
 		File.Open(EIOOpenMode::Write, EIODataType::Binary);
@@ -148,6 +146,8 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		File.Load(Ser);
 		str = "FileLoad";
 		FileState = true;
+		Ser >> TileData;
+		for(int i = 0; i <)
 	}
 
 	if (FileState == true) {
