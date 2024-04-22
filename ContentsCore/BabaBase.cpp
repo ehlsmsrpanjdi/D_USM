@@ -214,11 +214,6 @@ void ABabaBase::DebugMessageFunction()
 		std::string Msg = std::format("MousePos : {}\n", GetActorLocation().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
-
-	//{
-	//	std::string Msg = std::format("BabaIndex : {}\n", std::to_string());
-	//	UEngineDebugMsgWindow::PushMsg(Msg);
-	//}
 }
 
 void ABabaBase::ChangeTile(std::map<TilePoint, std::list<ABabaBase*>>& _Baba_Actors)

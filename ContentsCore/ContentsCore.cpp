@@ -18,6 +18,8 @@ void ContentsCore::Initialize()
 	ResourcesInit();
 
 	UEngineEditorGUI::CreateEditorWindow<BabaEditor>("BabaEditor");
+
+
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
 	GEngine->ChangeLevel("PlayLevel");
 

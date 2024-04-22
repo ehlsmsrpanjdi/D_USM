@@ -64,13 +64,11 @@ void APlayGameMode::Tick(float _DeltaTime)
 		CanInput = false;
 	}
 	if (CanInput == true) {
+		IsUpdate();
 		BabaInputCheck();
 	}
 	DebugMessageFunction();
 
-	if (IsPress('Q')) {
-		BabaUpdateHelper::Baba = BabaState::IsRock;
-	}
 }
 
 void APlayGameMode::Baba_Input()
@@ -286,6 +284,34 @@ std::shared_ptr<ActiveWord> APlayGameMode::SpawnActive(TilePoint _Tile, std::str
 
 	Baba_Actors[Active->GetTile()].push_back(Active.get());
 	return Active;
+}
+
+std::shared_ptr<ABabaBase> APlayGameMode::SpawnBaba(TilePoint _Tile, std::string_view _Str)
+{
+	std::string Name = UEngineString::ToUpper(_Str);
+	std::shared_ptr<ABabaBase> Baba = nullptr;
+	if (Name._Equal("BABA")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("BABA");
+		Baba->StateInit(BabaState::IsBaba);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("WALL")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("WALL");
+		Baba->StateInit(BabaState::IsRock);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	//else if (Name._Equal("STOP")) {
+	//	Astate = &BabaUpdateHelper::Stop;
+	//}
+	//else if (Name._Equal("PULL")) {
+	//	Astate = &BabaUpdateHelper::Pull;
+	//}
+	else {
+		MsgBoxAssert("ActiveName에 이상한거넣었음");
+	}
+	return Baba;
 }
 
 

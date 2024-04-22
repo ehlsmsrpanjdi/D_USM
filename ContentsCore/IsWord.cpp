@@ -42,7 +42,7 @@ void IsWord::UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 	if (BabaState::IsWord != LeftWord->GetBstate()) {
 		return;
 	}
-	TilePoint DTile = this->KeyTileReturn('D');
+	TilePoint DTile = this->KeyTileReturn('S');
 
 
 	ABabaBase* RightWord = WorldCheck(_Map, DTile);

@@ -12,6 +12,8 @@ class APlayGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
 
+	friend class BabaEditor;
+
 public:
 	// constrcuter destructer
 	APlayGameMode();
@@ -48,6 +50,7 @@ protected:
 	std::shared_ptr<IsWord> SpawnIs(TilePoint _Tile);
 	std::shared_ptr<NameWord> SpawnName(TilePoint _Tile, BabaState _Info);
 	std::shared_ptr<ActiveWord> SpawnActive(TilePoint _Tile, std::string_view _Str);
+	std::shared_ptr<ABabaBase> SpawnBaba(TilePoint _Tile, std::string_view _Str);
 
 	std::shared_ptr<IsWord> SpawnIs(int _X, int _Y) {
 		return SpawnIs(TilePoint(_X, _Y));
@@ -58,6 +61,11 @@ protected:
 	std::shared_ptr<ActiveWord> SpawnActive(int _X, int _Y, std::string_view _Str) {
 		return SpawnActive(TilePoint(_X, _Y), _Str);
 	}
+
+	std::shared_ptr<ABabaBase> SpawnBaba(int _X, int _Y, std::string_view _Str) {
+		return SpawnBaba(TilePoint(_X, _Y), _Str);
+	}
+
 private:
 
 	bool CanInput = false;
