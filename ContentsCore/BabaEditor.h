@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/EngineEditorGUI.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
+#include <EngineBase/EngineDirectory.h>
 
 class APlayGameMode;
 // Ό³Έν :
@@ -26,10 +27,15 @@ protected:
 
 	int Location[2] = { 0, };
 	
-	std::string TestNAme = "";
+	char FileName[255] = "";
 
+	UEngineDirectory Dir;
 	std::vector<int> TileData;
 	std::vector<class ABabaBase*> Tiles;
+	std::string str = "";
+
+	bool FileState = false;
+	float _DeltaTime = 0.f;
 
 	void EditorSwitch(int _X, int _Y, int _Index);
 private:
