@@ -28,10 +28,10 @@ protected:
 	
 	std::string TestNAme = "";
 
-	std::map<TilePoint, std::vector<int>> TileData;
+	std::vector<int> TileData;
+	std::vector<class ABabaBase*> Tiles;
 
 	void EditorSwitch(int _X, int _Y, int _Index);
-
 private:
 
 };
