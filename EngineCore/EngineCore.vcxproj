@@ -263,6 +263,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="EngineStruct.h" />
+    <ClInclude Include="EngineStructuredBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineTexture.h">
       <SubType>
       </SubType>
@@ -280,6 +284,10 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="InstancingRender.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PreCompile.h">
       <SubType>
       </SubType>
@@ -301,6 +309,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Renderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SpriteInstancingRender.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -447,6 +459,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineStruct.cpp" />
+    <ClCompile Include="EngineStructuredBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineTexture.cpp">
       <SubType>
       </SubType>
@@ -463,6 +479,10 @@
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="InstancingRender.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <SubType>
       </SubType>
@@ -488,6 +508,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SpriteInstancingRender.cpp">
       <SubType>
       </SubType>
     </ClCompile>

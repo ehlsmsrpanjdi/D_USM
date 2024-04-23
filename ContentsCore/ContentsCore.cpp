@@ -4,6 +4,8 @@
 #include <EngineCore/EngineSprite.h>
 #include "BabaEditor.h"
 #include <EngineCore/EngineEditorGUI.h>
+#include<EngineCore/EnginePixelShader.h>
+
 
 ContentsCore::ContentsCore()
 {
@@ -18,6 +20,17 @@ void ContentsCore::Initialize()
 	ResourcesInit();
 
 	UEngineEditorGUI::CreateEditorWindow<BabaEditor>("BabaEditor");
+
+	{
+
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Noise");
+		Mat->SetVertexShader("ImageShader.fx");
+		Mat->SetPixelShader("ImageShader.fx");
+		Mat->SetRasterizer("EngineBase");
+		Mat->SetBlend("Overlay");
+
+	}
+
 
 
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");

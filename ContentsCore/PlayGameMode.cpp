@@ -13,6 +13,10 @@
 #include "NameWord.h"
 #include "ActiveWord.h"
 #include "BabaEditor.h"
+#include "BackGround.h"
+#include "BackgroundCirCle.h"
+#include <EngineCore/BlurEffect.h>
+#include "FadeEffect.h"
 
 APlayGameMode::APlayGameMode()
 {}
@@ -47,6 +51,8 @@ void APlayGameMode::BeginPlay()
 	SpawnName(8, 8, BabaState::IsRock);
 	SpawnActive(4, 4, "Move");
 	
+	GetWorld()->SpawnActor<BackGroundCirCle>("Fade");
+	GetWorld()->GetLastTarget()->AddEffect<FadeEffect>();
 
 	TileMap::TileSet(10, 10);
 

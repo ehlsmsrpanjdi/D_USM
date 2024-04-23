@@ -4,7 +4,6 @@
 
 UEngineEditorWindow::UEngineEditorWindow() 
 {
-	int a = 0;
 }
 
 UEngineEditorWindow::~UEngineEditorWindow() 

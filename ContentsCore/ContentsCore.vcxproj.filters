@@ -43,6 +43,15 @@
     <ClInclude Include="BabaEditor.h">
       <Filter>MapEdit</Filter>
     </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>Level\Actor\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundCirCle.h">
+      <Filter>Level\Actor\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -87,6 +96,15 @@
     <ClCompile Include="BabaEditor.cpp">
       <Filter>MapEdit</Filter>
     </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Level\Actor\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundCirCle.cpp">
+      <Filter>Level\Actor\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -121,6 +139,12 @@
     </Filter>
     <Filter Include="MapEdit">
       <UniqueIdentifier>{1d5bc643-d7cd-44a7-9944-0b0fff0910bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Actor\Fade">
+      <UniqueIdentifier>{0b5270d6-3716-4be0-b0c1-1588da7fdc4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{eb6f895b-33ca-4482-85c0-cb17805e5367}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -41,7 +41,17 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 {
 	ImGui::InputInt2("Location", Location);
 
-	GEngine->EngineWindow.GetScreenMousePos();
+	float4 MousePos = GEngine->EngineWindow.GetScreenMousePos();
+	MousePos = Level->GetMainCamera()->ScreenPosToWorldPos(MousePos);
+
+	int XPos = MousePos.X / 32;
+	int YPos = MousePos.Y / 32;
+
+	ImGui::Text(("Mouse X : " + (std::to_string(MousePos.X))).c_str());
+	ImGui::Text(("Mouse Y : " + (std::to_string(MousePos.Y))).c_str());
+	
+	ImGui::Text(("Mouse intX : " + (std::to_string(XPos))).c_str());
+	ImGui::Text(("Mouse intY : " + (std::to_string(YPos))).c_str());
 
 
 	if (true == ImGui::Button("Baba")) {
@@ -134,6 +144,13 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	}
 
 	if (true == ImGui::Button("Load")) {
+
+		for (ABabaBase* Baba : Tiles) {
+			Baba->Destroy();
+		}
+		Tiles.clear();
+		TileData.clear();
+
 		UEngineSerializer Ser;
 		std::string Str = FileName;
 		UEngineFile File = Dir.GetPathFromFile(Str + ".Data");
@@ -147,7 +164,11 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		str = "FileLoad";
 		FileState = true;
 		Ser >> TileData;
-		for(int i = 0; i <)
+		int Index = 0;
+		while (TileData.size() > Index) {
+			EditorSwitch(TileData[Index], TileData[Index + 1],TileData[Index + 2]);
+			Index += 3;
+		}
 	}
 
 	if (FileState == true) {
@@ -158,6 +179,8 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 			FileState = false;
 		}
 	}
+
+
 }
 
 void BabaEditor::EditorSwitch(int _X, int _Y, int _Index)
@@ -166,52 +189,52 @@ void BabaEditor::EditorSwitch(int _X, int _Y, int _Index)
 	{
 	case 1:
 	{
-		Tiles.push_back(GameMode->SpawnBaba(Location[0], Location[1], "Baba").get());
+		Tiles.push_back(GameMode->SpawnBaba(_X,_Y, "Baba").get());
 	}
 	break;
 	case 2:
 	{
-		Tiles.push_back(GameMode->SpawnBaba(Location[0], Location[1], "Wall").get());
+		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Wall").get());
 	}
 	break;
 	case 11:
 	{
-		IsWord* Baba = GameMode->SpawnIs(Location[0], Location[1]).get();
+		IsWord* Baba = GameMode->SpawnIs(_X, _Y).get();
 		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
 		Tiles.push_back(Bababa);
 	}
 	break;
 	case 21:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(Location[0], Location[1], "Push").get();
+		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Push").get();
 		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
 		Tiles.push_back(Bababa);
 	}
 	break;
 	case 22:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(Location[0], Location[1], "Move").get();
+		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Move").get();
 		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
 		Tiles.push_back(Bababa);
 	}
 	break;
 	case 23:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(Location[0], Location[1], "Pull").get();
+		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Pull").get();
 		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
 		Tiles.push_back(Bababa);
 	}
 	break;
 	case 31:
 	{
-		NameWord* Baba = GameMode->SpawnName(Location[0], Location[1], BabaState::IsBaba).get();
+		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsBaba).get();
 		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
 		Tiles.push_back(Bababa);
 	}
 	break;
 	case 32:
 	{
-		NameWord* Baba = GameMode->SpawnName(Location[0], Location[1], BabaState::IsRock).get();
+		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsRock).get();
 		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
 		Tiles.push_back(Bababa);
 	}

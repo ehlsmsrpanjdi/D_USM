@@ -142,6 +142,15 @@ void UImage::SetSpriteInfo(const FSpriteInfo& _Info)
 		CuttingDataValue.PivotMat.Position(Scale);
 		break;
 	}
+	case EPivot::RIGHTBOTTOM:
+	{
+		float4 Scale = Transform.WorldScale;
+		Scale.X = -abs(Scale.X) * 0.5f;
+		Scale.Y = abs(Scale.Y) * 0.5f;
+		Scale.Z = 0.0f;
+		CuttingDataValue.PivotMat.Position(Scale);
+		break;
+	}
 	case EPivot::MAX:
 	default:
 	{
@@ -271,7 +280,14 @@ void UImage::CreateAnimation(
 
 	if (End < Start)
 	{
-		MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
+		//MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
+		for (int i = Start; End <= i; i--)
+		{
+			Inter.push_back(_Inter);
+			Frame.push_back(i);
+		}
+
+		CreateAnimation(_AnimationName, _SpriteName, Inter, Frame, _Loop);
 		return;
 	}
 
@@ -289,6 +305,11 @@ void UImage::CreateAnimation(
 
 void UImage::ChangeAnimation(std::string_view _AnimationName)
 {
+	if (nullptr != CurAnimation && _AnimationName == CurAnimation->GetName())
+	{
+		return;
+	}
+
 	std::string UpperName = UEngineString::ToUpper(_AnimationName);
 
 	if (false == Animations.contains(UpperName))
