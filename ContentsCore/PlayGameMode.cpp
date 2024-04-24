@@ -51,7 +51,7 @@ void APlayGameMode::BeginPlay()
 	SpawnName(8, 8, BabaState::IsRock);
 	SpawnActive(4, 4, "Move");
 	
-	GetWorld()->SpawnActor<BackGroundCirCle>("Fade");
+	GetWorld()->SpawnActor<BackGround>("Fade");
 	GetWorld()->GetLastTarget()->AddEffect<FadeEffect>();
 
 	TileMap::TileSet(10, 10);
