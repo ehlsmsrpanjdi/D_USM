@@ -89,7 +89,12 @@ struct TilePoint {
 enum class BabaState {
 	IsNone = 0,
 	IsBaba,
+	IsWall,
 	IsRock,
+	IsFlag,
+	IsSkull,
+	IsWater,
+	IsLava,
 	IsWord,
 	IsActive,
 	IsIs,
@@ -154,7 +159,13 @@ public:
 
 
 	static BabaState Baba;
+	static BabaState Wall;
 	static BabaState Rock;
+	static BabaState Flag;
+	static BabaState Skull;
+	static BabaState Water;
+	static BabaState Lava;
+
 
 
 };

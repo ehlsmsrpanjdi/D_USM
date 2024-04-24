@@ -67,7 +67,41 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		TileData.push_back(2);
 		EditorSwitch(Location[0], Location[1], 2);
 	}
-
+	ImGui::SameLine();
+	if (true == ImGui::Button("Rock")) {
+		TileData.push_back(Location[0]);
+		TileData.push_back(Location[1]);
+		TileData.push_back(2);
+		EditorSwitch(Location[0], Location[1], 3);
+	}
+	ImGui::SameLine();
+	if (true == ImGui::Button("Flag")) {
+		TileData.push_back(Location[0]);
+		TileData.push_back(Location[1]);
+		TileData.push_back(2);
+		EditorSwitch(Location[0], Location[1], 4);
+	}
+	ImGui::SameLine();
+	if (true == ImGui::Button("Skull")) {
+		TileData.push_back(Location[0]);
+		TileData.push_back(Location[1]);
+		TileData.push_back(2);
+		EditorSwitch(Location[0], Location[1], 5);
+	}
+	ImGui::SameLine();
+	if (true == ImGui::Button("Water")) {
+		TileData.push_back(Location[0]);
+		TileData.push_back(Location[1]);
+		TileData.push_back(2);
+		EditorSwitch(Location[0], Location[1], 6);
+	}
+	ImGui::SameLine();
+	if (true == ImGui::Button("Lava")) {
+		TileData.push_back(Location[0]);
+		TileData.push_back(Location[1]);
+		TileData.push_back(2);
+		EditorSwitch(Location[0], Location[1], 7);
+	}
 
 
 	if (true == ImGui::Button("Is")) {
@@ -188,14 +222,25 @@ void BabaEditor::EditorSwitch(int _X, int _Y, int _Index)
 	switch (_Index)
 	{
 	case 1:
-	{
 		Tiles.push_back(GameMode->SpawnBaba(_X,_Y, "Baba").get());
-	}
 	break;
 	case 2:
-	{
 		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Wall").get());
-	}
+	case 3:
+		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Rock").get());
+		break;
+	case 4:
+		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Flag").get());
+		break;
+	case 5:
+		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Skull").get());
+		break;
+	case 6:
+		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Water").get());
+		break;
+	case 7:
+		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Lava").get());
+		break;
 	break;
 	case 11:
 	{
@@ -234,7 +279,7 @@ void BabaEditor::EditorSwitch(int _X, int _Y, int _Index)
 	break;
 	case 32:
 	{
-		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsRock).get();
+		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsWall).get();
 		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
 		Tiles.push_back(Bababa);
 	}

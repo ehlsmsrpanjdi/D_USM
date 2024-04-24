@@ -18,10 +18,9 @@ void NameWord::BeginPlay()
 	Super::BeginPlay();
 	Renderer->SetOrder(2);
 	Renderer->SetMaterial("2DImage");
-	Renderer->SetSprite("Wall.png");
 	Renderer->CreateAnimation("BabaName","Baba.Png");
 	Renderer->CreateAnimation("WallName", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
-		
+	Renderer->ChangeAnimation("WallName");
 }
 
 void NameWord::Tick(float _DeltaTime)
@@ -39,7 +38,7 @@ void NameWord::NameWordChangeAnimation()
 	case BabaState::IsBaba:
 		Renderer->ChangeAnimation("BabaName");
 		break;
-	case BabaState::IsRock:
+	case BabaState::IsWall:
 		Renderer->ChangeAnimation("WallName");
 		break;
 	default:

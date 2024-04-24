@@ -22,27 +22,8 @@ void ABabaBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetOrder(1);
-	Renderer->SetMaterial("2DImage");
+	RenderInit();
 
-	Renderer->CreateAnimation("Baba_Down_1", "Baba_Down_1.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Down_2", "Baba_Down_2.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Down_3", "Baba_Down_3.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Down_4", "Baba_Down_4.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Right_1", "Baba_Right_1.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Right_2", "Baba_Right_2.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Right_3", "Baba_Right_3.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Right_4", "Baba_Right_4.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Left_1", "Baba_Left_1.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Left_2", "Baba_Left_2.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Left_3", "Baba_Left_3.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Left_4", "Baba_Left_4.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Up_1", "Baba_Up_1.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Up_2", "Baba_Up_2.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Up_3", "Baba_Up_3.png", 0.1f);
-	Renderer->CreateAnimation("Baba_Up_4", "Baba_Up_4.png", 0.1f);
-
-	Renderer->CreateAnimation("Wall", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
 	Renderer->ChangeAnimation("wall");
 	/*Renderer->SetSprite("Wall.png");*/
 
@@ -56,6 +37,7 @@ void ABabaBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	SetActorlocation2D(Lerp(_DeltaTime));
+	BabaHelperUpdate();
 	BabaUpdate();
 	DebugMessageFunction();
 }
@@ -228,21 +210,31 @@ void ABabaBase::ChangeTile(std::map<TilePoint, std::list<ABabaBase*>>& _Baba_Act
 bool ABabaBase::MoveCheck()
 {
 
-	bool Temp = true;
+	bool Temp = false;
 	switch (BState)
 	{
 	case BabaState::IsNone:
 		break;
 	case BabaState::IsBaba:
-		Temp = BabaUpdateHelper::ActiveBaba.IsMove && Temp;
+		Temp = BabaUpdateHelper::ActiveBaba.IsMove || Temp;
 		break;
 	case BabaState::IsRock:
-		Temp = BabaUpdateHelper::ActiveRock.IsMove && Temp;
+		Temp = BabaUpdateHelper::ActiveRock.IsMove || Temp;
 		break;
-	case BabaState::IsWord:
-	case BabaState::IsIs:
-	case BabaState::IsActive:
-		Temp = BabaUpdateHelper::ActiveWord.IsMove && Temp;
+	case BabaState::IsWall:
+		Temp = BabaUpdateHelper::ActiveWall.IsMove || Temp;
+		break;
+	case BabaState::IsFlag:
+		Temp = BabaUpdateHelper::ActiveFlag.IsMove || Temp;
+		break;
+	case BabaState::IsSkull:
+		Temp = BabaUpdateHelper::ActiveSkull.IsMove || Temp;
+		break;
+	case BabaState::IsWater:
+		Temp = BabaUpdateHelper::ActiveWater.IsMove || Temp;
+		break;
+	case BabaState::IsLava:
+		Temp = BabaUpdateHelper::ActiveLava.IsMove || Temp;
 		break;
 	default:
 		break;
@@ -254,16 +246,40 @@ bool ABabaBase::MoveCheck()
 
 bool ABabaBase::PushCheck()
 {
-	bool Temp = true;
+	bool Temp = false;
 	switch (BState)
 	{
 	case BabaState::IsNone:
 		break;
 	case BabaState::IsBaba:
-		Temp = BabaUpdateHelper::ActiveBaba.IsPush && Temp;
+		Temp = BabaUpdateHelper::ActiveBaba.IsPush || Temp;
 		break;
 	case BabaState::IsRock:
-		Temp = BabaUpdateHelper::ActiveRock.IsPush && Temp;
+		Temp = BabaUpdateHelper::ActiveRock.IsPush || Temp;
+		break;
+	case BabaState::IsWall:
+		Temp = BabaUpdateHelper::ActiveWall.IsPush || Temp;
+		break;
+	case BabaState::IsFlag:
+		Temp = BabaUpdateHelper::ActiveFlag.IsPush || Temp;
+		break;
+	case BabaState::IsSkull:
+		Temp = BabaUpdateHelper::ActiveSkull.IsPush || Temp;
+		break;
+	case BabaState::IsWater:
+		Temp = BabaUpdateHelper::ActiveWater.IsPush || Temp;
+		break;
+	case BabaState::IsLava:
+		Temp = BabaUpdateHelper::ActiveLava.IsPush || Temp;
+		break;
+	case BabaState::IsWord:
+		Temp = true;
+		break;
+	case BabaState::IsIs:
+		Temp = true;
+		break;
+	case BabaState::IsActive:
+		Temp = true;
 		break;
 	default:
 		break;
@@ -473,43 +489,99 @@ void ABabaBase::KeyTileSetReverse(char _Input)
 	}
 }
 
-void ABabaBase::BabaUpdate()
+void ABabaBase::BabaHelperUpdate()
 {
 	if (ContentsHelper::Time >= 1) {
-		bool Check = false;
 		switch (BState)
 		{
 		case BabaState::IsBaba:
 		{
-			Check = BState != BabaUpdateHelper::Baba;
-			if (Check) {
+			if (BState != BabaUpdateHelper::Baba) {
 				BState = BabaUpdateHelper::Baba;
 			}
 		}
 		break;
 		case BabaState::IsRock:
 		{
-			Check = BState != BabaUpdateHelper::Rock;
-			if (Check) {
+			if (BState != BabaUpdateHelper::Rock) {
 				BState = BabaUpdateHelper::Rock;
 			}
 		}
 		break;
+		case BabaState::IsWall:
+		{
+			if (BState != BabaState::IsWall) {
+				BState = BabaUpdateHelper::Wall;
+			}
 		}
-		if (true == Check) {
-			switch (BState)
-			{
-			case BabaState::IsBaba:
-			{
-				Babachange();
+		break;
+		case BabaState::IsFlag:
+		{
+			if (BState != BabaState::IsFlag) {
+				BState = BabaUpdateHelper::Flag;
 			}
+		}
+		break;
+		case BabaState::IsSkull:
+		{
+			if (BState != BabaState::IsSkull) {
+				BState = BabaUpdateHelper::Skull;
+			}
+		}
+		break;
+		case BabaState::IsLava:
+		{
+			if (BState != BabaState::IsLava) {
+				BState = BabaUpdateHelper::Lava;
+			}
+		}
+		break;
+		case BabaState::IsWater:
+		{
+			if (BState != BabaState::IsWater) {
+				BState = BabaUpdateHelper::Water;
+			}
+		}
+		break;
+		}
+	}
+}
+void ABabaBase::BabaUpdate()
+{
+	if (ContentsHelper::Time >= 1) {
+		switch (BState)
+		{
+		case BabaState::IsNone:
 			break;
-			case BabaState::IsRock:
-			{
-				RockChange();
-			}
+		case BabaState::IsBaba:
+		{
+			Babachange();
+		}
+		break;
+		case BabaState::IsWall:
+		{
+			WallChange();
+		}
 			break;
-			}
+		case BabaState::IsRock:
+		{
+			RockChange();
+		}
+		break;
+		case BabaState::IsFlag:
+			FlagChange();
+			break;
+		case BabaState::IsSkull:
+			SkullChange();
+			break;
+		case BabaState::IsWater:
+			WaterChange();
+			break;
+		case BabaState::IsLava:
+			LavaChange();
+			break;
+		default:
+			break;
 		}
 	}
 }
@@ -518,10 +590,70 @@ void ABabaBase::BabaUpdate()
 
 void ABabaBase::RockChange()
 {
-	Renderer->ChangeAnimation("wall");
+	Renderer->ChangeAnimation("RockObj");
+}
+
+void ABabaBase::FlagChange()
+{
+	Renderer->ChangeAnimation("FlagObj");
+}
+
+void ABabaBase::SkullChange()
+{
+	Renderer->ChangeAnimation("SkullObj");
+}
+
+void ABabaBase::WaterChange()
+{
+	Renderer->ChangeAnimation("Water");
+}
+
+void ABabaBase::LavaChange()
+{
+	Renderer->ChangeAnimation("Lava");
+}
+
+void ABabaBase::WallChange()
+{
+	Renderer->ChangeAnimation("Wall");
 }
 
 void ABabaBase::Babachange()
 {
 	InfoUpdate();
+}
+
+void ABabaBase::RenderInit()
+{
+	Renderer->SetOrder(1);
+	Renderer->SetMaterial("2DImage");
+
+
+	Renderer->CreateAnimation("Baba_Down_1", "Baba_Down_1.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Down_2", "Baba_Down_2.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Down_3", "Baba_Down_3.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Down_4", "Baba_Down_4.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Right_1", "Baba_Right_1.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Right_2", "Baba_Right_2.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Right_3", "Baba_Right_3.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Right_4", "Baba_Right_4.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Left_1", "Baba_Left_1.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Left_2", "Baba_Left_2.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Left_3", "Baba_Left_3.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Left_4", "Baba_Left_4.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Up_1", "Baba_Up_1.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Up_2", "Baba_Up_2.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Up_3", "Baba_Up_3.png", 0.1f);
+	Renderer->CreateAnimation("Baba_Up_4", "Baba_Up_4.png", 0.1f);
+
+	Renderer->CreateAnimation("FlagObj", "FlagObj.png", 0.1f);
+	Renderer->CreateAnimation("RockObj", "RockObj.png", 0.1f);
+	Renderer->CreateAnimation("SkullObj", "SkullObj.png", 0.1f);
+
+	Renderer->CreateAnimation("Wall", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
+	Renderer->CreateAnimation("Lava", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
+	Renderer->CreateAnimation("Water", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
+
+
+
 }

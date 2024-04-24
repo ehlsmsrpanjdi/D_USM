@@ -38,16 +38,6 @@ void APlayGameMode::BeginPlay()
 	Baba_Actors[Player->GetTile()].push_back(Player.get());
 
 
-	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-	Player->StateInit(BabaState::IsRock);
-	Player->SetBabaLocation(8, 4, 'W');
-	Baba_Actors[Player->GetTile()].push_back(Player.get());
-
-	Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-	Player->StateInit(BabaState::IsRock);
-	Player->SetBabaLocation(5, 4, 'W');
-	Baba_Actors[Player->GetTile()].push_back(Player.get());
-
 	SpawnIs(6, 6);
 	SpawnName(8, 8, BabaState::IsRock);
 	SpawnActive(4, 4, "Move");
@@ -236,6 +226,12 @@ void APlayGameMode::IsUpdate()
 {
 	BabaUpdateHelper::ActiveBaba = BabaUpdateHelper::None;
 	BabaUpdateHelper::ActiveRock = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveWall = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveFlag = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveSkull = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveGrass = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveLava = BabaUpdateHelper::None;
+	
 	for (IsWord* _Is : Is_Vec) {
 		_Is->UpCheck(Baba_Actors);
 		_Is->AxisCheck(Baba_Actors);
@@ -311,7 +307,37 @@ std::shared_ptr<ABabaBase> APlayGameMode::SpawnBaba(TilePoint _Tile, std::string
 	}
 	else if (Name._Equal("WALL")) {
 		Baba = GetWorld()->SpawnActor<ABabaBase>("WALL");
+		Baba->StateInit(BabaState::IsWall);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("ROCK")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("ROCK");
 		Baba->StateInit(BabaState::IsRock);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("FLAG")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("FLAG");
+		Baba->StateInit(BabaState::IsFlag);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("SKULL")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("SKULL");
+		Baba->StateInit(BabaState::IsSkull);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("WATER")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("WATER");
+		Baba->StateInit(BabaState::IsWater);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("LAVA")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("LAVA");
+		Baba->StateInit(BabaState::IsLava);
 		Baba->SetBabaLocation(_Tile, 'D');
 		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
 	}

@@ -166,9 +166,18 @@ protected:
 	void KeyTileSet(char _Input);
 	void KeyTileSetReverse(char _Input);
 
+	void BabaHelperUpdate();
 	void BabaUpdate();
-	void RockChange();
+
 	void Babachange();
+	void RockChange();
+	void FlagChange();
+	void SkullChange();
+	void WaterChange();
+	void LavaChange();
+	void WallChange();
+
+	void RenderInit();
 
 
 private:

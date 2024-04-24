@@ -20,6 +20,11 @@ ActiveState BabaUpdateHelper::Pull = { false, false, false  , false, true };
 
 BabaState BabaUpdateHelper::Baba = BabaState::IsBaba;
 BabaState BabaUpdateHelper::Rock = BabaState::IsRock;
+BabaState BabaUpdateHelper::Wall = BabaState::IsWall;
+BabaState BabaUpdateHelper::Flag = BabaState::IsFlag;
+BabaState BabaUpdateHelper::Skull = BabaState::IsSkull;
+BabaState BabaUpdateHelper::Water = BabaState::IsWater;
+BabaState BabaUpdateHelper::Lava = BabaState::IsLava;
 
 float ContentsHelper::Time = 2.f;
 
