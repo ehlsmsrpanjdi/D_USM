@@ -42,7 +42,7 @@ void ABabaBase::BeginPlay()
 	Renderer->CreateAnimation("Baba_Up_3", "Baba_Up_3.png", 0.1f);
 	Renderer->CreateAnimation("Baba_Up_4", "Baba_Up_4.png", 0.1f);
 
-	Renderer->CreateAnimation("Wall", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2,20,38 });
+	Renderer->CreateAnimation("Wall", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
 	Renderer->ChangeAnimation("wall");
 	/*Renderer->SetSprite("Wall.png");*/
 
@@ -243,6 +243,7 @@ bool ABabaBase::MoveCheck()
 	case BabaState::IsIs:
 	case BabaState::IsActive:
 		Temp = BabaUpdateHelper::ActiveWord.IsMove && Temp;
+		break;
 	default:
 		break;
 	}
@@ -319,10 +320,12 @@ bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 
-	if (false == PushCheck()) {
-		IsChecked = true;
-		CanMove = false;
-		return false;
+	if (MoveCheck() == false) {
+		if (false == PushCheck()) {
+			IsChecked = true;
+			CanMove = false;
+			return false;
+		}
 	}
 
 	if (false == BabaMapCheck(_Input)) {

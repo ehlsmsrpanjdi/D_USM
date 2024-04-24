@@ -139,6 +139,12 @@ public:
 	static ActiveState ActiveBaba;
 	static ActiveState ActiveRock;
 	static ActiveState ActiveWord;
+	static ActiveState ActiveWall;
+	static ActiveState ActiveSkull;
+	static ActiveState ActiveFlag;
+	static ActiveState ActiveWater;
+	static ActiveState ActiveLava;
+	static ActiveState ActiveGrass;
 
 	static ActiveState Push;
 	static ActiveState Move;

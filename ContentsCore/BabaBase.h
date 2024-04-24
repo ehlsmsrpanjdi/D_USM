@@ -40,6 +40,23 @@ public:
 	char StartInput = '0';
 	BabaInfo Info;
 
+	//enum class BabaState {
+	//	IsNone = 0,
+	//	IsBaba,
+	//	IsRock,
+	//	IsWord,
+	//	IsActive,
+	//	IsIs,			BState로 현재 바바가 무슨 오브젝트인지 알아낸다.
+	//};				Rock, Wall, Lava 같은 상태이면 그냥 그 상태 그대로 쓰면됨
+	//					하지만 단어거나 Active면 조금 다른 방식으로 가져온다
+	//					Active 동작하는 단어이면 Active로 Set해줘야한다.
+	//					Is는 Is이다.					
+	//					Word는 어떤 Actor의 이름을 표현한다.
+	//
+	//					ActiveState로 어떠한 State를 Set해주거나 어떠한 상태인지 말해준다.
+	//					Word이면 WordInfo로 확인한다. WordInfo도 Bstate다
+	//
+
 	BabaState GetBstate() {
 		return BState;
 	}

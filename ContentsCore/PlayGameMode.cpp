@@ -53,7 +53,7 @@ void APlayGameMode::BeginPlay()
 	SpawnActive(4, 4, "Move");
 	
 	//GetWorld()->GetLastTarget()->AddEffect<FadeINEffect>();
-	GetWorld()->GetLastTarget()->AddEffect<FadeOUTEffect>();
+	//GetWorld()->GetLastTarget()->AddEffect<FadeOUTEffect>();
 
 
 	TileMap::TileSet(10, 10);
@@ -144,7 +144,12 @@ void APlayGameMode::Change_BabaPos()
 
 void APlayGameMode::BabaInputCheck()
 {
-	if (false == IsAnykeyDown()) {
+	if (false == IsDown('A') &&
+		false == IsDown('S') &&
+		false == IsDown('D') &&
+		false == IsDown('W') &&
+		false == IsDown('Z')
+		) {
 		return;
 	}
 	if (ContentsHelper::Time >= 1) {
@@ -310,12 +315,7 @@ std::shared_ptr<ABabaBase> APlayGameMode::SpawnBaba(TilePoint _Tile, std::string
 		Baba->SetBabaLocation(_Tile, 'D');
 		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
 	}
-	//else if (Name._Equal("STOP")) {
-	//	Astate = &BabaUpdateHelper::Stop;
-	//}
-	//else if (Name._Equal("PULL")) {
-	//	Astate = &BabaUpdateHelper::Pull;
-	//}
+
 	else {
 		MsgBoxAssert("ActiveName에 이상한거넣었음");
 	}

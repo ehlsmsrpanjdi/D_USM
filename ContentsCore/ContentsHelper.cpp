@@ -1,9 +1,16 @@
 #include "PreCompile.h"
 #include "ContentsHelper.h"
 
-ActiveState BabaUpdateHelper::ActiveBaba = { false, false, true, false, false };
+ActiveState BabaUpdateHelper::ActiveBaba = { false, false, false, false, false };
 ActiveState BabaUpdateHelper::ActiveRock = { false, false, false, false, false };
 ActiveState BabaUpdateHelper::ActiveWord = { false, true, false , false, false };
+ActiveState BabaUpdateHelper::ActiveWall  = { false, false, false, false, false };
+ActiveState BabaUpdateHelper::ActiveSkull  = { false, false, false, false, false };
+ActiveState BabaUpdateHelper::ActiveFlag  = { false, false, false, false, false };
+ActiveState BabaUpdateHelper::ActiveWater = { false, false, false, false, false };
+ActiveState BabaUpdateHelper::ActiveLava = { false, false, false, false, false };
+ActiveState BabaUpdateHelper::ActiveGrass = { false, false, false, false, false };
+
 
 ActiveState BabaUpdateHelper::None = { false, false, false  , false, false };
 ActiveState BabaUpdateHelper::Push = { false, true, false  , false, false };

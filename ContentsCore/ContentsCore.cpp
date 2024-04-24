@@ -31,41 +31,12 @@ void ContentsCore::ResourcesInit()
 {
 	UEngineDirectory Dir;
 	Dir.MoveToSearchChild("ContentsResources");
-	Dir.Move("Image");
+	Dir.Move("Baba");
 	std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
 
 	for (UEngineFile& File : Files)
 	{
 		UEngineSprite::Load(File.GetFullPath());
-	}
-
-	Dir.MoveToSearchChild("ContentsResources");
-	Dir.Move("Baba");
-	Files = Dir.GetAllFile({ ".png" }, true);
-
-	for (UEngineFile& File : Files)
-	{
-		UEngineSprite::Load(File.GetFullPath());
-	}
-
-	std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-
-	for (size_t i = 0; i < Directorys.size(); i++)
-	{
-		std::string Name = Directorys[i].GetFolderName();
-		UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-	}
-
-
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Sound");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav" });
-		for (UEngineFile& File : Files)
-		{
-			UEngineSound::Load(File.GetFullPath());
-		}
 	}
 
 	UEngineSprite::CreateCutting("Baba_Down_1.png", 3, 1);
@@ -86,6 +57,10 @@ void ContentsCore::ResourcesInit()
 	UEngineSprite::CreateCutting("Baba_Up_4.png", 3, 1);
 
 	UEngineSprite::CreateCutting("Wall.png", 18, 3);
+	UEngineSprite::CreateCutting("Grass.png", 18, 3);
+	UEngineSprite::CreateCutting("Lava.png", 18, 3);
+	UEngineSprite::CreateCutting("Water.png", 18, 3);
+
 	UEngineSprite::CreateCutting("Is.png", 2, 3);
 
 	UEngineSprite::CreateCutting("Pull.png", 3, 3);
@@ -93,6 +68,18 @@ void ContentsCore::ResourcesInit()
 	UEngineSprite::CreateCutting("Move.png", 3, 3);
 	UEngineSprite::CreateCutting("Stop.png", 3, 3);
 	UEngineSprite::CreateCutting("Baba.png", 3, 1);
+
+	UEngineSprite::CreateCutting("DEFEAT.png", 3, 1);
+	UEngineSprite::CreateCutting("Flag.png", 3, 3);
+	UEngineSprite::CreateCutting("hot.png", 3, 3);
+	UEngineSprite::CreateCutting("Move.png", 3, 3);
+
+	UEngineSprite::CreateCutting("Rock.png", 3, 3);
+	UEngineSprite::CreateCutting("Sink.png", 3, 3);
+	UEngineSprite::CreateCutting("Skull.png", 3, 3);
+	UEngineSprite::CreateCutting("Stop.png", 3, 3);
+	UEngineSprite::CreateCutting("Win.png", 3, 3);
+	UEngineSprite::CreateCutting("You.png", 3, 3);
 	
 	{
 		UEngineDirectory Dir;
