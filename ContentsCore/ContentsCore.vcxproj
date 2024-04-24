@@ -191,7 +191,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="FadeEffect.h">
+    <ClInclude Include="FadeINEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FadeOUTEffect.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -258,7 +262,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="FadeEffect.cpp">
+    <ClCompile Include="FadeINEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FadeOUTEffect.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -49,7 +49,10 @@
     <ClInclude Include="BackgroundCirCle.h">
       <Filter>Level\Actor\Fade</Filter>
     </ClInclude>
-    <ClInclude Include="FadeEffect.h">
+    <ClInclude Include="FadeINEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeOUTEffect.h">
       <Filter>Effect</Filter>
     </ClInclude>
   </ItemGroup>
@@ -102,7 +105,10 @@
     <ClCompile Include="BackgroundCirCle.cpp">
       <Filter>Level\Actor\Fade</Filter>
     </ClCompile>
-    <ClCompile Include="FadeEffect.cpp">
+    <ClCompile Include="FadeINEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeOUTEffect.cpp">
       <Filter>Effect</Filter>
     </ClCompile>
   </ItemGroup>

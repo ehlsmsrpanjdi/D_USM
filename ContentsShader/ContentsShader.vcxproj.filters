@@ -6,8 +6,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\EngineShader\FadeShader.fx">
+    <FxCompile Include="CirCleFadeINShader.fx">
       <Filter>Fade</Filter>
     </FxCompile>
+    <FxCompile Include="CirCleFadeOUTShader.fx">
+      <Filter>Fade</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ContentShaderBase.hlsli">
+      <Filter>Fade</Filter>
+    </None>
   </ItemGroup>
 </Project>

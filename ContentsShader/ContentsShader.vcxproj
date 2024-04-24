@@ -127,7 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <FxCompile Include="..\EngineShader\FadeShader.fx" />
+    <FxCompile Include="CirCleFadeINShader.fx" />
+    <FxCompile Include="CirCleFadeOUTShader.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EngineShader\EngineShader.vcxproj">
+      <Project>{48ea064c-43d1-448e-a47d-9534db00d4f7}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ContentShaderBase.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

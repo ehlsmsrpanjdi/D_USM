@@ -16,7 +16,8 @@
 #include "BackGround.h"
 #include "BackgroundCirCle.h"
 #include <EngineCore/BlurEffect.h>
-#include "FadeEffect.h"
+#include "FadeINEffect.h"
+#include "FadeOUTEffect.h"
 
 APlayGameMode::APlayGameMode()
 {}
@@ -51,8 +52,9 @@ void APlayGameMode::BeginPlay()
 	SpawnName(8, 8, BabaState::IsRock);
 	SpawnActive(4, 4, "Move");
 	
-	GetWorld()->SpawnActor<BackGround>("Fade");
-	GetWorld()->GetLastTarget()->AddEffect<FadeEffect>();
+	//GetWorld()->GetLastTarget()->AddEffect<FadeINEffect>();
+	GetWorld()->GetLastTarget()->AddEffect<FadeOUTEffect>();
+
 
 	TileMap::TileSet(10, 10);
 

@@ -1,17 +1,17 @@
 #include "PreCompile.h"
-#include "FadeEffect.h"
+#include "FadeOUTEffect.h"
 
-FadeEffect::FadeEffect()
+FadeOUTEffect::FadeOUTEffect()
 {
 }
 
-FadeEffect::~FadeEffect()
+FadeOUTEffect::~FadeOUTEffect()
 {
 }
 
-void FadeEffect::Init()
+void FadeOUTEffect::Init()
 {
-	SetMaterial("Blur");
+	SetMaterial("CircleFadeOUT");
 
 	CopyTarget = UEngineRenderTarget::Create();
 	// 내가 바라보는 애들을 모아서 그릴수 있는 랜더타겟을 만들고 싶어.
@@ -19,7 +19,7 @@ void FadeEffect::Init()
 	CopyTarget->CreateTexture(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, Scale, float4::Zero);
 }
 
-void FadeEffect::Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget)
+void FadeOUTEffect::Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget)
 {
 	CopyTarget->Copy(EffectTarget);
 	EffectTarget->Clear();
