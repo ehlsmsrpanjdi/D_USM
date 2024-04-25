@@ -74,9 +74,9 @@ void ContentsCore::ResourcesInit()
 	UEngineSprite::CreateCutting("hot.png", 3, 3);
 	UEngineSprite::CreateCutting("Move.png", 3, 3);
 
-	UEngineSprite::CreateCutting("Rock.png", 3, 3);
+	UEngineSprite::CreateCutting("Rock.png", 2, 3);
 	UEngineSprite::CreateCutting("Sink.png", 3, 3);
-	UEngineSprite::CreateCutting("Skull.png", 3, 3);
+	UEngineSprite::CreateCutting("Skull.png", 2, 3);
 	UEngineSprite::CreateCutting("Stop.png", 3, 3);
 	UEngineSprite::CreateCutting("Win.png", 3, 3);
 	UEngineSprite::CreateCutting("You.png", 3, 3);

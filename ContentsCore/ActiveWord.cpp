@@ -21,6 +21,10 @@ void ActiveWord::BeginPlay()
 	Renderer->CreateAnimation("Pull", "Pull.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
 	Renderer->CreateAnimation("Push", "Push.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
 	Renderer->CreateAnimation("Stop", "Stop.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("Defeat", "Defeat.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("Hot", "Hot.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("Sink", "Sink.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("You", "You.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
 
 	Renderer->ChangeAnimation("push");
 }
@@ -44,6 +48,24 @@ void ActiveWord::SetAnimation(std::string_view _Str)
 	}
 	else if (_Str._Equal("PULL")) {
 		Renderer->ChangeAnimation("PULL");
+	}
+	else if (_Str._Equal("HOT")) {
+		Renderer->ChangeAnimation("HOT");
+	}
+	else if (_Str._Equal("FLOAT")) {
+		Renderer->ChangeAnimation("FLOAT");
+	}
+	else if (_Str._Equal("SINK")) {
+		Renderer->ChangeAnimation("SINK");
+	}
+	else if (_Str._Equal("WIN")) {
+		Renderer->ChangeAnimation("WIN");
+	}
+	else if (_Str._Equal("DEFEAT")) {
+		Renderer->ChangeAnimation("DEFEAT");
+	}
+	else if (_Str._Equal("YOU")) {
+		Renderer->ChangeAnimation("YOU");
 	}
 	else {
 		MsgBoxAssert("ActiveName에 이상한거넣었음");

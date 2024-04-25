@@ -127,8 +127,20 @@ void IsWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
 		case BabaState::IsRock:
 			Who = &BabaUpdateHelper::ActiveRock;
 			break;
-		default:
-			return;
+		case BabaState::IsWall:
+			Who = &BabaUpdateHelper::ActiveWall;
+			break;
+		case BabaState::IsFlag:
+			Who = &BabaUpdateHelper::ActiveFlag;
+			break;
+		case BabaState::IsSkull:
+			Who = &BabaUpdateHelper::ActiveSkull;
+			break;
+		case BabaState::IsWater:
+			Who = &BabaUpdateHelper::ActiveWater;
+			break;
+		case BabaState::IsLava:
+			Who = &BabaUpdateHelper::ActiveLava;
 			break;
 		}
 		ActiveChange(Who, _Right);
@@ -149,7 +161,20 @@ void IsWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 	case BabaState::IsRock:
 		State = &BabaUpdateHelper::Rock;
 		break;
-	default:
+	case BabaState::IsWall:
+		State = &BabaUpdateHelper::Wall;
+		break;
+	case BabaState::IsFlag:
+		State = &BabaUpdateHelper::Flag;
+		break;
+	case BabaState::IsSkull:
+		State = &BabaUpdateHelper::Skull;
+		break;
+	case BabaState::IsWater:
+		State = &BabaUpdateHelper::Water;
+		break;
+	case BabaState::IsLava:
+		State = &BabaUpdateHelper::Lava;
 		break;
 	}
 
@@ -158,11 +183,28 @@ void IsWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 
 void IsWord::ActiveChange(ActiveState* _CurWord, ABabaBase* _Active)
 {
+	//bool IsFloat = false;
+	//bool IsPush = false;
+	//bool IsMove = false;
+	//bool IsStop = false;
+	//bool IsPull = false;
+	//bool IsWin = false;
+	//bool IsDefeat = false;
+	//bool IsHot = false;
+	//bool IsSink = false;
+
+
 	ActiveWord* Active = dynamic_cast<ActiveWord*>(_Active);
 	ActiveState Info = Active->GetActive();
 	_CurWord->IsFloat = _CurWord->IsFloat || Info.IsFloat;
 	_CurWord->IsPush = _CurWord->IsPush || Info.IsPush;
 	_CurWord->IsMove = _CurWord->IsMove || Info.IsMove;
+	_CurWord->IsStop = _CurWord->IsStop || Info.IsStop;
+	_CurWord->IsPull = _CurWord->IsPull || Info.IsPull;
+	_CurWord->IsWin = _CurWord->IsWin || Info.IsWin;
+	_CurWord->IsDefeat = _CurWord->IsDefeat || Info.IsDefeat;
+	_CurWord->IsHot = _CurWord->IsHot || Info.IsHot;
+	_CurWord->IsSink = _CurWord->IsSink || Info.IsSink;
 }
 
 // isbaba, ismove, ispush

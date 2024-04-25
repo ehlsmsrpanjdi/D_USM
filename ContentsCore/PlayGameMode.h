@@ -44,8 +44,11 @@ protected:
 	void BabaInputCheck();
 	void DebugMessageFunction();
 	
-	void WordUpdate();
 	void IsUpdate();
+
+	void HotCheck();
+	ActiveState GetActive(const BabaState& State);
+
 
 	std::shared_ptr<IsWord> SpawnIs(TilePoint _Tile);
 	std::shared_ptr<NameWord> SpawnName(TilePoint _Tile, BabaState _Info);

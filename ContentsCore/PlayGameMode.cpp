@@ -32,20 +32,20 @@ void APlayGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
-	std::shared_ptr<ABabaBase> Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-	Player->StateInit(BabaState::IsBaba);
-	Player->SetBabaLocation(0, 2, 'D');
-	Baba_Actors[Player->GetTile()].push_back(Player.get());
+	//std::shared_ptr<ABabaBase> Player = GetWorld()->SpawnActor<ABabaBase>("Player");
+	//Player->StateInit(BabaState::IsBaba);
+	//Player->SetBabaLocation(0, 2, 'D');
+	//Baba_Actors[Player->GetTile()].push_back(Player.get());
 
 
-	SpawnIs(6, 6);
-	SpawnName(8, 8, BabaState::IsRock);
-	SpawnActive(4, 4, "Move");
-	
+	//SpawnIs(6, 6);
+	//SpawnName(8, 8, BabaState::IsRock);
+	//SpawnActive(4, 4, "Move");
+
 	//GetWorld()->GetLastTarget()->AddEffect<FadeINEffect>();
 	//GetWorld()->GetLastTarget()->AddEffect<FadeOUTEffect>();
 
-
+	ContentsHelper::WordInit();
 	TileMap::TileSet(10, 10);
 
 	InputOn();
@@ -218,10 +218,6 @@ void APlayGameMode::DebugMessageFunction()
 
 }
 
-void APlayGameMode::WordUpdate()
-{
-}
-
 void APlayGameMode::IsUpdate()
 {
 	BabaUpdateHelper::ActiveBaba = BabaUpdateHelper::None;
@@ -231,13 +227,69 @@ void APlayGameMode::IsUpdate()
 	BabaUpdateHelper::ActiveSkull = BabaUpdateHelper::None;
 	BabaUpdateHelper::ActiveGrass = BabaUpdateHelper::None;
 	BabaUpdateHelper::ActiveLava = BabaUpdateHelper::None;
-	
+
 	for (IsWord* _Is : Is_Vec) {
 		_Is->UpCheck(Baba_Actors);
 		_Is->AxisCheck(Baba_Actors);
 	}
 }
 
+void APlayGameMode::HotCheck()
+{
+	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
+	{
+		std::list<ABabaBase*>& BabaBase = Iter.second;
+		for (ABabaBase*& _BabaBase : BabaBase) {
+			if (GetActive(_BabaBase->GetBstate()).IsHot == true) {
+				int a = 0;
+			}
+			//_BabaBase->BState
+		}
+	}
+}
+
+ActiveState APlayGameMode::GetActive(const BabaState& State)
+{
+	switch (State)
+	{
+	case BabaState::IsBaba:
+	{
+		return BabaUpdateHelper::ActiveBaba;
+	}
+	break;
+	case BabaState::IsRock:
+	{
+		return BabaUpdateHelper::ActiveRock;
+	}
+	break;
+	case BabaState::IsWall:
+	{
+		return BabaUpdateHelper::ActiveWall;
+	}
+	break;
+	case BabaState::IsFlag:
+	{
+		return BabaUpdateHelper::ActiveFlag;
+	}
+	break;
+	case BabaState::IsSkull:
+	{
+		return BabaUpdateHelper::ActiveSkull;
+	}
+	break;
+	case BabaState::IsLava:
+	{
+		return BabaUpdateHelper::ActiveLava;
+	}
+	break;
+	case BabaState::IsWater:
+	{
+		return BabaUpdateHelper::ActiveWater;
+	}
+	break;
+	}
+	return BabaUpdateHelper::None;
+}
 
 std::shared_ptr<IsWord> APlayGameMode::SpawnIs(TilePoint _Tile)
 {
@@ -277,6 +329,24 @@ std::shared_ptr<ActiveWord> APlayGameMode::SpawnActive(TilePoint _Tile, std::str
 	}
 	else if (Name._Equal("PULL")) {
 		Astate = &BabaUpdateHelper::Pull;
+	}
+	else if (Name._Equal("HOT")) {
+		Astate = &BabaUpdateHelper::Hot;
+	}
+	else if (Name._Equal("FLOAT")) {
+		Astate = &BabaUpdateHelper::Float;
+	}
+	else if (Name._Equal("SINK")) {
+		Astate = &BabaUpdateHelper::Sink;
+	}
+	else if (Name._Equal("WIN")) {
+		Astate = &BabaUpdateHelper::Win;
+	}
+	else if (Name._Equal("DEFEAT")) {
+		Astate = &BabaUpdateHelper::Defeat;
+	}
+	else if (Name._Equal("YOU")) {
+		Astate = &BabaUpdateHelper::You;
 	}
 	else {
 		MsgBoxAssert("ActiveName에 이상한거넣었음");

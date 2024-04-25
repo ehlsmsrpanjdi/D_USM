@@ -1,22 +1,27 @@
 #include "PreCompile.h"
 #include "ContentsHelper.h"
 
-ActiveState BabaUpdateHelper::ActiveBaba = { false, false, false, false, false };
-ActiveState BabaUpdateHelper::ActiveRock = { false, false, false, false, false };
-ActiveState BabaUpdateHelper::ActiveWord = { false, true, false , false, false };
-ActiveState BabaUpdateHelper::ActiveWall  = { false, false, false, false, false };
-ActiveState BabaUpdateHelper::ActiveSkull  = { false, false, false, false, false };
-ActiveState BabaUpdateHelper::ActiveFlag  = { false, false, false, false, false };
-ActiveState BabaUpdateHelper::ActiveWater = { false, false, false, false, false };
-ActiveState BabaUpdateHelper::ActiveLava = { false, false, false, false, false };
-ActiveState BabaUpdateHelper::ActiveGrass = { false, false, false, false, false };
+ActiveState BabaUpdateHelper::ActiveBaba;
+ActiveState BabaUpdateHelper::ActiveRock;
+ActiveState BabaUpdateHelper::ActiveWord;
+ActiveState BabaUpdateHelper::ActiveWall;
+ActiveState BabaUpdateHelper::ActiveSkull;
+ActiveState BabaUpdateHelper::ActiveFlag;
+ActiveState BabaUpdateHelper::ActiveWater;
+ActiveState BabaUpdateHelper::ActiveLava;
+ActiveState BabaUpdateHelper::ActiveGrass;
 
-
-ActiveState BabaUpdateHelper::None = { false, false, false  , false, false };
-ActiveState BabaUpdateHelper::Push = { false, true, false  , false, false };
-ActiveState BabaUpdateHelper::Move = { false, false, true  , false, false };
-ActiveState BabaUpdateHelper::Stop = { false, false, false  , true, false };
-ActiveState BabaUpdateHelper::Pull = { false, false, false  , false, true };
+ActiveState BabaUpdateHelper::None;
+ActiveState BabaUpdateHelper::Float;
+ActiveState BabaUpdateHelper::Push;
+ActiveState BabaUpdateHelper::Move;
+ActiveState BabaUpdateHelper::Stop;
+ActiveState BabaUpdateHelper::Pull;
+ActiveState BabaUpdateHelper::Win;
+ActiveState BabaUpdateHelper::Defeat;
+ActiveState BabaUpdateHelper::Hot;
+ActiveState BabaUpdateHelper::Sink;
+ActiveState BabaUpdateHelper::You;
 
 BabaState BabaUpdateHelper::Baba = BabaState::IsBaba;
 BabaState BabaUpdateHelper::Rock = BabaState::IsRock;
@@ -34,6 +39,32 @@ ContentsHelper::ContentsHelper()
 
 ContentsHelper::~ContentsHelper()
 {
+}
+
+void ContentsHelper::WordInit()
+{
+	//bool IsFloat = true;
+	//bool IsPush = true;
+	//bool IsMove = true;
+	//bool IsStop = true;
+	//bool IsPull = true;
+	//bool IsWin = true;
+	//bool IsDefeat = true;
+	//bool IsHot = true;
+	//bool IsSink = true;
+
+	BabaUpdateHelper::None;
+	BabaUpdateHelper::Float.IsFloat = true;
+	BabaUpdateHelper::Push.IsPush = true;
+	BabaUpdateHelper::Move.IsMove = true;
+	BabaUpdateHelper::Stop.IsStop = true;
+	BabaUpdateHelper::Pull.IsPull = true;
+	BabaUpdateHelper::Win.IsWin = true;
+	BabaUpdateHelper::Defeat.IsDefeat = true;
+	BabaUpdateHelper::Hot.IsHot = true;
+	BabaUpdateHelper::Sink.IsSink = true;
+	BabaUpdateHelper::You.IsYou = true;
+	BabaUpdateHelper::You.IsMove = true;
 }
 
 void ContentsHelper::CoolTimeCheck(float _DeltaTime)

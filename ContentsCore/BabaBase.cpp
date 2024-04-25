@@ -40,6 +40,7 @@ void ABabaBase::Tick(float _DeltaTime)
 	BabaHelperUpdate();
 	BabaUpdate();
 	DebugMessageFunction();
+
 }
 
 void ABabaBase::LerpMove()
@@ -113,6 +114,12 @@ void ABabaBase::InfoUpdate()
 	if (Move_Stack.empty() == true) {
 		InputKey = StartInput;
 	}
+	else {
+		if (Move_Stack.top() == false) {
+			return;
+		}
+	}
+
 	std::string AnimationName = "";
 	if (BState == BabaState::IsBaba) {
 		AnimationName.append("Baba_");
@@ -562,7 +569,7 @@ void ABabaBase::BabaUpdate()
 		{
 			WallChange();
 		}
-			break;
+		break;
 		case BabaState::IsRock:
 		{
 			RockChange();

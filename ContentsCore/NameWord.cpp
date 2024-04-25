@@ -20,6 +20,11 @@ void NameWord::BeginPlay()
 	Renderer->SetMaterial("2DImage");
 	Renderer->CreateAnimation("BabaName","Baba.Png");
 	Renderer->CreateAnimation("WallName", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
+	Renderer->CreateAnimation("LavaName", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
+	Renderer->CreateAnimation("WaterName", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
+	Renderer->CreateAnimation("RockName", "Rock.Png");
+	Renderer->CreateAnimation("SkullName", "Skull.Png");
+	Renderer->CreateAnimation("FlagName", "Flag.Png");
 	Renderer->ChangeAnimation("WallName");
 }
 
@@ -40,6 +45,21 @@ void NameWord::NameWordChangeAnimation()
 		break;
 	case BabaState::IsWall:
 		Renderer->ChangeAnimation("WallName");
+		break;
+	case BabaState::IsRock:
+		Renderer->ChangeAnimation("RockName");
+		break;
+	case BabaState::IsFlag:
+		Renderer->ChangeAnimation("FlagName");
+		break;
+	case BabaState::IsSkull:
+		Renderer->ChangeAnimation("SkullName");
+		break;
+	case BabaState::IsWater:
+		Renderer->ChangeAnimation("WaterName");
+		break;
+	case BabaState::IsLava:
+		Renderer->ChangeAnimation("LavaName");
 		break;
 	default:
 		break;
