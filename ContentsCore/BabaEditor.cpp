@@ -71,35 +71,35 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	if (true == ImGui::Button("Rock")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(2);
+		TileData.push_back(3);
 		EditorSwitch(Location[0], Location[1], 3);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Flag")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(2);
+		TileData.push_back(4);
 		EditorSwitch(Location[0], Location[1], 4);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Skull")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(2);
+		TileData.push_back(5);
 		EditorSwitch(Location[0], Location[1], 5);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Water")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(2);
+		TileData.push_back(6);
 		EditorSwitch(Location[0], Location[1], 6);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Lava")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(2);
+		TileData.push_back(7);
 		EditorSwitch(Location[0], Location[1], 7);
 	}
 
@@ -114,7 +114,7 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	if (true == ImGui::Button("You")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(21);
+		TileData.push_back(20);
 		EditorSwitch(Location[0], Location[1], 20);
 	}
 
@@ -143,49 +143,50 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	if (true == ImGui::Button("Hot")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(23);
+		TileData.push_back(24);
 		EditorSwitch(Location[0], Location[1], 24);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Pull")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(23);
+		TileData.push_back(25);
 		EditorSwitch(Location[0], Location[1], 25);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Win")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(23);
+		TileData.push_back(26);
 		EditorSwitch(Location[0], Location[1], 26);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Defeat")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(23);
+		TileData.push_back(27);
 		EditorSwitch(Location[0], Location[1], 27);
 	}
-	ImGui::SameLine();
-	if (true == ImGui::Button("Hot")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(23);
-		EditorSwitch(Location[0], Location[1], 28);
-	}
+	//ImGui::SameLine();
+	//if (true == ImGui::Button("Hot")) {
+	//	TileData.push_back(Location[0]);
+	//	TileData.push_back(Location[1]);
+	//	TileData.push_back(28);
+	//	EditorSwitch(Location[0], Location[1], 28);
+	//}
+
 	ImGui::SameLine();
 	if (true == ImGui::Button("Sink")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(23);
+		TileData.push_back(29);
 		EditorSwitch(Location[0], Location[1], 29);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Float")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(23);
+		TileData.push_back(30);
 		EditorSwitch(Location[0], Location[1], 30);
 	}
 
@@ -208,38 +209,37 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	if (true == ImGui::Button("NameRock")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(32);
+		TileData.push_back(33);
 		EditorSwitch(Location[0], Location[1], 33);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameFlag")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(32);
+		TileData.push_back(34);
 		EditorSwitch(Location[0], Location[1], 34);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameSkull")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(32);
+		TileData.push_back(35);
 		EditorSwitch(Location[0], Location[1], 35);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameWater")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(32);
+		TileData.push_back(36);
 		EditorSwitch(Location[0], Location[1], 36);
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameLava")) {
 		TileData.push_back(Location[0]);
 		TileData.push_back(Location[1]);
-		TileData.push_back(32);
+		TileData.push_back(37);
 		EditorSwitch(Location[0], Location[1], 37);
 	}
-
 
 	if (true == ImGui::Button("Clear")) {
 		for (ABabaBase* Baba : Tiles) {
@@ -397,13 +397,13 @@ void BabaEditor::EditorSwitch(int _X, int _Y, int _Index)
 		Tiles.push_back(Bababa);
 	}
 	break;
-	case 28:
-	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Hot").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
-	}
-	break;
+	//case 28:
+	//{
+	//	ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Hot").get();
+	//	ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
+	//	Tiles.push_back(Bababa);
+	//}
+	//break;
 	case 29:
 	{
 		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Sink").get();

@@ -69,7 +69,7 @@ void ContentsCore::ResourcesInit()
 	UEngineSprite::CreateCutting("Stop.png", 3, 3);
 	UEngineSprite::CreateCutting("Baba.png", 3, 1);
 
-	UEngineSprite::CreateCutting("DEFEAT.png", 3, 1);
+	UEngineSprite::CreateCutting("DEFEAT.png", 3, 3);
 	UEngineSprite::CreateCutting("Flag.png", 3, 3);
 	UEngineSprite::CreateCutting("hot.png", 3, 3);
 	UEngineSprite::CreateCutting("Move.png", 3, 3);

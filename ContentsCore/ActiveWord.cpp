@@ -25,6 +25,7 @@ void ActiveWord::BeginPlay()
 	Renderer->CreateAnimation("Hot", "Hot.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
 	Renderer->CreateAnimation("Sink", "Sink.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
 	Renderer->CreateAnimation("You", "You.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("Win", "Win.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
 
 	Renderer->ChangeAnimation("push");
 }
