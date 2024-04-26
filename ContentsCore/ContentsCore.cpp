@@ -101,7 +101,5 @@ void ContentsCore::ResourcesInit()
 		Mat->SetPixelShader("CirCleFadeOUTShader.fx");
 		Mat->SetVertexShader("CirCleFadeOUTShader.fx");
 	}
-
-
 }
 

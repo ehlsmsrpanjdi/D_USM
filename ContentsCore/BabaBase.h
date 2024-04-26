@@ -6,7 +6,6 @@
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineCore/EngineCore.h>
 
-
 // Ό³Έν :
 
 struct BabaInfo {
@@ -156,6 +155,7 @@ protected:
 
 	bool MoveCheck();
 	bool PushCheck();
+	bool StopCheck();
 	void StateInit(BabaState _State);
 
 	bool BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map);
@@ -188,5 +188,6 @@ private:
 	TilePoint PrevTile = { 0,0 };
 	bool IsChecked = false;
 	bool CanMove = false;
+
 };
 

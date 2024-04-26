@@ -4,6 +4,14 @@
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/DefaultSceneComponent.h>
+#include "FadeINEffect.h"
+#include "Dust.h"
+#include "ContentsHelper.h"
+
+FVertexUV VertexUVValue;
+FResultColorValue ColorData;
+FCuttingData CuttingDataValue;
+
 
 ABabaBase::ABabaBase()
 {
@@ -25,12 +33,7 @@ void ABabaBase::BeginPlay()
 	RenderInit();
 
 	Renderer->ChangeAnimation("wall");
-	/*Renderer->SetSprite("Wall.png");*/
-
 	BabaInput = '0';
-	/*Renderer->ChangeAnimation("Baba_Right_1");*/
-
-
 }
 
 void ABabaBase::Tick(float _DeltaTime)
@@ -40,6 +43,9 @@ void ABabaBase::Tick(float _DeltaTime)
 	BabaHelperUpdate();
 	BabaUpdate();
 	DebugMessageFunction();
+
+	std::shared_ptr<Dust> DD = GetWorld()->SpawnActor<Dust>("Dust");
+	DD->SetActorLocation(GetActorLocation());
 
 }
 
@@ -295,6 +301,41 @@ bool ABabaBase::PushCheck()
 	return Temp;
 }
 
+bool ABabaBase::StopCheck()
+{
+		bool Temp = false;
+		switch (BState)
+		{
+		case BabaState::IsNone:
+			break;
+		case BabaState::IsBaba:
+			Temp = BabaUpdateHelper::ActiveBaba.IsStop || Temp;
+			break;
+		case BabaState::IsRock:
+			Temp = BabaUpdateHelper::ActiveRock.IsStop || Temp;
+			break;
+		case BabaState::IsWall:
+			Temp = BabaUpdateHelper::ActiveWall.IsStop || Temp;
+			break;
+		case BabaState::IsFlag:
+			Temp = BabaUpdateHelper::ActiveFlag.IsStop || Temp;
+			break;
+		case BabaState::IsSkull:
+			Temp = BabaUpdateHelper::ActiveSkull.IsStop || Temp;
+			break;
+		case BabaState::IsWater:
+			Temp = BabaUpdateHelper::ActiveWater.IsStop || Temp;
+			break;
+		case BabaState::IsLava:
+			Temp = BabaUpdateHelper::ActiveLava.IsStop || Temp;
+			break;
+		default:
+			break;
+		}
+
+		return Temp;
+}
+
 void ABabaBase::StateInit(BabaState _State)
 {
 	BState = _State;
@@ -342,12 +383,18 @@ bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 
 bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
+	if (StopCheck() == true) {
+		IsChecked = true;
+		CanMove = false;
+		return false;
+	}
+
 
 	if (MoveCheck() == false) {
 		if (false == PushCheck()) {
 			IsChecked = true;
 			CanMove = false;
-			return false;
+			return true;
 		}
 	}
 

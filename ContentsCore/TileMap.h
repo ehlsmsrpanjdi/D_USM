@@ -1,5 +1,6 @@
 #pragma once
 #include "ContentsHelper.h"
+struct TilePoint;
 // Ό³Έν :
 class TileMap
 {

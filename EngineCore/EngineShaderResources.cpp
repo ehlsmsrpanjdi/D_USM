@@ -5,6 +5,11 @@
 #include "EngineTexture.h"
 #include "EngineSampler.h"
 
+
+UEngineShaderResources::~UEngineShaderResources()
+{
+	int a = 0;
+}
 /// UEngineConstantBufferSetter
 void UEngineConstantBufferSetter::Setting()
 {
@@ -24,6 +29,32 @@ void UEngineConstantBufferSetter::Setting()
 void UEngineConstantBufferSetter::Reset()
 {
 	Res->Reset(Type, Slot);
+}
+
+
+void UEngineStructuredBufferSetter::PushData(const void* _Data, UINT _Size)
+{
+	Ser.Write(_Data, _Size);
+}
+
+void UEngineStructuredBufferSetter::Setting()
+{
+	// 672 * 3000
+
+	if (0 == Ser.WriteSize())
+	{
+		MsgBoxAssert(Res->GetName() + " 구조화 버퍼에 크기가 0입니다.");
+		return;
+	}
+
+	Res->ChangeData(Ser.DataPtr(), Ser.WriteSize());
+
+	Res->Setting(Type, Slot);
+}
+void UEngineStructuredBufferSetter::Reset()
+{
+	Res->Reset(Type, Slot);
+	Ser.ResetWrite();
 }
 
 
@@ -295,6 +326,15 @@ void UEngineShaderResources::SettingAllShaderResources()
 		}
 	}
 
+	for (std::pair<const EShaderType, std::map<std::string, UEngineStructuredBufferSetter>>& Pair : StructuredBuffers)
+	{
+		std::map<std::string, UEngineStructuredBufferSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineStructuredBufferSetter>& Setter : ResMap)
+		{
+			Setter.second.Setting();
+		}
+	}
 
 }
 
@@ -331,6 +371,15 @@ void UEngineShaderResources::ResetAllShaderResources()
 		}
 	}
 
+	for (std::pair<const EShaderType, std::map<std::string, UEngineStructuredBufferSetter>>& Pair : StructuredBuffers)
+	{
+		std::map<std::string, UEngineStructuredBufferSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineStructuredBufferSetter>& Setter : ResMap)
+		{
+			Setter.second.Reset();
+		}
+	}
 
 }
 

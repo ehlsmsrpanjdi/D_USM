@@ -4,7 +4,6 @@
 #include "PlayBack.h"
 #include <EngineCore/Camera.h>
 #include "ContentsHelper.h"
-#include "Rock.h"
 #include "TileMap.h"
 #include <iterator>
 #include <EngineCore/EngineDebugMsgWindow.h>
@@ -13,11 +12,10 @@
 #include "NameWord.h"
 #include "ActiveWord.h"
 #include "BabaEditor.h"
-#include "BackGround.h"
-#include "BackgroundCirCle.h"
-#include <EngineCore/BlurEffect.h>
 #include "FadeINEffect.h"
 #include "FadeOUTEffect.h"
+#include "ContentsHelper.h"
+
 
 APlayGameMode::APlayGameMode()
 {}
@@ -42,7 +40,7 @@ void APlayGameMode::BeginPlay()
 	//SpawnName(8, 8, BabaState::IsRock);
 	//SpawnActive(4, 4, "Move");
 
-	//GetWorld()->GetLastTarget()->AddEffect<FadeINEffect>();
+	//GetWorld()->GetLastTarget()->AddEffect<SquareFadeIN>();
 	//GetWorld()->GetLastTarget()->AddEffect<FadeOUTEffect>();
 
 	ContentsHelper::WordInit();
@@ -189,14 +187,13 @@ void APlayGameMode::BabaInputCheck()
 		{
 			std::list<ABabaBase*>& BabaBase = Iter.second;
 			for (ABabaBase*& _BabaBase : BabaBase) {
+				_BabaBase->CanMove = false;
 				if (_BabaBase->IsChecked == true) {
 					continue;
 				}
 				if (_BabaBase->MoveCheck() == false) {
-					_BabaBase->CanMove = false;
 					continue;
 				}
-				_BabaBase->CanMove = false;
 				bool Temp = _BabaBase->BabaMoveCheck(Key, Change_Baba, Baba_Actors);
 				CanActive = (CanActive || Temp);
 			}
@@ -205,6 +202,7 @@ void APlayGameMode::BabaInputCheck()
 			Baba_Input();
 			Change_BabaPos();
 			IsUpdate();
+			HotCheck();
 		}
 	}
 }
@@ -241,11 +239,20 @@ void APlayGameMode::HotCheck()
 		std::list<ABabaBase*>& BabaBase = Iter.second;
 		for (ABabaBase*& _BabaBase : BabaBase) {
 			if (GetActive(_BabaBase->GetBstate()).IsHot == true) {
-				int a = 0;
+				TilePoint Tile = _BabaBase->GetTile();
+				int Size = Baba_Actors[Tile].size();
+				if (Size >= 2) {
+					for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
+						_Baba->Destroy();
+					}
+				}
 			}
-			//_BabaBase->BState
 		}
 	}
+}
+
+void APlayGameMode::WinCheck()
+{
 }
 
 ActiveState APlayGameMode::GetActive(const BabaState& State)

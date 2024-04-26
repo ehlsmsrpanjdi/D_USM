@@ -50,12 +50,6 @@ bool UCollision::Collision(int _TargetGroup,
 	std::function<void(std::shared_ptr<UCollision>)> _Exit /*= nullptr*/)
 {
 	// Group 상대 그룹
-	bool IsColCheck = false;
-	if (nullptr == _Enter && nullptr == _Stay && nullptr == _Exit)
-	{
-		IsColCheck = true;
-	}
-
 
 	auto Test = GetWorld()->Collisions;
 
@@ -80,29 +74,20 @@ bool UCollision::Collision(int _TargetGroup,
 
 		if (true == Transform.Collision(ThisType, OtherType, OtherCollision->Transform))
 		{
-			if (true == IsColCheck)
-			{
-				return true;
-			}
 
 			if (false == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
 			{
 				FirstCheck.insert(CollisionPtr);
+			}
+
+			if (true == FirstCheck.contains(CollisionPtr))
+			{
 				if (nullptr != _Enter)
 				{
 					_Enter(OtherCollision);
 				}
 			}
-
-			//if (true == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
-			//{
-			//	if (nullptr != _Enter)
-			//	{
-			//		_Enter(OtherCollision);
-			//	}
-			//}
-
-			
+						
 			if (true == OtherCheck.contains(CollisionPtr))
 			{
 				if (nullptr != _Stay)
@@ -111,13 +96,24 @@ bool UCollision::Collision(int _TargetGroup,
 				}
 			}
 		}
-		else if(true == OtherCheck.contains(CollisionPtr))
+		else if(true == OtherCheck.contains(CollisionPtr) || true == ExitCheck.contains(CollisionPtr))
 		{
 			OtherCheck.erase(CollisionPtr);
-			if (nullptr != _Exit)
+
+			if (false == ExitCheck.contains(CollisionPtr))
 			{
-				_Exit(OtherCollision);
+				ExitCheck.insert(CollisionPtr);
 			}
+
+			if (true == ExitCheck.contains(CollisionPtr))
+			{
+				if (nullptr != _Exit)
+				{
+					_Exit(OtherCollision);
+				}
+				return false;
+			}
+
 		}
 	}
 
@@ -149,7 +145,7 @@ void UCollision::Tick(float _Delta)
 		OtherCheck.insert(Col);
 	}
 	FirstCheck.clear();
-
+	ExitCheck.clear();
 
 	if (false == GEngine->IsDebug)
 	{
@@ -184,6 +180,7 @@ void UCollision::Tick(float _Delta)
 	case ECollisionType::CirCle:
 	case ECollisionType::Point:
 	case ECollisionType::Sphere:
+		UEngineDebug::DrawDebugRender(EDebugRenderType::CirCle, Transform, float4::Black);
 		break;
 	case ECollisionType::RotRect:
 	case ECollisionType::RotBox:

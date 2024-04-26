@@ -74,6 +74,11 @@ void ULevel::Render(float _DeltaTime)
 	{
 		std::list<std::shared_ptr<URenderer>>& GroupRenderers = RenderGroup.second;
 
+		if (true == GroupRenderers.empty())
+		{
+			continue;
+		}
+
 		if (true == InstancingRenders.contains(RenderGroup.first))
 		{
 			std::shared_ptr<UInstancingRender> Inst = InstancingRenders[RenderGroup.first];
@@ -99,10 +104,11 @@ void ULevel::Render(float _DeltaTime)
 					continue;
 				}
 				Renderer->RenderingTransformUpdate(MainCamera);
+				Renderer->Update(_DeltaTime);
 				Inst->InstancingDataCheck(Renderer.get(), Count++);
 			}
 
-			Inst->Render(_DeltaTime);
+			Inst->RenderInstancing(_DeltaTime, static_cast<int>(RenderGroup.second.size()));
 			continue;
 		}
 
@@ -123,7 +129,7 @@ void ULevel::Render(float _DeltaTime)
 			}
 
 			Renderer->RenderingTransformUpdate(MainCamera);
-
+			Renderer->Update(_DeltaTime);
 			if (false == Renderer->Render(_DeltaTime))
 			{
 				MsgBoxAssert("랜더링에 실패했습니다." + Renderer->GetName());

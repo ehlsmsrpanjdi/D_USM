@@ -7,6 +7,8 @@ class ABabaBase;
 class IsWord;
 class NameWord;
 class ActiveWord;
+
+
 // Ό³Έν :
 class APlayGameMode : public AGameMode
 {
@@ -47,6 +49,8 @@ protected:
 	void IsUpdate();
 
 	void HotCheck();
+	void WinCheck();
+
 	ActiveState GetActive(const BabaState& State);
 
 
