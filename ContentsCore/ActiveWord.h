@@ -39,7 +39,6 @@ public:
 	void SetAnimation(std::string_view _Str);
 
 
-
 protected:
 
 private:

@@ -60,6 +60,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 		CanInput = false;
 	}
 	if (CanInput == true) {
+		IsReset();
 		IsUpdate();
 		BabaInputCheck();
 	}
@@ -216,6 +217,17 @@ void APlayGameMode::DebugMessageFunction()
 
 }
 
+void APlayGameMode::IsReset()
+{
+	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
+	{
+		std::list<ABabaBase*>& BabaBase = Iter.second;
+		for (ABabaBase*& _BabaBase : BabaBase) {
+			_BabaBase->IsOn = false;
+		}
+	}
+}
+
 void APlayGameMode::IsUpdate()
 {
 	BabaUpdateHelper::ActiveBaba = BabaUpdateHelper::None;
@@ -227,6 +239,7 @@ void APlayGameMode::IsUpdate()
 	BabaUpdateHelper::ActiveLava = BabaUpdateHelper::None;
 
 	for (IsWord* _Is : Is_Vec) {
+
 		_Is->UpCheck(Baba_Actors);
 		_Is->AxisCheck(Baba_Actors);
 	}

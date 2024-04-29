@@ -27,7 +27,6 @@ public:
 	}
 
 	void NameWordChangeAnimation();
-
 protected:
 
 private:

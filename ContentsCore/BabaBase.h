@@ -60,6 +60,8 @@ public:
 		return BState;
 	}
 
+	bool IsOn = false;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

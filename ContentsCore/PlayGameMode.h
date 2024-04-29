@@ -46,6 +46,7 @@ protected:
 	void BabaInputCheck();
 	void DebugMessageFunction();
 	
+	void IsReset();
 	void IsUpdate();
 
 	void HotCheck();

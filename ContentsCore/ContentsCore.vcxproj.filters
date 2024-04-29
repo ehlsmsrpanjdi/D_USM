@@ -52,6 +52,9 @@
     <ClInclude Include="TileMap.h">
       <Filter>Level\Actor\Base</Filter>
     </ClInclude>
+    <ClInclude Include="AndWord.h">
+      <Filter>Level\Actor\Word</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -104,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>Level\Actor\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="AndWord.cpp">
+      <Filter>Level\Actor\Word</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

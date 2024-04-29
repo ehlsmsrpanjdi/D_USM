@@ -1,36 +1,36 @@
 #include "PreCompile.h"
-#include "IsWord.h"
+#include "AndWord.h"
 #include "NameWord.h"
 #include "ActiveWord.h"
 #include <EngineCore/Actor.h>
 #include <EngineCore/DefaultSceneComponent.h>
 #include <EngineCore/SpriteRenderer.h>
 
-IsWord::IsWord()
+AndWord::AndWord()
 {
 
 }
 
-IsWord::~IsWord()
+AndWord::~AndWord()
 {
 }
 
-void IsWord::BeginPlay()
+void AndWord::BeginPlay()
 {
 	Super::BeginPlay();
 	Renderer->SetOrder(2);
 	Renderer->SetMaterial("2DImage");
-	Renderer->CreateAnimation("Is", "Is.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 2, 4});
-	Renderer->ChangeAnimation("is");
+	Renderer->CreateAnimation("And", "And.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
+	Renderer->ChangeAnimation("And");
 }
 
-void IsWord::Tick(float _DeltaTime)
+void AndWord::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	ABabaBase::Tick(_DeltaTime);
 }
 
-void IsWord::UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
+void AndWord::UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 	TilePoint ATile = this->KeyTileReturn('W');
 
@@ -60,7 +60,7 @@ void IsWord::UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 
 }
 
-void IsWord::AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
+void AndWord::AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 	TilePoint ATile = this->KeyTileReturn('A');
 
@@ -90,7 +90,7 @@ void IsWord::AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 
 }
 
-ABabaBase* IsWord::WorldCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile)
+ABabaBase* AndWord::WorldCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile)
 {
 	std::list<ABabaBase*>& _List = _Map[_Tile];
 	if (_List.empty() == true) {
@@ -107,13 +107,10 @@ ABabaBase* IsWord::WorldCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, 
 	return nullptr;
 }
 
-void IsWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
+void AndWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
 {
 	ActiveState* Who = nullptr;
 
-	IsOn = true;
-	_Left->IsOn = true;
-	_Right->IsOn = true;
 
 	if (BabaState::IsWord == _Right->GetBstate()) {
 
@@ -150,7 +147,7 @@ void IsWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
 	}
 }
 
-void IsWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
+void AndWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 {
 	NameWord* FrontWord = dynamic_cast<NameWord*>(_CurWord);
 	NameWord* BackWord = dynamic_cast<NameWord*>(_Name);
@@ -184,7 +181,7 @@ void IsWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 	*State = BackWord->GetNameSet();
 }
 
-void IsWord::ActiveChange(ActiveState* _CurWord, ABabaBase* _Active)
+void AndWord::ActiveChange(ActiveState* _CurWord, ABabaBase* _Active)
 {
 	//bool IsFloat = false;
 	//bool IsPush = false;
