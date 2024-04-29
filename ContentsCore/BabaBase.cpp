@@ -32,7 +32,7 @@ void ABabaBase::BeginPlay()
 
 	RenderInit();
 
-	Renderer->ChangeAnimation("wall");
+	Renderer->ChangeAnimation("wall0");
 	BabaInput = '0';
 }
 
@@ -44,9 +44,6 @@ void ABabaBase::Tick(float _DeltaTime)
 	BabaHelperUpdate();
 	BabaUpdate();
 	DebugMessageFunction();
-
-
-
 }
 
 void ABabaBase::LerpMove()
@@ -305,37 +302,37 @@ bool ABabaBase::PushCheck()
 
 bool ABabaBase::StopCheck()
 {
-		bool Temp = false;
-		switch (BState)
-		{
-		case BabaState::IsNone:
-			break;
-		case BabaState::IsBaba:
-			Temp = BabaUpdateHelper::ActiveBaba.IsStop || Temp;
-			break;
-		case BabaState::IsRock:
-			Temp = BabaUpdateHelper::ActiveRock.IsStop || Temp;
-			break;
-		case BabaState::IsWall:
-			Temp = BabaUpdateHelper::ActiveWall.IsStop || Temp;
-			break;
-		case BabaState::IsFlag:
-			Temp = BabaUpdateHelper::ActiveFlag.IsStop || Temp;
-			break;
-		case BabaState::IsSkull:
-			Temp = BabaUpdateHelper::ActiveSkull.IsStop || Temp;
-			break;
-		case BabaState::IsWater:
-			Temp = BabaUpdateHelper::ActiveWater.IsStop || Temp;
-			break;
-		case BabaState::IsLava:
-			Temp = BabaUpdateHelper::ActiveLava.IsStop || Temp;
-			break;
-		default:
-			break;
-		}
+	bool Temp = false;
+	switch (BState)
+	{
+	case BabaState::IsNone:
+		break;
+	case BabaState::IsBaba:
+		Temp = BabaUpdateHelper::ActiveBaba.IsStop || Temp;
+		break;
+	case BabaState::IsRock:
+		Temp = BabaUpdateHelper::ActiveRock.IsStop || Temp;
+		break;
+	case BabaState::IsWall:
+		Temp = BabaUpdateHelper::ActiveWall.IsStop || Temp;
+		break;
+	case BabaState::IsFlag:
+		Temp = BabaUpdateHelper::ActiveFlag.IsStop || Temp;
+		break;
+	case BabaState::IsSkull:
+		Temp = BabaUpdateHelper::ActiveSkull.IsStop || Temp;
+		break;
+	case BabaState::IsWater:
+		Temp = BabaUpdateHelper::ActiveWater.IsStop || Temp;
+		break;
+	case BabaState::IsLava:
+		Temp = BabaUpdateHelper::ActiveLava.IsStop || Temp;
+		break;
+	default:
+		break;
+	}
 
-		return Temp;
+	return Temp;
 }
 
 void ABabaBase::StateInit(BabaState _State)
@@ -674,17 +671,17 @@ void ABabaBase::SkullChange()
 
 void ABabaBase::WaterChange()
 {
-	Renderer->ChangeAnimation("Water");
+	Renderer->ChangeAnimation("Water0");
 }
 
 void ABabaBase::LavaChange()
 {
-	Renderer->ChangeAnimation("Lava");
+	Renderer->ChangeAnimation("Lava0");
 }
 
 void ABabaBase::WallChange()
 {
-	Renderer->ChangeAnimation("Wall");
+	Renderer->ChangeAnimation("Wall0");
 }
 
 void ABabaBase::Babachange()
@@ -719,9 +716,70 @@ void ABabaBase::RenderInit()
 	Renderer->CreateAnimation("RockObj", "RockObj.png", 0.1f);
 	Renderer->CreateAnimation("SkullObj", "SkullObj.png", 0.1f);
 
-	Renderer->CreateAnimation("Wall", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
-	Renderer->CreateAnimation("Lava", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
-	Renderer->CreateAnimation("Water", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
+	Renderer->CreateAnimation("Wall0", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
+	Renderer->CreateAnimation("Lava0", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
+	Renderer->CreateAnimation("Water0", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
+
+	Renderer->CreateAnimation("Wall1", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 21, 39 });
+	Renderer->CreateAnimation("Lava1", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 21, 39 });
+	Renderer->CreateAnimation("Water1", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 21, 39 });
+
+	Renderer->CreateAnimation("Wall2", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 4, 22, 40 });
+	Renderer->CreateAnimation("Lava2", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 4, 22, 40 });
+	Renderer->CreateAnimation("Water2", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 4, 22, 40 });
+
+	Renderer->CreateAnimation("Wall3", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 5, 23, 41 });
+	Renderer->CreateAnimation("Lava3", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 5, 23, 41 });
+	Renderer->CreateAnimation("Water3", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 5, 23, 41 });
+
+	Renderer->CreateAnimation("Wall4", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 6, 24, 42 });
+	Renderer->CreateAnimation("Lava4", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 6, 24, 42 });
+	Renderer->CreateAnimation("Water4", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 6, 24, 42 });
+
+	Renderer->CreateAnimation("Wall5", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 7, 25, 43 });
+	Renderer->CreateAnimation("Lava5", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 7, 25, 43 });
+	Renderer->CreateAnimation("Water5", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 7, 25, 43 });
+
+	Renderer->CreateAnimation("Wall6", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 8, 26, 44 });
+	Renderer->CreateAnimation("Lava6", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 8, 26, 44 });
+	Renderer->CreateAnimation("Water6", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 8, 26, 44 });
+
+	Renderer->CreateAnimation("Wall7", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 9, 27, 45 });
+	Renderer->CreateAnimation("Lava7", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 9, 27, 45 });
+	Renderer->CreateAnimation("Water7", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 9, 27, 45 });
+
+	Renderer->CreateAnimation("Wall8", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 10, 28, 46 });
+	Renderer->CreateAnimation("Lava8", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 10, 28, 46 });
+	Renderer->CreateAnimation("Water8", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 10, 28, 46 });
+
+	Renderer->CreateAnimation("Wall9", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{11, 29, 47 });
+	Renderer->CreateAnimation("Lava9", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{11, 29, 47 });
+	Renderer->CreateAnimation("Water9", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{11, 29, 47 });
+
+	Renderer->CreateAnimation("Wall10", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{12, 30, 48 });
+	Renderer->CreateAnimation("Lava10", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{12, 30, 48 });
+	Renderer->CreateAnimation("Water10", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{12, 30, 48 });
+
+	Renderer->CreateAnimation("Wall11", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{13, 31, 49 });
+	Renderer->CreateAnimation("Lava11", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{13, 31, 49 });
+	Renderer->CreateAnimation("Water11", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{13, 31, 49 });
+
+	Renderer->CreateAnimation("Wall12", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{14, 32, 50 });
+	Renderer->CreateAnimation("Lava12", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{14, 32, 50 });
+	Renderer->CreateAnimation("Water12", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{14, 32, 50 });
+
+	Renderer->CreateAnimation("Wall13", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{15, 33, 51 });
+	Renderer->CreateAnimation("Lava13", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{15, 33, 51 });
+	Renderer->CreateAnimation("Water13", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{15, 33, 51 });
+
+	Renderer->CreateAnimation("Wall14", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{16, 34, 52 });
+	Renderer->CreateAnimation("Lava14", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{16, 34, 52 });
+	Renderer->CreateAnimation("Water14", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{16, 34, 52 });;
+
+	Renderer->CreateAnimation("Wall15", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
+	Renderer->CreateAnimation("Lava15", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
+	Renderer->CreateAnimation("Water15", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
+
 
 
 
@@ -737,4 +795,88 @@ void ABabaBase::DustSpawn(char _Input)
 void ABabaBase::DeadRender()
 {
 	Renderer->SetActive(!Dead);
+}
+
+bool ABabaBase::RenderCheckHelper(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile, BabaState _State)
+{
+	std::list<ABabaBase*>& _List = _Map[_Tile];
+	if (_List.empty() == true) {
+		return false;
+	}
+	for (ABabaBase* _Baba : _List) {
+		if (_Baba->GetBstate() == _State) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void ABabaBase::RenderCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
+{
+	TilePoint TileW = KeyTileReturn('W');
+	TilePoint TileA = KeyTileReturn('A');
+	TilePoint TileS = KeyTileReturn('S');
+	TilePoint TileD = KeyTileReturn('D');
+	// 1 , 2 , 4, 8  ¿À À§ ¿Þ ¾Æ
+	int index = 0;
+	switch (BState)
+	{
+	case BabaState::IsWall:
+	{
+		if (RenderCheckHelper(_Map, TileD, BState)) {
+			index += 1;
+		}
+		if (RenderCheckHelper(_Map, TileW, BState)) {
+			index += 2;
+		}
+		if (RenderCheckHelper(_Map, TileA, BState)) {
+			index += 4;
+		}
+		if (RenderCheckHelper(_Map, TileS, BState)) {
+			index += 8;
+		}
+		Renderer->ChangeAnimation("Wall" + std::to_string(index));
+	}
+	break;
+	case BabaState::IsWater:
+	{
+		if (RenderCheckHelper(_Map, TileD, BState)) {
+			index += 1;
+		}
+		if (RenderCheckHelper(_Map, TileW, BState)) {
+			index += 2;
+		}
+		if (RenderCheckHelper(_Map, TileA, BState)) {
+			index += 4;
+		}
+		if (RenderCheckHelper(_Map, TileS, BState)) {
+			index += 8;
+		}
+		Renderer->ChangeAnimation("Water" + std::to_string(index));
+	}
+	break;
+	case BabaState::IsLava:
+	{
+		if (RenderCheckHelper(_Map, TileD, BState)) {
+			index += 1;
+		}
+		if (RenderCheckHelper(_Map, TileW, BState)) {
+			index += 2;
+		}
+		if (RenderCheckHelper(_Map, TileA, BState)) {
+			index += 4;
+		}
+		if (RenderCheckHelper(_Map, TileS, BState)) {
+			index += 8;
+		}
+		Renderer->ChangeAnimation("Lava" + std::to_string(index));
+	}
+	break;
+	default:
+		return;
+		break;
+	}
+
+
+
 }

@@ -19,8 +19,8 @@ BackGround::~BackGround()
 void BackGround::BeginPlay()
 {
 	Super::BeginPlay();
-	Renderer->SetSprite("black.png");
-	Renderer->SetOrder(100);
+	Renderer->SetSprite("Back_One.png");
+	Renderer->SetOrder(-100);
 }
 
 void BackGround::Tick(float _DeltaTime)

@@ -193,6 +193,9 @@ protected:
 
 	void DeadRender();
 
+	void RenderCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map);
+	bool RenderCheckHelper(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile, BabaState _State);
+
 private:
 	std::stack<bool> Move_Stack;
 	float4 Color;

@@ -16,6 +16,7 @@
 #include "FadeOUTEffect.h"
 #include "ContentsHelper.h"
 #include "AndWord.h"
+#include "BackGround.h"
 
 APlayGameMode::APlayGameMode()
 {}
@@ -29,6 +30,8 @@ void APlayGameMode::BeginPlay()
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+
+	std::shared_ptr<BackGround> Back = GetWorld()->SpawnActor<BackGround>("Back");
 
 	ContentsHelper::WordInit();
 	TileMap::TileSet(10, 10);
@@ -219,6 +222,7 @@ void APlayGameMode::IsReset()
 			_BabaBase->IsChecked = false;
 			_BabaBase->CanMove = false;
 			_BabaBase->IsOn = false;
+			_BabaBase->RenderCheck(Baba_Actors);
 		}
 	}
 }
