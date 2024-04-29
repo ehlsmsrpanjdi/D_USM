@@ -139,5 +139,6 @@ private:
 	FVertexUV VertexUVValue;
 	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
+	FVertexUV UVPos;
 };
 

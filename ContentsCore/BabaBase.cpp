@@ -43,7 +43,7 @@ void ABabaBase::Tick(float _DeltaTime)
 	SetActorlocation2D(Lerp(_DeltaTime));
 	BabaHelperUpdate();
 	BabaUpdate();
-	DebugMessageFunction();
+	//DebugMessageFunction();
 }
 
 void ABabaBase::LerpMove()
@@ -195,18 +195,18 @@ bool ABabaBase::BabaMapCheck(char _Input)
 	return false;
 }
 
-void ABabaBase::DebugMessageFunction()
-{
-	{
-		std::string Msg = std::format("PlayerPos : {}\n", std::to_string(Info.Tile.X) + "  " + std::to_string(Info.Tile.Y));
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("MousePos : {}\n", GetActorLocation().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-}
+//void ABabaBase::DebugMessageFunction()
+//{
+//	{
+//		std::string Msg = std::format("PlayerPos : {}\n", std::to_string(Info.Tile.X) + "  " + std::to_string(Info.Tile.Y));
+//		UEngineDebugMsgWindow::PushMsg(Msg);
+//	}
+//
+//	{
+//		std::string Msg = std::format("MousePos : {}\n", GetActorLocation().ToString());
+//		UEngineDebugMsgWindow::PushMsg(Msg);
+//	}
+//}
 
 void ABabaBase::ChangeTile(std::map<TilePoint, std::list<ABabaBase*>>& _Baba_Actors)
 {
@@ -779,9 +779,6 @@ void ABabaBase::RenderInit()
 	Renderer->CreateAnimation("Wall15", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
 	Renderer->CreateAnimation("Lava15", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
 	Renderer->CreateAnimation("Water15", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
-
-
-
 
 }
 

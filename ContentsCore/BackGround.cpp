@@ -9,7 +9,7 @@ BackGround::BackGround()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
-	Renderer->SetAutoSize(1.5, true);
+	Renderer->SetAutoSize(10, true);
 }
 
 BackGround::~BackGround()

@@ -29,7 +29,7 @@ void APlayGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+	Camera->SetActorLocation(FVector(320.0f, 160.0f, -100.0f));
 
 	std::shared_ptr<BackGround> Back = GetWorld()->SpawnActor<BackGround>("Back");
 
@@ -206,10 +206,10 @@ void APlayGameMode::BabaInputCheck()
 
 void APlayGameMode::DebugMessageFunction()
 {
-	{
-		std::string Msg = std::format("Change BABA : {}\n", std::to_string(Change_Baba.size()));
-		BabaEditor::PushMsg(Msg);
-	}
+	//{
+	//	std::string Msg = std::format("Change BABA : {}\n", std::to_string(Change_Baba.size()));
+	//	BabaEditor::PushMsg(Msg);
+	//}
 
 }
 
@@ -273,10 +273,9 @@ void APlayGameMode::HotCheck()
 					continue;
 				}
 				TilePoint Tile = _BabaBase->GetTile();
-				int Size = static_cast<int>(Baba_Actors[Tile].size());
-				if (Size >= 2) {
-					for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
-						_Baba->SetDead(true);
+				for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
+					if (BabaState::IsBaba == _Baba->GetBstate()) {
+					_Baba->SetDead(true);
 					}
 				}
 			}

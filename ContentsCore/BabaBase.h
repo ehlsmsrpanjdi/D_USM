@@ -159,7 +159,7 @@ protected:
 
 	bool BabaMapCheck(char _Input);
 
-	void DebugMessageFunction();
+	//void DebugMessageFunction();
 
 	void ChangeTile(std::map<TilePoint, std::list<ABabaBase*>>& _Baba_Actors);
 
