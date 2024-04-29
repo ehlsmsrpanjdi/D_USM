@@ -24,6 +24,8 @@ public:
 	void UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map);
 	void AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map);
 	ABabaBase* WorldCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
+	bool WordOnCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
+
 
 
 	void ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right);

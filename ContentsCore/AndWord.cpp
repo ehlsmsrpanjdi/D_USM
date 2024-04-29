@@ -34,7 +34,15 @@ void AndWord::UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 	TilePoint ATile = this->KeyTileReturn('W');
 
-	ABabaBase* LeftWord = WorldCheck(_Map, ATile);
+	bool Check = WordOnCheck(_Map, ATile);
+
+	if (false == Check) {
+		return;
+	}
+
+	TilePoint UpTile = GetTile() + TilePoint{ 0,3 };
+
+	ABabaBase* LeftWord = WorldCheck(_Map, UpTile);
 
 	if (nullptr == LeftWord) {
 		return;
@@ -42,6 +50,7 @@ void AndWord::UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 	if (BabaState::IsWord != LeftWord->GetBstate()) {
 		return;
 	}
+
 	TilePoint DTile = this->KeyTileReturn('S');
 
 
@@ -64,15 +73,23 @@ void AndWord::AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 	TilePoint ATile = this->KeyTileReturn('A');
 
-	ABabaBase* LeftWord = WorldCheck(_Map, ATile);
+	bool Check = WordOnCheck(_Map, ATile);
+
+	if (false == Check) {
+		return;
+	}
+
+	TilePoint LeftTile = GetTile() + TilePoint{ -3,0 };
+
+	ABabaBase* LeftWord = WorldCheck(_Map, LeftTile);
 
 	if (nullptr == LeftWord) {
 		return;
 	}
-
 	if (BabaState::IsWord != LeftWord->GetBstate()) {
 		return;
 	}
+
 	TilePoint DTile = this->KeyTileReturn('D');
 
 
@@ -87,6 +104,8 @@ void AndWord::AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 	}
 
 	ActiveUpdate(LeftWord, RightWord);
+
+
 
 }
 
@@ -105,6 +124,33 @@ ABabaBase* AndWord::WorldCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map,
 		}
 	}
 	return nullptr;
+}
+
+bool AndWord::WordOnCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile)
+{
+	std::list<ABabaBase*>& _List = _Map[_Tile];
+	if (_List.empty() == true) {
+		return false;
+	}
+	for (ABabaBase* _Baba : _List) {
+		if (_Baba->GetBstate() == BabaState::IsWord) {
+			if (_Baba->IsOn = true) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else if (_Baba->GetBstate() == BabaState::IsActive) {
+			if (_Baba->IsOn = true) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+	return false;
 }
 
 void AndWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)

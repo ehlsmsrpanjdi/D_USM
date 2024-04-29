@@ -98,6 +98,7 @@ enum class BabaState {
 	IsWord,
 	IsActive,
 	IsIs,
+	IsAnd,
 };
 
 struct ActiveState {

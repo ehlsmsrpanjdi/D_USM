@@ -15,7 +15,7 @@
 #include "FadeINEffect.h"
 #include "FadeOUTEffect.h"
 #include "ContentsHelper.h"
-
+#include "AndWord.h"
 
 APlayGameMode::APlayGameMode()
 {}
@@ -29,19 +29,6 @@ void APlayGameMode::BeginPlay()
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
-
-	//std::shared_ptr<ABabaBase> Player = GetWorld()->SpawnActor<ABabaBase>("Player");
-	//Player->StateInit(BabaState::IsBaba);
-	//Player->SetBabaLocation(0, 2, 'D');
-	//Baba_Actors[Player->GetTile()].push_back(Player.get());
-
-
-	//SpawnIs(6, 6);
-	//SpawnName(8, 8, BabaState::IsRock);
-	//SpawnActive(4, 4, "Move");
-
-	//GetWorld()->GetLastTarget()->AddEffect<SquareFadeIN>();
-	//GetWorld()->GetLastTarget()->AddEffect<FadeOUTEffect>();
 
 	ContentsHelper::WordInit();
 	TileMap::TileSet(10, 10);
@@ -176,19 +163,23 @@ void APlayGameMode::BabaInputCheck()
 		{
 			Stack_Pop();
 			Change_BabaPos();
+			DeadReset();
+			HotCheck();
+			SinkCheck();
+			WinCheck();
 			CanInput = false;
 			return;
 		}
 		else {
 			Key = '0';
 		}
-
+		IsUpdate();
+		AndUpdate();
 		bool CanActive = false;
 		for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
 		{
 			std::list<ABabaBase*>& BabaBase = Iter.second;
 			for (ABabaBase*& _BabaBase : BabaBase) {
-				_BabaBase->CanMove = false;
 				if (_BabaBase->IsChecked == true) {
 					continue;
 				}
@@ -202,8 +193,10 @@ void APlayGameMode::BabaInputCheck()
 		if (true == CanActive) {
 			Baba_Input();
 			Change_BabaPos();
-			IsUpdate();
+			DeadReset();
 			HotCheck();
+			SinkCheck();
+			WinCheck();
 		}
 	}
 }
@@ -223,7 +216,20 @@ void APlayGameMode::IsReset()
 	{
 		std::list<ABabaBase*>& BabaBase = Iter.second;
 		for (ABabaBase*& _BabaBase : BabaBase) {
+			_BabaBase->IsChecked = false;
+			_BabaBase->CanMove = false;
 			_BabaBase->IsOn = false;
+		}
+	}
+}
+
+void APlayGameMode::DeadReset()
+{
+	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
+	{
+		std::list<ABabaBase*>& BabaBase = Iter.second;
+		for (ABabaBase*& _BabaBase : BabaBase) {
+			_BabaBase->SetDead(false);
 		}
 	}
 }
@@ -239,9 +245,16 @@ void APlayGameMode::IsUpdate()
 	BabaUpdateHelper::ActiveLava = BabaUpdateHelper::None;
 
 	for (IsWord* _Is : Is_Vec) {
-
 		_Is->UpCheck(Baba_Actors);
 		_Is->AxisCheck(Baba_Actors);
+	}
+}
+
+void APlayGameMode::AndUpdate()
+{
+	for (AndWord* _And : And_Vec) {
+		_And->UpCheck(Baba_Actors);
+		_And->AxisCheck(Baba_Actors);
 	}
 }
 
@@ -252,11 +265,36 @@ void APlayGameMode::HotCheck()
 		std::list<ABabaBase*>& BabaBase = Iter.second;
 		for (ABabaBase*& _BabaBase : BabaBase) {
 			if (GetActive(_BabaBase->GetBstate()).IsHot == true) {
+				if (true == _BabaBase->GetDead()) {
+					continue;
+				}
 				TilePoint Tile = _BabaBase->GetTile();
-				int Size = Baba_Actors[Tile].size();
+				int Size = static_cast<int>(Baba_Actors[Tile].size());
 				if (Size >= 2) {
 					for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
-						_Baba->Destroy();
+						_Baba->SetDead(true);
+					}
+				}
+			}
+		}
+	}
+}
+
+void APlayGameMode::SinkCheck()
+{
+	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
+	{
+		std::list<ABabaBase*>& BabaBase = Iter.second;
+		for (ABabaBase*& _BabaBase : BabaBase) {
+			if (GetActive(_BabaBase->GetBstate()).IsSink == true) {
+				if (true == _BabaBase->GetDead()) {
+					continue;
+				}
+				TilePoint Tile = _BabaBase->GetTile();
+				int Size = static_cast<int>(Baba_Actors[Tile].size());
+				if (Size >= 2) {
+					for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
+						_Baba->SetDead(true);
 					}
 				}
 			}
@@ -266,6 +304,27 @@ void APlayGameMode::HotCheck()
 
 void APlayGameMode::WinCheck()
 {
+	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
+	{
+		std::list<ABabaBase*>& BabaBase = Iter.second;
+		for (ABabaBase*& _BabaBase : BabaBase) {
+			if (GetActive(_BabaBase->GetBstate()).IsWin == true) {
+				if (true == _BabaBase->GetDead()) {
+					continue;
+				}
+				TilePoint Tile = _BabaBase->GetTile();
+				int Size = static_cast<int>(Baba_Actors[Tile].size());
+				if (Size >= 2) {
+					for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
+						BabaState BState = _Baba->GetBstate();
+						if (BState == BabaState::IsBaba) {
+							int a = 0;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 ActiveState APlayGameMode::GetActive(const BabaState& State)
@@ -320,6 +379,17 @@ std::shared_ptr<IsWord> APlayGameMode::SpawnIs(TilePoint _Tile)
 	Baba_Actors[Is->GetTile()].push_back(Is.get());
 	Is_Vec.push_back(Is.get());
 	return Is;
+}
+
+std::shared_ptr<AndWord> APlayGameMode::SpawnAnd(TilePoint _Tile)
+{
+	std::shared_ptr<AndWord> And = GetWorld()->SpawnActor<AndWord>("Word");
+	And->SetOrder(1);
+	And->StateInit(BabaState::IsIs);
+	And->SetBabaLocation(_Tile);
+	Baba_Actors[And->GetTile()].push_back(And.get());
+	And_Vec.push_back(And.get());
+	return And;
 }
 
 std::shared_ptr<NameWord> APlayGameMode::SpawnName(TilePoint _Tile, BabaState _Info)

@@ -39,6 +39,7 @@ void ABabaBase::BeginPlay()
 void ABabaBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	DeadRender();
 	SetActorlocation2D(Lerp(_DeltaTime));
 	BabaHelperUpdate();
 	BabaUpdate();
@@ -221,7 +222,9 @@ void ABabaBase::ChangeTile(std::map<TilePoint, std::list<ABabaBase*>>& _Baba_Act
 
 bool ABabaBase::MoveCheck()
 {
-
+	if (true == GetDead()) {
+		return false;
+	}
 	bool Temp = false;
 	switch (BState)
 	{
@@ -349,6 +352,10 @@ bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 		return false;
 	}
 
+	if (true == GetDead()) {
+		return false;
+	}
+
 	TilePoint TempTile = KeyTileReturn(_Input);
 
 	if (true == BabaNextTileCheck(_Map, TempTile)) {
@@ -390,6 +397,11 @@ bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 		return false;
 	}
 
+	if (true == GetDead()) {
+		IsChecked = true;
+		CanMove = false;
+		return true;
+	}
 
 	if (MoveCheck() == false) {
 		if (false == PushCheck()) {
@@ -720,4 +732,9 @@ void ABabaBase::DustSpawn(char _Input)
 	std::shared_ptr<Dust> DD = GetWorld()->SpawnActor<Dust>("Dust");
 	DD->SetActorLocation(GetActorLocation());
 	DD->SetReleaseLocation(_Input);
+}
+
+void ABabaBase::DeadRender()
+{
+	Renderer->SetActive(!Dead);
 }

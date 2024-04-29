@@ -62,6 +62,14 @@ public:
 
 	bool IsOn = false;
 
+	bool GetDead() {
+		return Dead;
+	}
+
+	void SetDead(bool _Dead) {
+		Dead = _Dead;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -183,6 +191,7 @@ protected:
 
 	void DustSpawn(char _Input);
 
+	void DeadRender();
 
 private:
 	std::stack<bool> Move_Stack;
@@ -192,6 +201,7 @@ private:
 	TilePoint PrevTile = { 0,0 };
 	bool IsChecked = false;
 	bool CanMove = false;
+	bool Dead = false;
 
 };
 

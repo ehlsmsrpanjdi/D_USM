@@ -7,7 +7,7 @@ class ABabaBase;
 class IsWord;
 class NameWord;
 class ActiveWord;
-
+class AndWord;
 
 // Ό³Έν :
 class APlayGameMode : public AGameMode
@@ -34,6 +34,7 @@ protected:
 	std::map <TilePoint, std::list<ABabaBase*>> Baba_Actors;
 	std::vector<ABabaBase*> Change_Baba;
 	std::vector<IsWord*> Is_Vec;
+	std::vector<AndWord*> And_Vec;
 	std::stack<char> Stack_Input;
 	bool IsInput = false;
 	int Count = 0;
@@ -47,15 +48,19 @@ protected:
 	void DebugMessageFunction();
 	
 	void IsReset();
+	void DeadReset();
 	void IsUpdate();
+	void AndUpdate();
 
 	void HotCheck();
+	void SinkCheck();
 	void WinCheck();
 
 	ActiveState GetActive(const BabaState& State);
 
 
 	std::shared_ptr<IsWord> SpawnIs(TilePoint _Tile);
+	std::shared_ptr<AndWord> SpawnAnd(TilePoint _Tile);
 	std::shared_ptr<NameWord> SpawnName(TilePoint _Tile, BabaState _Info);
 	std::shared_ptr<ActiveWord> SpawnActive(TilePoint _Tile, std::string_view _Str);
 	std::shared_ptr<ABabaBase> SpawnBaba(TilePoint _Tile, std::string_view _Str);
@@ -72,6 +77,10 @@ protected:
 
 	std::shared_ptr<ABabaBase> SpawnBaba(int _X, int _Y, std::string_view _Str) {
 		return SpawnBaba(TilePoint(_X, _Y), _Str);
+	}
+
+	std::shared_ptr<AndWord> SpawnAnd(int _X, int _Y) {
+		return SpawnAnd(TilePoint(_X, _Y));
 	}
 
 private:

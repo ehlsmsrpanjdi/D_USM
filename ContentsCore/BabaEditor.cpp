@@ -6,6 +6,7 @@
 #include "ActiveWord.h"
 #include "NameWord.h"
 #include "IsWord.h"
+#include "AndWord.h"
 
 BabaEditor::BabaEditor()
 {
@@ -109,6 +110,14 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		TileData.push_back(Location[1]);
 		TileData.push_back(11);
 		EditorSwitch(Location[0], Location[1], 11);
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("And")) {
+		TileData.push_back(Location[0]);
+		TileData.push_back(Location[1]);
+		TileData.push_back(12);
+		EditorSwitch(Location[0], Location[1], 12);
 	}
 
 	if (true == ImGui::Button("You")) {
@@ -337,6 +346,13 @@ void BabaEditor::EditorSwitch(int _X, int _Y, int _Index)
 	case 11:
 	{
 		IsWord* Baba = GameMode->SpawnIs(_X, _Y).get();
+		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
+		Tiles.push_back(Bababa);
+	}
+	break;
+	case 12:
+	{
+		AndWord* Baba = GameMode->SpawnAnd(_X, _Y).get();
 		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
 		Tiles.push_back(Bababa);
 	}
