@@ -14,6 +14,9 @@ public:
 	FadeINEffect(FadeINEffect&& _Other) noexcept = delete;
 	FadeINEffect& operator=(const FadeINEffect& _Other) = delete;
 	FadeINEffect& operator=(FadeINEffect&& _Other) noexcept = delete;
+	void EffectON();
+	void EffectOff();
+	void SetEffect(bool _Triger);
 
 protected:
 	void Init() override;

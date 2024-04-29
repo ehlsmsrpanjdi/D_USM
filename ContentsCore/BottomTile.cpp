@@ -1,29 +1,30 @@
 #include "PreCompile.h"
-#include "BackGroundCirCle.h"
+#include "BottomTile.h"
 #include <EngineCore/DefaultSceneComponent.h>
 
 
-BackGroundCirCle::BackGroundCirCle()
+BottomTile::BottomTile()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
-	Renderer->SetAutoSize(1.5, true);
+	Renderer->SetAutoSize(1.5f, true);
+	Renderer->CreateAnimation("Tile", "Tile.png");
+	Renderer->ChangeAnimation("Tile");
 }
 
-BackGroundCirCle::~BackGroundCirCle()
+BottomTile::~BottomTile()
 {
 }
 
-void BackGroundCirCle::BeginPlay()
+void BottomTile::BeginPlay()
 {
 	Super::BeginPlay();
-	Renderer->SetSprite("circle.png");
-	Renderer->SetOrder(100);
+	Renderer->SetOrder(-1);
 }
 
-void BackGroundCirCle::Tick(float _DeltaTime)
+void BottomTile::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	

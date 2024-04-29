@@ -183,7 +183,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="BackgroundCirCle.h">
+    <ClInclude Include="BottomTile.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -251,7 +251,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="BackgroundCirCle.cpp">
+    <ClCompile Include="BottomTile.cpp">
       <SubType>
       </SubType>
     </ClCompile>

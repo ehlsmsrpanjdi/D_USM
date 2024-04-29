@@ -30,3 +30,18 @@ void FadeINEffect::Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget)
 	Render(0.0f);
 
 }
+
+void FadeINEffect::EffectON()
+{
+	Active(true);
+}
+
+void FadeINEffect::EffectOff()
+{
+	Active(false);
+}
+
+void FadeINEffect::SetEffect(bool _Triger)
+{
+	Active(_Triger);
+}

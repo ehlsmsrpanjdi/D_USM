@@ -37,7 +37,7 @@
     <ClInclude Include="BackGround.h">
       <Filter>Level\Actor\Fade</Filter>
     </ClInclude>
-    <ClInclude Include="BackgroundCirCle.h">
+    <ClInclude Include="BottomTile.h">
       <Filter>Level\Actor\Fade</Filter>
     </ClInclude>
     <ClInclude Include="FadeINEffect.h">
@@ -93,7 +93,7 @@
     <ClCompile Include="BackGround.cpp">
       <Filter>Level\Actor\Fade</Filter>
     </ClCompile>
-    <ClCompile Include="BackgroundCirCle.cpp">
+    <ClCompile Include="BottomTile.cpp">
       <Filter>Level\Actor\Fade</Filter>
     </ClCompile>
     <ClCompile Include="FadeINEffect.cpp">

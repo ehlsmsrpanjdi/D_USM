@@ -85,6 +85,7 @@ void ContentsCore::ResourcesInit()
 	UEngineSprite::CreateCutting("RockObj.png", 1, 3);
 	UEngineSprite::CreateCutting("FlagObj.png", 2, 3);
 	UEngineSprite::CreateCutting("And.png", 3, 3);
+	UEngineSprite::CreateCutting("TILE.png", 3, 1);
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsShader");
