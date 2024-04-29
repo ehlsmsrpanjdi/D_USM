@@ -44,8 +44,7 @@ void ABabaBase::Tick(float _DeltaTime)
 	BabaUpdate();
 	DebugMessageFunction();
 
-	std::shared_ptr<Dust> DD = GetWorld()->SpawnActor<Dust>("Dust");
-	DD->SetActorLocation(GetActorLocation());
+
 
 }
 
@@ -353,6 +352,7 @@ bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 	TilePoint TempTile = KeyTileReturn(_Input);
 
 	if (true == BabaNextTileCheck(_Map, TempTile)) {
+		DustSpawn(_Input);
 		_Vec.push_back(this);
 		CanMove = true;
 		IsChecked = true;
@@ -366,6 +366,7 @@ bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 		CheckBool = (CheckBool && Check);
 	}
 	if (true == CheckBool) {
+		DustSpawn(_Input);
 		_Vec.push_back(this);
 		CanMove = true;
 		IsChecked = true;
@@ -407,6 +408,7 @@ bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 	TilePoint TempTile = KeyTileReturn(_Input);
 
 	if (true == BabaNextTileCheck(_Map, TempTile)) {
+		DustSpawn(_Input);
 		_Vec.push_back(this);
 		CanMove = true;
 		IsChecked = true;
@@ -421,6 +423,7 @@ bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 			TempBool = (TempBool && Temp);
 		}
 		if (true == TempBool) {
+			DustSpawn(_Input);
 			_Vec.push_back(this);
 			CanMove = true;
 			IsChecked = true;
@@ -710,4 +713,11 @@ void ABabaBase::RenderInit()
 
 
 
+}
+
+void ABabaBase::DustSpawn(char _Input)
+{
+	std::shared_ptr<Dust> DD = GetWorld()->SpawnActor<Dust>("Dust");
+	DD->SetActorLocation(GetActorLocation());
+	DD->SetReleaseLocation(_Input);
 }

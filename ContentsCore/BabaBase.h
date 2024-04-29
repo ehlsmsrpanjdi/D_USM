@@ -179,6 +179,8 @@ protected:
 
 	void RenderInit();
 
+	void DustSpawn(char _Input);
+
 
 private:
 	std::stack<bool> Move_Stack;

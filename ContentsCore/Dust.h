@@ -18,12 +18,18 @@ public:
 	Dust& operator=(const Dust& _Other) = delete;
 	Dust& operator=(Dust&& _Other) noexcept = delete;
 
+	void SetReleaseLocation(char _Input);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-
+	void SetInputBaseLocation(FVector _Scale);
 
 private:
 	USpriteRenderer* Renderer = nullptr;
+	FVector Scale = FVector::Zero;
+	float ReleaseTime = 0.f;
+	float TotalTime = 0.f;
+	char ReleaseLocation = '0';
 };
