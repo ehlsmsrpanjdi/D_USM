@@ -24,7 +24,8 @@ public:
 	BabaEditor& operator=(const BabaEditor& _Other) = delete;
 	BabaEditor& operator=(BabaEditor&& _Other) noexcept = delete;
 
-	void EditorFunction(int _LocationX, int _LocationY, int _Num);
+	void EditorFunction();
+	void EditorReleaseFunction();
 
 protected:
 	void Init() override;

@@ -18,12 +18,16 @@ BabaEditor::~BabaEditor()
 {
 }
 
-void BabaEditor::EditorFunction(int _LocationX, int _LocationY, int _Num)
+void BabaEditor::EditorFunction()
 {
-	TileData.push_back(Location[_LocationX]);
-	TileData.push_back(Location[_LocationY]);
-	TileData.push_back(_Num);
-	EditorSwitch(Location[_LocationX], Location[_LocationY], _Num);
+	TileData.push_back(Location[0]);
+	TileData.push_back(Location[1]);
+	TileData.push_back(SwitchNum);
+	EditorSwitch(Location[0], Location[1], SwitchNum);
+}
+
+void BabaEditor::EditorReleaseFunction()
+{
 }
 
 void BabaEditor::Init()
@@ -45,23 +49,35 @@ void BabaEditor::Tick(ULevel* Level, float _Delta)
 		Off();
 	}
 
+	if (UEngineInput::IsPress(VK_LBUTTON)) {
+		EditorFunction();
+	}
+
+	if (UEngineInput::IsPress(VK_RBUTTON)) {
+		int a = 0;
+	}
+
+
 }
 
 void BabaEditor::OnGui(ULevel* Level, float _Delta)
 {
-	ImGui::InputInt2("Location", Location);
+	//ImGui::InputInt2("Location", Location);
 
 	Int2D I2D = MousePosCul(Level);
 	ImGui::Text(("Mouse intX : " + (std::to_string(I2D.X))).c_str());
 	ImGui::Text(("Mouse intY : " + (std::to_string(I2D.Y))).c_str());
 
+	Location[0] = I2D.X;
+	Location[1] = I2D.Y;
 
 	if (true == ImGui::Button("Baba")) {
 		{
-			TileData.push_back(Location[0]);
-			TileData.push_back(Location[1]);
-			TileData.push_back(1);
-			EditorSwitch(Location[0], Location[1], 1);
+			SwitchNum = 1;
+			//TileData.push_back(Location[0]);
+			//TileData.push_back(Location[1]);
+			//TileData.push_back(1);
+			//EditorSwitch(Location[0], Location[1], 1);
 		}
 	}
 
