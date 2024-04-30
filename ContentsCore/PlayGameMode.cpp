@@ -18,10 +18,12 @@
 #include "AndWord.h"
 #include "BackGround.h"
 #include "BottomTile.h"
-
+#include "ContentsCore.h"
 
 APlayGameMode::APlayGameMode()
-{}
+{
+	ContentsCore::GameMode = this;
+}
 
 APlayGameMode::~APlayGameMode()
 {}
@@ -223,7 +225,15 @@ void APlayGameMode::IsReset()
 	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
 	{
 		std::list<ABabaBase*>& BabaBase = Iter.second;
-		for (ABabaBase*& _BabaBase : BabaBase) {
+		for (ABabaBase*& _BabaBase : BabaBase) 
+		{
+			if (_BabaBase->IsDestroy() == true) {
+				continue;
+			}
+
+			if (_BabaBase == nullptr) {
+				continue;
+			}
 			_BabaBase->IsChecked = false;
 			_BabaBase->CanMove = false;
 			_BabaBase->IsOn = false;
@@ -514,6 +524,30 @@ std::shared_ptr<ABabaBase> APlayGameMode::SpawnBaba(TilePoint _Tile, std::string
 		MsgBoxAssert("ActiveName에 이상한거넣었음");
 	}
 	return Baba;
+}
+
+std::shared_ptr<BottomTile> APlayGameMode::SpawnTile(TilePoint _Tile)
+{
+	std::shared_ptr<BottomTile> Tile = GetWorld()->SpawnActor<BottomTile>("Tile");
+	Tile->SetActorLocation(FVector{ _Tile.X * 32, _Tile.Y * 32, 0 });
+	return Tile;
+}
+
+void APlayGameMode::ContainerReset()
+{
+	std::map <TilePoint, std::list<ABabaBase*>> Baba_Actors1;
+	std::vector<ABabaBase*> Change_Baba1;
+	std::vector<IsWord*> Is_Vec1;
+	std::vector<AndWord*> And_Vec1;
+	std::stack<char> Stack_Input1;
+
+	Baba_Actors.clear();
+	Change_Baba.clear();
+	Is_Vec.clear();
+	And_Vec.clear();
+	while (Stack_Input.empty() != true) {
+		Stack_Input.pop();
+	}
 }
 
 

@@ -6,6 +6,7 @@
 #include <EngineCore/EngineEditorGUI.h>
 #include<EngineCore/EnginePixelShader.h>
 
+APlayGameMode* ContentsCore::GameMode = nullptr;
 
 ContentsCore::ContentsCore()
 {

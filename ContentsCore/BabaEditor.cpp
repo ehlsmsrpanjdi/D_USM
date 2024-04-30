@@ -7,6 +7,8 @@
 #include "NameWord.h"
 #include "IsWord.h"
 #include "AndWord.h"
+#include "ContentsCore.h"
+#include "BottomTile.h"
 
 
 BabaEditor::BabaEditor()
@@ -20,14 +22,21 @@ BabaEditor::~BabaEditor()
 
 void BabaEditor::EditorFunction()
 {
-	TileData.push_back(Location[0]);
-	TileData.push_back(Location[1]);
-	TileData.push_back(SwitchNum);
-	EditorSwitch(Location[0], Location[1], SwitchNum);
+	TilePoint TileLocation = { Location[0],Location[1] };
+	if (nullptr == Baba_Actors[TileLocation]) {
+		Baba_Actors[TileLocation] = EditorSwitch(Location[0], Location[1], SwitchNum);
+		BabaData[TileLocation] = SwitchNum;
+	}
 }
 
 void BabaEditor::EditorReleaseFunction()
 {
+	TilePoint TileLocation = { Location[0],Location[1] };
+	if (nullptr != Baba_Actors[TileLocation]) {
+		Baba_Actors[TileLocation]->Destroy();
+		Baba_Actors[TileLocation] = nullptr;
+		BabaData[TileLocation] = 0;
+	}
 }
 
 void BabaEditor::Init()
@@ -54,7 +63,7 @@ void BabaEditor::Tick(ULevel* Level, float _Delta)
 	}
 
 	if (UEngineInput::IsPress(VK_RBUTTON)) {
-		int a = 0;
+		EditorReleaseFunction();
 	}
 
 
@@ -74,201 +83,122 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	if (true == ImGui::Button("Baba")) {
 		{
 			SwitchNum = 1;
-			//TileData.push_back(Location[0]);
-			//TileData.push_back(Location[1]);
-			//TileData.push_back(1);
-			//EditorSwitch(Location[0], Location[1], 1);
 		}
 	}
 
 	ImGui::SameLine();
 	if (true == ImGui::Button("Wall")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(2);
-		EditorSwitch(Location[0], Location[1], 2);
+		SwitchNum = 2;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Rock")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(3);
-		EditorSwitch(Location[0], Location[1], 3);
+		SwitchNum = 3;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Flag")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(4);
-		EditorSwitch(Location[0], Location[1], 4);
+		SwitchNum = 4;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Skull")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(5);
-		EditorSwitch(Location[0], Location[1], 5);
+		SwitchNum = 5;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Water")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(6);
-		EditorSwitch(Location[0], Location[1], 6);
+		SwitchNum = 6;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Lava")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(7);
-		EditorSwitch(Location[0], Location[1], 7);
+		SwitchNum = 7;
 	}
 
 
 	if (true == ImGui::Button("Is")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(11);
-		EditorSwitch(Location[0], Location[1], 11);
+		SwitchNum = 11;
 	}
 
 	ImGui::SameLine();
 	if (true == ImGui::Button("And")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(12);
-		EditorSwitch(Location[0], Location[1], 12);
+		SwitchNum = 12;
 	}
 
 	if (true == ImGui::Button("You")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(20);
-		EditorSwitch(Location[0], Location[1], 20);
+		SwitchNum = 20;
 	}
 
 	ImGui::SameLine();
 	if (true == ImGui::Button("Push")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(21);
-		EditorSwitch(Location[0], Location[1], 21);
+		SwitchNum = 21;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Move")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(22);
-		EditorSwitch(Location[0], Location[1], 22);
+		SwitchNum = 22;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Stop")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(23);
-		EditorSwitch(Location[0], Location[1], 23);
+		SwitchNum = 23;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Hot")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(24);
-		EditorSwitch(Location[0], Location[1], 24);
+		SwitchNum = 24;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Pull")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(25);
-		EditorSwitch(Location[0], Location[1], 25);
+		SwitchNum = 25;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Win")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(26);
-		EditorSwitch(Location[0], Location[1], 26);
+		SwitchNum = 26;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Defeat")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(27);
-		EditorSwitch(Location[0], Location[1], 27);
+		SwitchNum = 27;
 	}
 
 	ImGui::SameLine();
 	if (true == ImGui::Button("Sink")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(29);
-		EditorSwitch(Location[0], Location[1], 29);
+		SwitchNum = 28;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Float")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(30);
-		EditorSwitch(Location[0], Location[1], 30);
+		SwitchNum = 29;
 	}
 
 
 
 	if (true == ImGui::Button("NameBaba")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(31);
-		EditorSwitch(Location[0], Location[1], 31);
+		SwitchNum = 31;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameWall")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(32);
-		EditorSwitch(Location[0], Location[1], 32);
+		SwitchNum = 32;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameRock")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(33);
-		EditorSwitch(Location[0], Location[1], 33);
+		SwitchNum = 33;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameFlag")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(34);
-		EditorSwitch(Location[0], Location[1], 34);
+		SwitchNum = 34;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameSkull")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(35);
-		EditorSwitch(Location[0], Location[1], 35);
+		SwitchNum = 35;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameWater")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(36);
-		EditorSwitch(Location[0], Location[1], 36);
+		SwitchNum = 36;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameLava")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(37);
-		EditorSwitch(Location[0], Location[1], 37);
+		SwitchNum = 37;
+	}
+
+	if (true == ImGui::Button("Tile")) {
+		SwitchNum = 40;
 	}
 
 	if (true == ImGui::Button("Clear")) {
-		for (ABabaBase* Baba : Tiles) {
-			Baba->Destroy();
-		}
-		Tiles.clear();
-		TileData.clear();
+		ClearAll();
 	}
 
 
@@ -276,6 +206,7 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	}
 
 	if (true == ImGui::Button("Save")) {
+		SaveFunction();
 		if (TileData.empty() == true) {
 			str = "FileSaveFail";
 			FileState = true;
@@ -292,12 +223,7 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	}
 
 	if (true == ImGui::Button("Load")) {
-
-		for (ABabaBase* Baba : Tiles) {
-			Baba->Destroy();
-		}
-		Tiles.clear();
-		TileData.clear();
+		ClearAll();
 
 		UEngineSerializer Ser;
 		std::string Str = FileName;
@@ -352,172 +278,205 @@ Int2D BabaEditor::MousePosCul(ULevel* _Level)
 	return Int2D{ LocationX,LocationY };
 }
 
-void BabaEditor::EditorSwitch(int _X, int _Y, int _Index)
+AActor* BabaEditor::EditorSwitch(int _X, int _Y, int _Num)
 {
-	switch (_Index)
+	ABabaBase* Baba = nullptr;
+	switch (_Num)
 	{
 	case 1:
-		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Baba").get());
-		break;
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Baba").get();
+	}
+	break;
 	case 2:
-		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Wall").get());
-		break;
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Wall").get();
+	}
+	break;
 	case 3:
-		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Rock").get());
-		break;
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Rock").get();
+	}
+	break;
 	case 4:
-		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Flag").get());
-		break;
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Flag").get();
+	}
+	break;
 	case 5:
-		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Skull").get());
-		break;
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Skull").get();
+	}
+	break;
 	case 6:
-		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Water").get());
-		break;
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Water").get();
+	}
+	break;
 	case 7:
-		Tiles.push_back(GameMode->SpawnBaba(_X, _Y, "Lava").get());
-		break;
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Lava").get();
+	}
+	break;
 	case 11:
 	{
-		IsWord* Baba = GameMode->SpawnIs(_X, _Y).get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		IsWord* Bababa = GameMode->SpawnIs(_X, _Y).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 12:
 	{
-		AndWord* Baba = GameMode->SpawnAnd(_X, _Y).get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		AndWord* Bababa = GameMode->SpawnAnd(_X, _Y).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 20:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "You").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "You").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 21:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Push").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Push").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 22:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Move").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Move").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 23:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Stop").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Stop").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 24:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Hot").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Hot").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 25:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Pull").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Pull").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 26:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Win").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Win").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 27:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Defeat").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Defeat").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
-	//case 28:
-	//{
-	//	ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Hot").get();
-	//	ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-	//	Tiles.push_back(Bababa);
-	//}
-	//break;
+	case 28:
+	{
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Sink").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
 	case 29:
 	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Sink").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
-	}
-	break;
-	case 30:
-	{
-		ActiveWord* Baba = GameMode->SpawnActive(_X, _Y, "Float").get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Float").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 31:
 	{
-		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsBaba).get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsBaba).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 32:
 	{
-		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsWall).get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsWall).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 33:
 	{
-		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsRock).get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsRock).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 34:
 	{
-		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsFlag).get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsFlag).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 35:
 	{
-		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsSkull).get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsSkull).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 36:
 	{
-		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsWater).get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsWater).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
 	case 37:
 	{
-		NameWord* Baba = GameMode->SpawnName(_X, _Y, BabaState::IsLava).get();
-		ABabaBase* Bababa = static_cast<ABabaBase*>(Baba);
-		Tiles.push_back(Bababa);
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsLava).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
+	case 40:
+	{
+		BottomTile* Tile = GameMode->SpawnTile(_X, _Y).get();
+	
+		AActor* Actor = static_cast<AActor*>(Tile);
+		return Actor;
+	}
 	default:
 		break;
 	}
+	if (nullptr != Baba)
+	{
+		return static_cast<AActor*>(Baba);
+	}
+	else {
+		return nullptr;
+	}
+}
+
+void BabaEditor::SaveFunction()
+{
+	int i = 0;
+	for (std::pair<const TilePoint, AActor*>& Iter : Baba_Actors)
+	{
+		AActor*& BabaBase = Iter.second;
+		TilePoint TileLocation = Iter.first;
+		if (nullptr != BabaBase) {
+			TileData.push_back(Iter.first.X);
+			TileData.push_back(Iter.first.Y);
+			TileData.push_back(BabaData[Iter.first]);
+			++i;
+		}
+	}
+}
+
+void BabaEditor::ClearAll()
+{
+	for (std::pair<const TilePoint, AActor*>& Iter : Baba_Actors)
+	{
+		if (nullptr != Iter.second) {
+			Iter.second->Destroy();
+			Iter.second = nullptr;
+		}
+	}
+	BabaData.clear();
+	Baba_Actors.clear();
+	ContentsCore::GameMode->ContainerReset();
 }

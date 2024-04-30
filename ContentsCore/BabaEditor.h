@@ -8,6 +8,7 @@ struct Int2D {
 	int Y = 0;
 };
 
+class ABabaBase;
 
 class APlayGameMode;
 // Ό³Έν :
@@ -41,15 +42,18 @@ protected:
 	char FileName[255] = "";
 
 	UEngineDirectory Dir;
+	std::map <struct TilePoint, AActor*> Baba_Actors;
+	std::map<struct TilePoint, int> BabaData;
 	std::vector<int> TileData;
-	std::vector<class ABabaBase*> Tiles;
 	std::string str = "";
 
 	bool FileState = false;
 	float _DeltaTime = 0.f;
 	int SwitchNum = 0;
 
-	void EditorSwitch(int _X, int _Y, int _Index);
+	AActor* EditorSwitch(int _X, int _Y, int _Num);
+	void SaveFunction();
+	void ClearAll();
 private:
 
 };

@@ -8,6 +8,7 @@ class IsWord;
 class NameWord;
 class ActiveWord;
 class AndWord;
+class BottomTile;
 
 // Ό³Έν :
 class APlayGameMode : public AGameMode
@@ -83,8 +84,14 @@ protected:
 		return SpawnAnd(TilePoint(_X, _Y));
 	}
 
-private:
+	std::shared_ptr<BottomTile> SpawnTile(int _X, int _Y) {
+		return SpawnTile(TilePoint(_X, _Y));
+	}
 
+	std::shared_ptr<BottomTile> SpawnTile(TilePoint _Tile);
+
+private:
+	void ContainerReset();
 	bool CanInput = false;
 };
 

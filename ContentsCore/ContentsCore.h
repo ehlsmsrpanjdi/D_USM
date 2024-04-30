@@ -1,5 +1,7 @@
 #pragma once
 #include <EngineCore/EngineCore.h>
+
+class APlayGameMode;
 // Ό³Έν :
 class ContentsCore : public UserCore
 {
@@ -13,6 +15,8 @@ public:
 	ContentsCore(ContentsCore&& _Other) noexcept = delete;
 	ContentsCore& operator=(const ContentsCore& _Other) = delete;
 	ContentsCore& operator=(ContentsCore&& _Other) noexcept = delete;
+
+	static APlayGameMode* GameMode;
 
 protected:
 	void Initialize() override;
