@@ -42,17 +42,7 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 {
 	ImGui::InputInt2("Location", Location);
 
-	float4 MousePos = GEngine->EngineWindow.GetScreenMousePos();
-	MousePos = Level->GetMainCamera()->ScreenPosToWorldPos(MousePos);
-
-	int XPos = MousePos.X / 32;
-	int YPos = MousePos.Y / 32;
-
 	Int2D I2D = MousePosCul(Level);
-
-	ImGui::Text(("Mouse X : " + (std::to_string(MousePos.X))).c_str());
-	ImGui::Text(("Mouse Y : " + (std::to_string(MousePos.Y))).c_str());
-
 	ImGui::Text(("Mouse intX : " + (std::to_string(I2D.X))).c_str());
 	ImGui::Text(("Mouse intY : " + (std::to_string(I2D.Y))).c_str());
 
