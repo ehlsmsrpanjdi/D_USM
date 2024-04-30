@@ -32,13 +32,14 @@ void ABabaBase::BeginPlay()
 
 	RenderInit();
 
-	Renderer->ChangeAnimation("wall0");
 	BabaInput = '0';
+
 }
 
 void ABabaBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
 	DeadRender();
 	SetActorlocation2D(Lerp(_DeltaTime));
 	BabaHelperUpdate();
@@ -626,7 +627,7 @@ void ABabaBase::BabaUpdate()
 		break;
 		case BabaState::IsWall:
 		{
-			WallChange();
+			//WallChange();
 		}
 		break;
 		case BabaState::IsRock:
@@ -641,10 +642,10 @@ void ABabaBase::BabaUpdate()
 			SkullChange();
 			break;
 		case BabaState::IsWater:
-			WaterChange();
+			//WaterChange();
 			break;
 		case BabaState::IsLava:
-			LavaChange();
+			//LavaChange();
 			break;
 		default:
 			break;

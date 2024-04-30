@@ -84,7 +84,6 @@ void UImage::MaterialSettingEnd()
 	Resources->SettingConstantBuffer("ResultColorValue", ColorData);
 	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
 	Resources->SettingConstantBuffer("FVertexUV", VertexUVValue);
-	Resources->SettingConstantBuffer("UVPos", UVPos);
 }
 
 void UImage::Tick(float _DeltaTime)

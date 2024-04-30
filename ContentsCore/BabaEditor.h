@@ -3,6 +3,11 @@
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineBase/EngineDirectory.h>
 
+struct Int2D {
+	int X = 0;
+	int Y = 0;
+};
+
 class APlayGameMode;
 // Ό³Έν :
 class BabaEditor : public UEngineDebugMsgWindow
@@ -22,6 +27,8 @@ protected:
 	void Init() override;
 	void Tick(ULevel* Level, float _Delta) override;
 	void OnGui(ULevel* Level, float _Delta) override;
+
+	Int2D MousePosCul(ULevel* _Level);
 
 	APlayGameMode* GameMode = nullptr;
 

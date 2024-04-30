@@ -48,11 +48,13 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	int XPos = MousePos.X / 32;
 	int YPos = MousePos.Y / 32;
 
+	Int2D I2D = MousePosCul(Level);
+
 	ImGui::Text(("Mouse X : " + (std::to_string(MousePos.X))).c_str());
 	ImGui::Text(("Mouse Y : " + (std::to_string(MousePos.Y))).c_str());
 
-	ImGui::Text(("Mouse intX : " + (std::to_string(XPos))).c_str());
-	ImGui::Text(("Mouse intY : " + (std::to_string(YPos))).c_str());
+	ImGui::Text(("Mouse intX : " + (std::to_string(I2D.X))).c_str());
+	ImGui::Text(("Mouse intY : " + (std::to_string(I2D.Y))).c_str());
 
 
 	if (true == ImGui::Button("Baba")) {
@@ -316,6 +318,27 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	}
 
 
+}
+
+Int2D BabaEditor::MousePosCul(ULevel* _Level)
+{
+	float4 MousePos = GEngine->EngineWindow.GetScreenMousePos();
+	MousePos = _Level->GetMainCamera()->ScreenPosToWorldPos(MousePos);
+
+	int XPos = MousePos.X;
+	int LocationX = 0;
+	int LocationY = 0;
+	int YPos = MousePos.Y;
+	while (XPos > 16) {
+		XPos -= 32;
+		LocationX++;
+	}
+	while (YPos > 16) {
+		YPos -= 32;
+		LocationY++;
+	}
+
+	return Int2D{ LocationX,LocationY };
 }
 
 void BabaEditor::EditorSwitch(int _X, int _Y, int _Index)
