@@ -196,19 +196,6 @@ bool ABabaBase::BabaMapCheck(char _Input)
 	return false;
 }
 
-//void ABabaBase::DebugMessageFunction()
-//{
-//	{
-//		std::string Msg = std::format("PlayerPos : {}\n", std::to_string(Info.Tile.X) + "  " + std::to_string(Info.Tile.Y));
-//		UEngineDebugMsgWindow::PushMsg(Msg);
-//	}
-//
-//	{
-//		std::string Msg = std::format("MousePos : {}\n", GetActorLocation().ToString());
-//		UEngineDebugMsgWindow::PushMsg(Msg);
-//	}
-//}
-
 void ABabaBase::ChangeTile(std::map<TilePoint, std::list<ABabaBase*>>& _Baba_Actors)
 {
 	if (GetPrevTile() != Info.Tile) {
@@ -520,6 +507,7 @@ void ABabaBase::KeyTileSet(char _Input)
 		break;
 	}
 	Move_Stack.push(true);
+	Type_Stack.push(BState)
 }
 
 void ABabaBase::KeyTileSetReverse(char _Input)
@@ -577,35 +565,35 @@ void ABabaBase::BabaHelperUpdate()
 		break;
 		case BabaState::IsWall:
 		{
-			if (BState != BabaState::IsWall) {
+			if (BState != BabaUpdateHelper::Wall) {
 				BState = BabaUpdateHelper::Wall;
 			}
 		}
 		break;
 		case BabaState::IsFlag:
 		{
-			if (BState != BabaState::IsFlag) {
+			if (BState != BabaUpdateHelper::Flag) {
 				BState = BabaUpdateHelper::Flag;
 			}
 		}
 		break;
 		case BabaState::IsSkull:
 		{
-			if (BState != BabaState::IsSkull) {
+			if (BState != BabaUpdateHelper::Skull) {
 				BState = BabaUpdateHelper::Skull;
 			}
 		}
 		break;
 		case BabaState::IsLava:
 		{
-			if (BState != BabaState::IsLava) {
+			if (BState != BabaUpdateHelper::Lava) {
 				BState = BabaUpdateHelper::Lava;
 			}
 		}
 		break;
 		case BabaState::IsWater:
 		{
-			if (BState != BabaState::IsWater) {
+			if (BState != BabaUpdateHelper::Water) {
 				BState = BabaUpdateHelper::Water;
 			}
 		}

@@ -9,7 +9,7 @@
 #include "AndWord.h"
 #include "ContentsCore.h"
 #include "BottomTile.h"
-
+#include "TileMap.h"
 
 BabaEditor::BabaEditor()
 {
@@ -23,6 +23,12 @@ BabaEditor::~BabaEditor()
 void BabaEditor::EditorFunction()
 {
 	TilePoint TileLocation = { Location[0],Location[1] };
+	if (TileMap::Tile.X < Location[0] || TileMap::Tile.Y < Location[1]) {
+		return;
+	}
+	if (Location[0] < 0 || Location[1] < 0) {
+		return;
+	}
 	if (nullptr == Baba_Actors[TileLocation]) {
 		Baba_Actors[TileLocation] = EditorSwitch(Location[0], Location[1], SwitchNum);
 		BabaData[TileLocation] = SwitchNum;
@@ -212,6 +218,7 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 			FileState = true;
 			return;
 		}
+
 		UEngineSerializer Ser;
 		Ser << TileData;
 		std::string Str = FileName;
@@ -224,7 +231,7 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 
 	if (true == ImGui::Button("Load")) {
 		ClearAll();
-
+		TileData.clear();
 		UEngineSerializer Ser;
 		std::string Str = FileName;
 		UEngineFile File = Dir.GetPathFromFile(Str + ".Data");
@@ -239,8 +246,12 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		FileState = true;
 		Ser >> TileData;
 		int Index = 0;
+		TilePoint Tile = {};
 		while (TileData.size() > Index) {
-			EditorSwitch(TileData[Index], TileData[Index + 1], TileData[Index + 2]);
+			Tile.X = TileData[Index];
+			Tile.Y = TileData[Index + 1];
+			BabaData[Tile] = TileData[Index + 2];
+			Baba_Actors[Tile] = EditorSwitch(TileData[Index], TileData[Index + 1], TileData[Index + 2]);
 			Index += 3;
 		}
 	}
@@ -454,6 +465,7 @@ AActor* BabaEditor::EditorSwitch(int _X, int _Y, int _Num)
 void BabaEditor::SaveFunction()
 {
 	int i = 0;
+	TileData.clear();
 	for (std::pair<const TilePoint, AActor*>& Iter : Baba_Actors)
 	{
 		AActor*& BabaBase = Iter.second;
@@ -480,3 +492,4 @@ void BabaEditor::ClearAll()
 	Baba_Actors.clear();
 	ContentsCore::GameMode->ContainerReset();
 }
+
