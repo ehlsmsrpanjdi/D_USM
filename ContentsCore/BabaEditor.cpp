@@ -8,6 +8,7 @@
 #include "IsWord.h"
 #include "AndWord.h"
 
+
 BabaEditor::BabaEditor()
 {
 	Off();
@@ -15,6 +16,14 @@ BabaEditor::BabaEditor()
 
 BabaEditor::~BabaEditor()
 {
+}
+
+void BabaEditor::EditorFunction(int _LocationX, int _LocationY, int _Num)
+{
+	TileData.push_back(Location[_LocationX]);
+	TileData.push_back(Location[_LocationY]);
+	TileData.push_back(_Num);
+	EditorSwitch(Location[_LocationX], Location[_LocationY], _Num);
 }
 
 void BabaEditor::Init()
@@ -48,11 +57,14 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 
 
 	if (true == ImGui::Button("Baba")) {
-		TileData.push_back(Location[0]);
-		TileData.push_back(Location[1]);
-		TileData.push_back(1);
-		EditorSwitch(Location[0], Location[1], 1);
+		{
+			TileData.push_back(Location[0]);
+			TileData.push_back(Location[1]);
+			TileData.push_back(1);
+			EditorSwitch(Location[0], Location[1], 1);
+		}
 	}
+
 	ImGui::SameLine();
 	if (true == ImGui::Button("Wall")) {
 		TileData.push_back(Location[0]);
@@ -168,13 +180,6 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		TileData.push_back(27);
 		EditorSwitch(Location[0], Location[1], 27);
 	}
-	//ImGui::SameLine();
-	//if (true == ImGui::Button("Hot")) {
-	//	TileData.push_back(Location[0]);
-	//	TileData.push_back(Location[1]);
-	//	TileData.push_back(28);
-	//	EditorSwitch(Location[0], Location[1], 28);
-	//}
 
 	ImGui::SameLine();
 	if (true == ImGui::Button("Sink")) {

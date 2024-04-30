@@ -8,6 +8,7 @@ struct Int2D {
 	int Y = 0;
 };
 
+
 class APlayGameMode;
 // Ό³Έν :
 class BabaEditor : public UEngineDebugMsgWindow
@@ -22,6 +23,8 @@ public:
 	BabaEditor(BabaEditor&& _Other) noexcept = delete;
 	BabaEditor& operator=(const BabaEditor& _Other) = delete;
 	BabaEditor& operator=(BabaEditor&& _Other) noexcept = delete;
+
+	void EditorFunction(int _LocationX, int _LocationY, int _Num);
 
 protected:
 	void Init() override;
@@ -43,6 +46,7 @@ protected:
 
 	bool FileState = false;
 	float _DeltaTime = 0.f;
+	int SwitchNum = 0;
 
 	void EditorSwitch(int _X, int _Y, int _Index);
 private:
