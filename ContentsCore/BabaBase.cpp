@@ -42,7 +42,7 @@ void ABabaBase::Tick(float _DeltaTime)
 
 	DeadRender();
 	SetActorlocation2D(Lerp(_DeltaTime));
-	//BabaUpdater();
+	BabaUpdater();
 	//DebugMessageFunction();
 }
 
@@ -814,8 +814,8 @@ void ABabaBase::PrevStaticState()
 {
 	BabaState BBState;
 	if (Type_Stack.empty() != true) {
-		Type_Stack.pop();
 		BBState = static_cast<BabaState>(Type_Stack.top());
+		Type_Stack.pop();
 	}
 	else {
 		return;
@@ -824,25 +824,25 @@ void ABabaBase::PrevStaticState()
 		switch (BBState)
 		{
 		case BabaState::IsBaba:
-			BBState = BabaUpdateHelper::Baba;
+			BabaUpdateHelper::Baba = BBState;
 			break;
 		case BabaState::IsWall:
-			BBState = BabaUpdateHelper::Wall;
+			BabaUpdateHelper::Wall = BBState;
 			break;
 		case BabaState::IsRock:
-			BBState = BabaUpdateHelper::Rock;
+			BabaUpdateHelper::Rock = BBState;
 			break;
 		case BabaState::IsFlag:
-			BBState = BabaUpdateHelper::Flag;
+			BabaUpdateHelper::Flag = BBState;
 			break;
 		case BabaState::IsSkull:
-			BBState = BabaUpdateHelper::Skull;
+			BabaUpdateHelper::Skull = BBState;
 			break;
 		case BabaState::IsWater:
-			BBState = BabaUpdateHelper::Water;
+			BabaUpdateHelper::Water = BBState;
 			break;
 		case BabaState::IsLava:
-			BBState = BabaUpdateHelper::Lava;
+			BabaUpdateHelper::Lava = BBState;
 			break;
 		default:
 		{

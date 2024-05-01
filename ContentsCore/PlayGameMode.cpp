@@ -59,6 +59,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 	if (CanInput == true) {
 		IsReset();
 		IsUpdate();
+		AndUpdate();
 		BabaInputCheck();
 	}
 	DebugMessageFunction();
@@ -130,14 +131,6 @@ void APlayGameMode::Change_BabaPos()
 
 void APlayGameMode::BabaInputCheck()
 {
-	if (false == IsDown('A') &&
-		false == IsDown('S') &&
-		false == IsDown('D') &&
-		false == IsDown('W') &&
-		false == IsDown('Z')
-		) {
-		return;
-	}
 	if (ContentsHelper::Time >= 1) {
 		for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
 		{
@@ -182,9 +175,8 @@ void APlayGameMode::BabaInputCheck()
 		}
 		else {
 			Key = '0';
+			return;
 		}
-		IsUpdate();
-		AndUpdate();
 		bool CanActive = false;
 		for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
 		{
