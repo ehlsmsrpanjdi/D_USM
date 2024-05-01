@@ -785,9 +785,17 @@ void ABabaBase::RenderInit()
 
 void ABabaBase::DustSpawn(char _Input)
 {
+	if (BState == BabaState::IsWord ||
+		BState == BabaState::IsActive ||
+		BState == BabaState::IsIs ||
+		BState == BabaState::IsAnd)
+	{
+		return;
+	}
 	std::shared_ptr<Dust> DD = GetWorld()->SpawnActor<Dust>("Dust");
 	DD->SetActorLocation(GetActorLocation());
 	DD->SetReleaseLocation(_Input);
+	DD->SetColor(BState);
 }
 
 void ABabaBase::DeadRender()

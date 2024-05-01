@@ -22,6 +22,40 @@ void Dust::SetReleaseLocation(char _Input)
 	ReleaseLocation = _Input;
 }
 
+void Dust::SetColor(BabaState _State)
+{
+	float4 Color;
+	switch (_State)
+	{
+	case BabaState::IsWall:
+		Color = ColorChange(0, 51, 51);
+		Renderer->SetMulColor(Color);
+		break;
+	case BabaState::IsRock:
+		Color = ColorChange(153,102,51);
+		Renderer->SetMulColor(Color);
+		break;
+	case BabaState::IsFlag:
+		Color = ColorChange(255,255,0);
+		Renderer->SetMulColor(Color);
+		break;
+	case BabaState::IsSkull:
+		Color = ColorChange(153,0,0);
+		Renderer->SetMulColor(Color);
+		break;
+	case BabaState::IsWater:
+		Color = ColorChange(0,204,255);
+		Renderer->SetMulColor(Color);
+		break;
+	case BabaState::IsLava:
+		Color = ColorChange(255,102,0);
+		Renderer->SetMulColor(Color);
+		break;
+	default:
+		break;
+	}
+}
+
 void Dust::BeginPlay()
 {
 	Super::BeginPlay();
