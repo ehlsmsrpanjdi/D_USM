@@ -178,6 +178,7 @@ protected:
 
 	void BabaHelperUpdate();
 	void BabaUpdate();
+	void BabaUpdater();
 
 	void Babachange();
 	void RockChange();
@@ -197,8 +198,8 @@ protected:
 	bool RenderCheckHelper(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile, BabaState _State);
 	std::string PrevAnimation = "";
 private:
-	std::stack<bool> Move_Stack;
-	std::stack<int> Type_Stack;
+	std::stack<bool> Move_Stack = {};
+	std::stack<int> Type_Stack = {};
 	float4 Color;
 	float2D Location2D{};
 	float2D NextLocation2D{};
@@ -206,6 +207,7 @@ private:
 	bool IsChecked = false;
 	bool CanMove = false;
 	bool Dead = false;
-
+	void PrevStaticState();
+	int Move_Stack_Size = 0;
 };
 

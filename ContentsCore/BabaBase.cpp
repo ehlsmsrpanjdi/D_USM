@@ -42,8 +42,7 @@ void ABabaBase::Tick(float _DeltaTime)
 
 	DeadRender();
 	SetActorlocation2D(Lerp(_DeltaTime));
-	BabaHelperUpdate();
-	BabaUpdate();
+	BabaUpdater();
 	//DebugMessageFunction();
 }
 
@@ -65,11 +64,14 @@ void ABabaBase::LerpMove()
 
 void ABabaBase::PopLerpMove()
 {
+	PrevStaticState();
+
 	bool IsMove = false;
 	if (Move_Stack.empty() != true) {
 		IsMove = Move_Stack.top();
 		Move_Stack.pop();
 	}
+
 
 	if (IsMove == false) {
 		return;
@@ -507,7 +509,7 @@ void ABabaBase::KeyTileSet(char _Input)
 		break;
 	}
 	Move_Stack.push(true);
-	Type_Stack.push(BState)
+
 }
 
 void ABabaBase::KeyTileSetReverse(char _Input)
@@ -546,98 +548,109 @@ void ABabaBase::KeyTileSetReverse(char _Input)
 
 void ABabaBase::BabaHelperUpdate()
 {
-	if (ContentsHelper::Time >= 1) {
-		switch (BState)
-		{
-		case BabaState::IsBaba:
-		{
-			if (BState != BabaUpdateHelper::Baba) {
-				BState = BabaUpdateHelper::Baba;
-			}
+	switch (BState)
+	{
+	case BabaState::IsBaba:
+	{
+		if (BState != BabaUpdateHelper::Baba) {
+			BState = BabaUpdateHelper::Baba;
 		}
-		break;
-		case BabaState::IsRock:
-		{
-			if (BState != BabaUpdateHelper::Rock) {
-				BState = BabaUpdateHelper::Rock;
-			}
+	}
+	break;
+	case BabaState::IsRock:
+	{
+		if (BState != BabaUpdateHelper::Rock) {
+			BState = BabaUpdateHelper::Rock;
 		}
-		break;
-		case BabaState::IsWall:
-		{
-			if (BState != BabaUpdateHelper::Wall) {
-				BState = BabaUpdateHelper::Wall;
-			}
+	}
+	break;
+	case BabaState::IsWall:
+	{
+		if (BState != BabaUpdateHelper::Wall) {
+			BState = BabaUpdateHelper::Wall;
 		}
-		break;
-		case BabaState::IsFlag:
-		{
-			if (BState != BabaUpdateHelper::Flag) {
-				BState = BabaUpdateHelper::Flag;
-			}
+	}
+	break;
+	case BabaState::IsFlag:
+	{
+		if (BState != BabaUpdateHelper::Flag) {
+			BState = BabaUpdateHelper::Flag;
 		}
-		break;
-		case BabaState::IsSkull:
-		{
-			if (BState != BabaUpdateHelper::Skull) {
-				BState = BabaUpdateHelper::Skull;
-			}
+	}
+	break;
+	case BabaState::IsSkull:
+	{
+		if (BState != BabaUpdateHelper::Skull) {
+			BState = BabaUpdateHelper::Skull;
 		}
-		break;
-		case BabaState::IsLava:
-		{
-			if (BState != BabaUpdateHelper::Lava) {
-				BState = BabaUpdateHelper::Lava;
-			}
+	}
+	break;
+	case BabaState::IsLava:
+	{
+		if (BState != BabaUpdateHelper::Lava) {
+			BState = BabaUpdateHelper::Lava;
 		}
-		break;
-		case BabaState::IsWater:
-		{
-			if (BState != BabaUpdateHelper::Water) {
-				BState = BabaUpdateHelper::Water;
-			}
+	}
+	break;
+	case BabaState::IsWater:
+	{
+		if (BState != BabaUpdateHelper::Water) {
+			BState = BabaUpdateHelper::Water;
 		}
-		break;
-		}
+	}
+	break;
 	}
 }
 void ABabaBase::BabaUpdate()
 {
-	if (ContentsHelper::Time >= 1) {
-		switch (BState)
-		{
-		case BabaState::IsNone:
-			break;
-		case BabaState::IsBaba:
-		{
-			Babachange();
-		}
+	switch (BState)
+	{
+	case BabaState::IsNone:
 		break;
-		case BabaState::IsWall:
-		{
-			//WallChange();
-		}
+	case BabaState::IsBaba:
+	{
+		Babachange();
+	}
+	break;
+	case BabaState::IsWall:
+	{
+		//WallChange();
+	}
+	break;
+	case BabaState::IsRock:
+	{
+		RockChange();
+	}
+	break;
+	case BabaState::IsFlag:
+		FlagChange();
 		break;
-		case BabaState::IsRock:
-		{
-			RockChange();
-		}
+	case BabaState::IsSkull:
+		SkullChange();
 		break;
-		case BabaState::IsFlag:
-			FlagChange();
-			break;
-		case BabaState::IsSkull:
-			SkullChange();
-			break;
-		case BabaState::IsWater:
-			//WaterChange();
-			break;
-		case BabaState::IsLava:
-			//LavaChange();
-			break;
-		default:
-			break;
-		}
+	case BabaState::IsWater:
+		//WaterChange();
+
+		break;
+	case BabaState::IsLava:
+		//LavaChange();
+		break;
+	default:
+		break;
+	}
+}
+
+void ABabaBase::BabaUpdater()
+{
+	BabaHelperUpdate();
+	BabaUpdate();
+	int Size = Move_Stack.size();
+	if (Move_Stack_Size == Size) {
+		return;
+	}
+	else {
+		Move_Stack_Size = Size;
+		Type_Stack.push(static_cast<int>(BState));
 	}
 }
 
@@ -795,6 +808,50 @@ bool ABabaBase::RenderCheckHelper(std::map<TilePoint, std::list<ABabaBase*>>& _M
 		}
 	}
 	return false;
+}
+
+void ABabaBase::PrevStaticState()
+{
+	BabaState BBState;
+	if (Type_Stack.empty() != true) {
+		Type_Stack.pop();
+		BBState = static_cast<BabaState>(Type_Stack.top());
+	}
+	else {
+		return;
+	}
+	if (BBState != BState) {
+		switch (BBState)
+		{
+		case BabaState::IsBaba:
+			BBState = BabaUpdateHelper::Baba;
+			break;
+		case BabaState::IsWall:
+			BBState = BabaUpdateHelper::Wall;
+			break;
+		case BabaState::IsRock:
+			BBState = BabaUpdateHelper::Rock;
+			break;
+		case BabaState::IsFlag:
+			BBState = BabaUpdateHelper::Flag;
+			break;
+		case BabaState::IsSkull:
+			BBState = BabaUpdateHelper::Skull;
+			break;
+		case BabaState::IsWater:
+			BBState = BabaUpdateHelper::Water;
+			break;
+		case BabaState::IsLava:
+			BBState = BabaUpdateHelper::Lava;
+			break;
+		default:
+		{
+			MsgBoxAssert("예외처리 안된 거 있는 것 같으니 수정 요망");
+		}
+		break;
+		}
+		BState = BBState;
+	}
 }
 
 void ABabaBase::RenderCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)

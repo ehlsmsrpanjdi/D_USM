@@ -154,6 +154,9 @@ void IsWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 {
 	NameWord* FrontWord = dynamic_cast<NameWord*>(_CurWord);
 	NameWord* BackWord = dynamic_cast<NameWord*>(_Name);
+	if (BackWord == nullptr || FrontWord == nullptr) {
+		return;
+	}
 	BabaState FrontName = FrontWord->GetNameSet();
 	BabaState* State = nullptr;
 	switch (FrontName)
@@ -179,8 +182,10 @@ void IsWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 	case BabaState::IsLava:
 		State = &BabaUpdateHelper::Lava;
 		break;
+	default:
+		return;
+		break;
 	}
-
 	*State = BackWord->GetNameSet();
 }
 
