@@ -38,7 +38,7 @@ void APlayGameMode::BeginPlay()
 	//std::shared_ptr<BackGround> Back = GetWorld()->SpawnActor<BackGround>("Back");
 
 	ContentsHelper::WordInit();
-	TileMap::TileSet(10, 10);
+	TileMap::TileSet(30, 30);
 
 	std::shared_ptr<FadeINEffect> FadeIn = GetWorld()->GetLastTarget()->AddEffect<FadeINEffect>();
 	FadeIn->EffectOff();

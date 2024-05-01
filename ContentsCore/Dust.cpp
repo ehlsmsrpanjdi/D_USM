@@ -28,7 +28,6 @@ void Dust::BeginPlay()
 	Renderer->SetSprite("Dust0.png");
 	Renderer->SetOrder(100);
 	Scale = Renderer->GetWorldScale();
-	int a = 0;
 }
 
 void Dust::Tick(float _DeltaTime)

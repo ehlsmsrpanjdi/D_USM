@@ -33,7 +33,6 @@ void ABabaBase::BeginPlay()
 	RenderInit();
 
 	BabaInput = '0';
-
 }
 
 void ABabaBase::Tick(float _DeltaTime)

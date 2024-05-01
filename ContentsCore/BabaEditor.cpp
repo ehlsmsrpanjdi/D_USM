@@ -77,8 +77,6 @@ void BabaEditor::Tick(ULevel* Level, float _Delta)
 
 void BabaEditor::OnGui(ULevel* Level, float _Delta)
 {
-	//ImGui::InputInt2("Location", Location);
-
 	Int2D I2D = MousePosCul(Level);
 	ImGui::Text(("Mouse intX : " + (std::to_string(I2D.X))).c_str());
 	ImGui::Text(("Mouse intY : " + (std::to_string(I2D.Y))).c_str());
