@@ -42,7 +42,7 @@ void ABabaBase::Tick(float _DeltaTime)
 
 	DeadRender();
 	SetActorlocation2D(Lerp(_DeltaTime));
-	BabaUpdater();
+	//BabaUpdater();
 	//DebugMessageFunction();
 }
 
