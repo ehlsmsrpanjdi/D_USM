@@ -60,7 +60,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 	DebugMessageFunction();
 
 	if (IsPress('Q')) {
-		ContentsHelper::FadeEffectIn(GetWorld());
+		ContentsHelper::FadeEffectOut(GetWorld());
 	}
 
 }

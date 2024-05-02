@@ -1,16 +1,23 @@
 #include "PreCompile.h"
 #include "FadeINEffect.h"
 
+struct FadeStruct {
+	float4 FadeValue;
+	float4 TimeSet;
+};
+
 FadeINEffect::FadeINEffect()
 {
 }
 
 FadeINEffect::~FadeINEffect()
 {
+
 }
 
 void FadeINEffect::Init()
 {
+	Resources->SettingConstantBuffer("FBaseRenderValue", BaseValue);
 	SetMaterial("CircleFadeIN");
 
 	CopyTarget = UEngineRenderTarget::Create();
@@ -26,7 +33,7 @@ void FadeINEffect::Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget)
 	EffectTarget->Setting();
 
 	Resources->SettingTexture("Image", CopyTarget->GetTexture(), "POINT");
-
+	
 	Render(0.0f);
 
 }

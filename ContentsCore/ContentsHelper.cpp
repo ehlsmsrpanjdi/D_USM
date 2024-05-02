@@ -85,19 +85,19 @@ float ContentsHelper::EffectTime = 0.0f;
 std::shared_ptr<FadeINEffect> ContentsHelper::FadeIn = nullptr;
 std::shared_ptr<FadeOUTEffect> ContentsHelper::FadeOut = nullptr;
 Fade ContentsHelper::FadeNum = Fade::FadeNone;
-FadeINEffect* ContentsHelper::FadeInTest = nullptr;
+
 
 void ContentsHelper::FadeEffectIn(ULevel* _Level)
 {
 	ContentsHelper::FadeNum = Fade::FadeIn;
 	EffectTime = 2.0f;
-	FadeInTest = _Level->GetLastTarget()->AddEffect<FadeINEffect>().get();
-	//if (nullptr == ContentsHelper::FadeIn) {
-	//	ContentsHelper::FadeIn = _Level->GetLastTarget()->AddEffect<FadeINEffect>();
-	//}
-	//else {
-	//	FadeIn->EffectON();
-	//}
+
+	if (nullptr == ContentsHelper::FadeIn) {
+		ContentsHelper::FadeIn = _Level->GetLastTarget()->AddEffect<FadeINEffect>();
+	}
+	else {
+		FadeIn->EffectON();
+	}
 }
 
 void ContentsHelper::FadeEffectOut(ULevel* _Level)
@@ -113,7 +113,6 @@ void ContentsHelper::FadeEffectOut(ULevel* _Level)
 	}
 }
 
-
 void ContentsHelper::CoolTimeCheck(float _DeltaTime)
 {
 	if (Time < MoveTime) {
@@ -128,9 +127,11 @@ void ContentsHelper::CoolTimeCheck(float _DeltaTime)
 	}
 	else if(FadeNum != Fade::FadeNone) {
 		if (FadeNum == Fade::FadeIn) {
+			FadeIn->ResetTime();
 			FadeIn->EffectOff();
 		}
 		if (FadeNum == Fade::FadeOut) {
+			FadeOut->ResetTime();
 			FadeOut->EffectOff();
 		}
 		FadeNum = Fade::FadeNone;

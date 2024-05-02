@@ -174,7 +174,6 @@ public:
 	static void FadeEffectIn(ULevel* _Level);
 	static void FadeEffectOut(ULevel* _Level);
 	static std::shared_ptr<FadeINEffect> FadeIn;
-	static FadeINEffect* FadeInTest;
 	static std::shared_ptr<FadeOUTEffect> FadeOut;
 	static Fade FadeNum;
 

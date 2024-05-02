@@ -6,7 +6,6 @@ struct ImageVSOutPut
     float4 TEXCOORD : TEXCOORD;
 };
 
-
 ImageVSOutPut CirCleFade_VS(FEngineVertex _Input)
 {
     ImageVSOutPut Out = (ImageVSOutPut) 0;
@@ -19,6 +18,7 @@ struct ImagePSOutPut
 {
     float4 COLOR : SV_Target0;
 };
+
 
 TextureSet(Image, 0)
 

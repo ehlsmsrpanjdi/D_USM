@@ -8,11 +8,6 @@
 #include "Dust.h"
 #include "ContentsHelper.h"
 
-FVertexUV VertexUVValue;
-FResultColorValue ColorData;
-FCuttingData CuttingDataValue;
-
-
 ABabaBase::ABabaBase()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");

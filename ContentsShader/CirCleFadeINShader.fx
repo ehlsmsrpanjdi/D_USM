@@ -22,7 +22,6 @@ struct ImagePSOutPut
 
 TextureSet(Image, 0)
 
-
 ImagePSOutPut CirCleFade_PS(ImageVSOutPut _Input)
 {
     ImagePSOutPut Out = (ImagePSOutPut) 0;
