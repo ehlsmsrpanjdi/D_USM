@@ -225,10 +225,6 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="TileMap.h" />
-    <ClInclude Include="Word.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActiveWord.cpp">
@@ -302,10 +298,6 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PreCompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="TileMap.cpp" />
-    <ClCompile Include="Word.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EngineBase\EngineBase.vcxproj">

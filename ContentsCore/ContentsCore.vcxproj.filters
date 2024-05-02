@@ -19,9 +19,6 @@
     <ClInclude Include="BabaBase.h">
       <Filter>Level\Actor\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Word.h">
-      <Filter>Level\Actor\Word</Filter>
-    </ClInclude>
     <ClInclude Include="IsWord.h">
       <Filter>Level\Actor\Word</Filter>
     </ClInclude>
@@ -74,9 +71,6 @@
     </ClCompile>
     <ClCompile Include="BabaBase.cpp">
       <Filter>Level\Actor\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Word.cpp">
-      <Filter>Level\Actor\Word</Filter>
     </ClCompile>
     <ClCompile Include="IsWord.cpp">
       <Filter>Level\Actor\Word</Filter>

@@ -39,6 +39,20 @@ void BabaEditor::EditorReleaseFunction()
 {
 	TilePoint TileLocation = { Location[0],Location[1] };
 	if (nullptr != Baba_Actors[TileLocation]) {
+		ContentsCore::GameMode->Baba_Actors[TileLocation].clear();
+		std::vector<IsWord*> VecIs = ContentsCore::GameMode->Is_Vec;
+		std::vector<AndWord*> VecAnd = ContentsCore::GameMode->And_Vec;
+		for (IsWord* Is : VecIs) {
+			if (Is->GetTile() == TileLocation) {
+				Is = nullptr;
+			}
+		}
+		for (AndWord* And : VecAnd) {
+			if (And->GetTile() == TileLocation) {
+				And = nullptr;
+			}
+		}
+
 		Baba_Actors[TileLocation]->Destroy();
 		Baba_Actors[TileLocation] = nullptr;
 		BabaData[TileLocation] = 0;
@@ -444,7 +458,7 @@ AActor* BabaEditor::EditorSwitch(int _X, int _Y, int _Num)
 	case 40:
 	{
 		BottomTile* Tile = GameMode->SpawnTile(_X, _Y).get();
-	
+
 		AActor* Actor = static_cast<AActor*>(Tile);
 		return Actor;
 	}

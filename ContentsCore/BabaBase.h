@@ -70,6 +70,22 @@ public:
 		Dead = _Dead;
 	}
 
+	TilePoint GetTile() {
+		return Info.Tile;
+	}
+
+	__int64 GetTile64() {
+		return Info.Tile.Location;
+	}
+
+	TilePoint GetPrevTile() {
+		return PrevTile;
+	}
+
+	__int64 GetPrevTile64() {
+		return PrevTile.Location;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -129,22 +145,6 @@ protected:
 
 	void SetKey(char _Key) {
 		BabaInput = _Key;
-	}
-
-	TilePoint GetTile() {
-		return Info.Tile;
-	}
-
-	__int64 GetTile64() {
-		return Info.Tile.Location;
-	}
-
-	TilePoint GetPrevTile() {
-		return PrevTile;
-	}
-
-	__int64 GetPrevTile64() {
-		return PrevTile.Location;
 	}
 
 	void SetActorlocation2D(float2D _Value) {
