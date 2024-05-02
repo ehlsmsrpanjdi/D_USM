@@ -35,13 +35,8 @@ void APlayGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(320.0f, 160.0f, -100.0f));
 
-	//std::shared_ptr<BackGround> Back = GetWorld()->SpawnActor<BackGround>("Back");
-
 	ContentsHelper::WordInit();
 	TileMap::TileSet(30, 30);
-
-	std::shared_ptr<FadeINEffect> FadeIn = GetWorld()->GetLastTarget()->AddEffect<FadeINEffect>();
-	FadeIn->EffectOff();
 
 	InputOn();
 }
@@ -63,6 +58,10 @@ void APlayGameMode::Tick(float _DeltaTime)
 		BabaInputCheck();
 	}
 	DebugMessageFunction();
+
+	if (IsPress('Q')) {
+		ContentsHelper::FadeEffectIn(GetWorld());
+	}
 
 }
 

@@ -14,7 +14,7 @@ class BottomTile;
 class APlayGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
-
+	friend class ContentsHelper;
 	friend class BabaEditor;
 
 public:
@@ -89,6 +89,8 @@ protected:
 	}
 
 	std::shared_ptr<BottomTile> SpawnTile(TilePoint _Tile);
+
+
 
 private:
 	void ContainerReset();

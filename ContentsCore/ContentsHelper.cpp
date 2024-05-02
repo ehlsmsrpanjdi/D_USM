@@ -1,5 +1,12 @@
 #include "PreCompile.h"
 #include "ContentsHelper.h"
+#include "BabaBase.h"
+#include "PlayGameMode.h"
+#include "IsWord.h"
+#include "ActiveWord.h"
+#include "AndWord.h"
+#include "FadeINEffect.h"
+#include "FadeOUTEffect.h"
 
 ActiveState BabaUpdateHelper::ActiveBaba;
 ActiveState BabaUpdateHelper::ActiveRock;
@@ -67,6 +74,46 @@ void ContentsHelper::WordInit()
 	BabaUpdateHelper::You.IsMove = true;
 }
 
+enum class Fade {
+	FadeNone,
+	FadeIn,
+	FadeOut,
+};
+
+
+float ContentsHelper::EffectTime = 0.0f;
+std::shared_ptr<FadeINEffect> ContentsHelper::FadeIn = nullptr;
+std::shared_ptr<FadeOUTEffect> ContentsHelper::FadeOut = nullptr;
+Fade ContentsHelper::FadeNum = Fade::FadeNone;
+FadeINEffect* ContentsHelper::FadeInTest = nullptr;
+
+void ContentsHelper::FadeEffectIn(ULevel* _Level)
+{
+	ContentsHelper::FadeNum = Fade::FadeIn;
+	EffectTime = 2.0f;
+	FadeInTest = _Level->GetLastTarget()->AddEffect<FadeINEffect>().get();
+	//if (nullptr == ContentsHelper::FadeIn) {
+	//	ContentsHelper::FadeIn = _Level->GetLastTarget()->AddEffect<FadeINEffect>();
+	//}
+	//else {
+	//	FadeIn->EffectON();
+	//}
+}
+
+void ContentsHelper::FadeEffectOut(ULevel* _Level)
+{
+	ContentsHelper::FadeNum = Fade::FadeOut;
+	EffectTime = 2.0f;
+
+	if (nullptr == ContentsHelper::FadeOut) {
+	ContentsHelper::FadeOut = _Level->GetLastTarget()->AddEffect<FadeOUTEffect>();
+	}
+	else {
+	FadeOut->EffectON();
+	}
+}
+
+
 void ContentsHelper::CoolTimeCheck(float _DeltaTime)
 {
 	if (Time < MoveTime) {
@@ -75,4 +122,19 @@ void ContentsHelper::CoolTimeCheck(float _DeltaTime)
 	else {
 		Time = MoveTime;
 	}
+
+	if (EffectTime > 0) {
+		EffectTime -= _DeltaTime;
+	}
+	else if(FadeNum != Fade::FadeNone) {
+		if (FadeNum == Fade::FadeIn) {
+			FadeIn->EffectOff();
+		}
+		if (FadeNum == Fade::FadeOut) {
+			FadeOut->EffectOff();
+		}
+		FadeNum = Fade::FadeNone;
+	}
 }
+
+

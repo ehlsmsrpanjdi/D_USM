@@ -150,6 +150,10 @@ public:
 
 };
 
+class FadeINEffect;
+class FadeOUTEffect;
+enum class Fade;
+
 class ContentsHelper
 {
 public:
@@ -164,8 +168,15 @@ public:
 	ContentsHelper& operator=(ContentsHelper&& _Other) noexcept = delete;
 
 	static float Time;
+	static float EffectTime;
 	static void CoolTimeCheck(float _DeltaTime);
 	static void WordInit();
+	static void FadeEffectIn(ULevel* _Level);
+	static void FadeEffectOut(ULevel* _Level);
+	static std::shared_ptr<FadeINEffect> FadeIn;
+	static FadeINEffect* FadeInTest;
+	static std::shared_ptr<FadeOUTEffect> FadeOut;
+	static Fade FadeNum;
 
 protected:
 

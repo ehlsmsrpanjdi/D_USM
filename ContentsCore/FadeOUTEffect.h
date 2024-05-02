@@ -15,9 +15,19 @@ public:
 	FadeOUTEffect& operator=(const FadeOUTEffect& _Other) = delete;
 	FadeOUTEffect& operator=(FadeOUTEffect&& _Other) noexcept = delete;
 
+	void EffectON()
+	{
+		Active(true);
+	}
+
+	void EffectOff()
+	{
+		Active(false);
+	}
 protected:
 	void Init() override;
 	void Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget) override;
+
 
 
 private:
