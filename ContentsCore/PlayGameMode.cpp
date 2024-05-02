@@ -275,12 +275,9 @@ void APlayGameMode::HotCheck()
 		std::list<ABabaBase*>& BabaBase = Iter.second;
 		for (ABabaBase*& _BabaBase : BabaBase) {
 			if (GetActive(_BabaBase->GetBstate()).IsHot == true) {
-				if (true == _BabaBase->GetDead()) {
-					continue;
-				}
 				TilePoint Tile = _BabaBase->GetTile();
 				for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
-					if (BabaState::IsBaba == _Baba->GetBstate()) {
+					if (true == BabaUpdateHelper::StateToActive(_Baba->GetBstate()).IsYou) {
 						_Baba->SetDead(true);
 					}
 				}

@@ -155,6 +155,41 @@ public:
 	static BabaState Water;
 	static BabaState Lava;
 
+	static ActiveState StateToActive(BabaState _State) {
+		switch (_State)
+		{
+		case BabaState::IsBaba:
+			return BabaUpdateHelper::ActiveBaba;
+			break;
+		case BabaState::IsWall:
+			return BabaUpdateHelper::ActiveWall;
+			break;
+		case BabaState::IsRock:
+			return BabaUpdateHelper::ActiveRock;
+			break;
+		case BabaState::IsFlag:
+			return BabaUpdateHelper::ActiveFlag;
+			break;
+		case BabaState::IsSkull:
+			return BabaUpdateHelper::ActiveSkull;
+			break;
+		case BabaState::IsWater:
+			return BabaUpdateHelper::ActiveWater;
+			break;
+		case BabaState::IsLava:
+			return BabaUpdateHelper::ActiveLava;
+			break;
+		case BabaState::IsWord:
+		case BabaState::IsActive:
+		case BabaState::IsIs:
+		case BabaState::IsAnd:
+			return BabaUpdateHelper::ActiveWord;
+			break;
+		default:
+			break;
+		}
+	}
+
 };
 
 class FadeINEffect;
