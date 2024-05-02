@@ -216,7 +216,7 @@ void APlayGameMode::IsReset()
 	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
 	{
 		std::list<ABabaBase*>& BabaBase = Iter.second;
-		for (ABabaBase*& _BabaBase : BabaBase) 
+		for (ABabaBase*& _BabaBase : BabaBase)
 		{
 			if (_BabaBase->IsDestroy() == true) {
 				continue;
@@ -281,7 +281,7 @@ void APlayGameMode::HotCheck()
 				TilePoint Tile = _BabaBase->GetTile();
 				for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
 					if (BabaState::IsBaba == _Baba->GetBstate()) {
-					_Baba->SetDead(true);
+						_Baba->SetDead(true);
 					}
 				}
 			}
@@ -295,15 +295,31 @@ void APlayGameMode::SinkCheck()
 	{
 		std::list<ABabaBase*>& BabaBase = Iter.second;
 		for (ABabaBase*& _BabaBase : BabaBase) {
+			int SinkCount = 0;
 			if (GetActive(_BabaBase->GetBstate()).IsSink == true) {
 				if (true == _BabaBase->GetDead()) {
 					continue;
 				}
 				TilePoint Tile = _BabaBase->GetTile();
-				int Size = static_cast<int>(Baba_Actors[Tile].size());
-				if (Size >= 2) {
+				if (2 <= Baba_Actors[Tile].size()) {
+					int i = 0;
+					ABabaBase* TempBaba[2] = { nullptr, };
 					for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
-						_Baba->SetDead(true);
+						if (_Baba->GetBstate() == BabaState::IsWord ||
+							_Baba->GetBstate() == BabaState::IsIs ||
+							_Baba->GetBstate() == BabaState::IsActive) {
+							SinkCount--;
+							i--;
+							continue;
+						}
+						TempBaba[i] = _Baba;
+						SinkCount++;
+						i++;
+						if (SinkCount >= 2) {
+							TempBaba[0]->SetDead(true);
+							TempBaba[1]->SetDead(true);
+							break;
+						}
 					}
 				}
 			}
