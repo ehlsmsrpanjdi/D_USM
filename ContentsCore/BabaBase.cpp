@@ -806,6 +806,9 @@ bool ABabaBase::RenderCheckHelper(std::map<TilePoint, std::list<ABabaBase*>>& _M
 	}
 	for (ABabaBase* _Baba : _List) {
 		if (_Baba->GetBstate() == _State) {
+			if (_Baba->Renderer->IsActive() == false) {
+				continue;
+			}
 			return true;
 		}
 	}
