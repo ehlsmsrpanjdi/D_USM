@@ -26,11 +26,11 @@ public:
 		ActiveName = _Info;
 	}
 
-	void SetActive(bool _IsFloat, bool _IsPush, bool _IsMove) {
-		ActiveName.IsFloat = _IsFloat;
-		ActiveName.IsPush = _IsPush;
-		ActiveName.IsMove = _IsMove;
-	}
+	//void SetActive(bool _IsFloat, bool _IsPush, bool _IsMove) {
+	//	ActiveName.IsFloat = _IsFloat;
+	//	ActiveName.IsPush = _IsPush;
+	//	ActiveName.IsMove = _IsMove;
+	//}
 
 	ActiveState GetActive() {
 		return ActiveName;
