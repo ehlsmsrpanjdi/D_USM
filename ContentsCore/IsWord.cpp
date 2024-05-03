@@ -214,6 +214,7 @@ void IsWord::ActiveChange(ActiveState* _CurWord, ABabaBase* _Active)
 	_CurWord->IsHot = _CurWord->IsHot || Info.IsHot;
 	_CurWord->IsSink = _CurWord->IsSink || Info.IsSink;
 	_CurWord->IsYou = _CurWord->IsYou || Info.IsYou;
+	_CurWord->IsMelt = _CurWord->IsMelt || Info.IsMelt;
 }
 
 // isbaba, ismove, ispush

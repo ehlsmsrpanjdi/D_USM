@@ -277,7 +277,7 @@ void APlayGameMode::HotCheck()
 			if (GetActive(_BabaBase->GetBstate()).IsHot == true) {
 				TilePoint Tile = _BabaBase->GetTile();
 				for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
-					if (true == BabaUpdateHelper::StateToActive(_Baba->GetBstate()).IsYou) {
+					if (true == BabaUpdateHelper::StateToActive(_Baba->GetBstate()).IsMelt) {
 						_Baba->SetDead(true);
 					}
 				}
@@ -331,17 +331,28 @@ void APlayGameMode::WinCheck()
 		std::list<ABabaBase*>& BabaBase = Iter.second;
 		for (ABabaBase*& _BabaBase : BabaBase) {
 			if (GetActive(_BabaBase->GetBstate()).IsWin == true) {
-				if (true == _BabaBase->GetDead()) {
-					continue;
-				}
 				TilePoint Tile = _BabaBase->GetTile();
-				int Size = static_cast<int>(Baba_Actors[Tile].size());
-				if (Size >= 2) {
-					for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
-						BabaState BState = _Baba->GetBstate();
-						if (BState == BabaState::IsBaba) {
-							int a = 0;
-						}
+				for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
+					if (true == BabaUpdateHelper::StateToActive(_Baba->GetBstate()).IsYou) {
+						int a = 0;
+					}
+				}
+			}
+		}
+	}
+}
+
+void APlayGameMode::DefeatCheck()
+{
+	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
+	{
+		std::list<ABabaBase*>& BabaBase = Iter.second;
+		for (ABabaBase*& _BabaBase : BabaBase) {
+			if (GetActive(_BabaBase->GetBstate()).IsDefeat == true) {
+				TilePoint Tile = _BabaBase->GetTile();
+				for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
+					if (true == BabaUpdateHelper::StateToActive(_Baba->GetBstate()).IsYou) {
+						_Baba->SetDead(true);
 					}
 				}
 			}
@@ -459,6 +470,9 @@ std::shared_ptr<ActiveWord> APlayGameMode::SpawnActive(TilePoint _Tile, std::str
 	}
 	else if (Name._Equal("YOU")) {
 		Astate = &BabaUpdateHelper::You;
+	}
+	else if (Name._Equal("MELT")) {
+		Astate = &BabaUpdateHelper::Melt;
 	}
 	else {
 		MsgBoxAssert("ActiveName에 이상한거넣었음");

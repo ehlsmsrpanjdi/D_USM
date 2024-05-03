@@ -56,6 +56,7 @@ protected:
 	void HotCheck();
 	void SinkCheck();
 	void WinCheck();
+	void DefeatCheck();
 
 	ActiveState GetActive(const BabaState& State);
 

@@ -139,6 +139,11 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		SwitchNum = 12;
 	}
 
+	if (true == ImGui::Button("Melt")) {
+		SwitchNum = 19;
+	}
+	ImGui::SameLine();
+
 	if (true == ImGui::Button("You")) {
 		SwitchNum = 20;
 	}
@@ -350,6 +355,12 @@ AActor* BabaEditor::EditorSwitch(int _X, int _Y, int _Num)
 	case 12:
 	{
 		AndWord* Bababa = GameMode->SpawnAnd(_X, _Y).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 19:
+	{
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Melt").get();
 		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;

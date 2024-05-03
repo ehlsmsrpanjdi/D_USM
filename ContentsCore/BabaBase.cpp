@@ -26,7 +26,6 @@ void ABabaBase::BeginPlay()
 	Super::BeginPlay();
 
 	RenderInit();
-
 	BabaInput = '0';
 }
 
@@ -604,29 +603,36 @@ void ABabaBase::BabaUpdate()
 	case BabaState::IsBaba:
 	{
 		Babachange();
+		Renderer->SetOrder(1);
 	}
 	break;
 	case BabaState::IsWall:
 	{
+		Renderer->SetOrder(1);
 		//WallChange();
 	}
 	break;
 	case BabaState::IsRock:
 	{
+		Renderer->SetOrder(1);
 		RockChange();
 	}
 	break;
 	case BabaState::IsFlag:
+		Renderer->SetOrder(1);
 		FlagChange();
 		break;
 	case BabaState::IsSkull:
+		Renderer->SetOrder(1);
 		SkullChange();
 		break;
 	case BabaState::IsWater:
+		Renderer->SetOrder(0);
 		//WaterChange();
 
 		break;
 	case BabaState::IsLava:
+		Renderer->SetOrder(0);
 		//LavaChange();
 		break;
 	default:
@@ -780,13 +786,6 @@ void ABabaBase::RenderInit()
 
 void ABabaBase::DustSpawn(char _Input)
 {
-	if (BState == BabaState::IsWord ||
-		BState == BabaState::IsActive ||
-		BState == BabaState::IsIs ||
-		BState == BabaState::IsAnd)
-	{
-		return;
-	}
 	std::shared_ptr<Dust> DD = GetWorld()->SpawnActor<Dust>("Dust");
 	DD->SetActorLocation(GetActorLocation());
 	DD->SetReleaseLocation(_Input);

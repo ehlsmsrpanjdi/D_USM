@@ -29,6 +29,7 @@ ActiveState BabaUpdateHelper::Defeat;
 ActiveState BabaUpdateHelper::Hot;
 ActiveState BabaUpdateHelper::Sink;
 ActiveState BabaUpdateHelper::You;
+ActiveState BabaUpdateHelper::Melt;
 
 BabaState BabaUpdateHelper::Baba = BabaState::IsBaba;
 BabaState BabaUpdateHelper::Rock = BabaState::IsRock;
@@ -72,6 +73,7 @@ void ContentsHelper::WordInit()
 	BabaUpdateHelper::Sink.IsSink = true;
 	BabaUpdateHelper::You.IsYou = true;
 	BabaUpdateHelper::You.IsMove = true;
+	BabaUpdateHelper::Melt.IsMelt = true;
 }
 
 enum class Fade {

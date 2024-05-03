@@ -120,6 +120,7 @@ struct ActiveState {
 	bool IsHot = false;
 	bool IsSink = false;
 	bool IsYou = false;
+	bool IsMelt = false;
 };
 
 class BabaUpdateHelper {
@@ -146,6 +147,7 @@ public:
 	static ActiveState Hot;
 	static ActiveState Sink;
 	static ActiveState You;
+	static ActiveState Melt;
 
 	static BabaState Baba;
 	static BabaState Wall;
