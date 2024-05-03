@@ -635,12 +635,12 @@ void ABabaBase::BabaUpdate()
 	case BabaState::IsBaba:
 	{
 		Babachange();
-		Renderer->SetOrder(1);
+		Renderer->SetOrder(5);
 	}
 	break;
 	case BabaState::IsWall:
 	{
-		Renderer->SetOrder(1);
+		Renderer->SetOrder(0);
 		//WallChange();
 	}
 	break;
@@ -655,7 +655,7 @@ void ABabaBase::BabaUpdate()
 		FlagChange();
 		break;
 	case BabaState::IsSkull:
-		Renderer->SetOrder(1);
+		Renderer->SetOrder(0);
 		SkullChange();
 		break;
 	case BabaState::IsWater:

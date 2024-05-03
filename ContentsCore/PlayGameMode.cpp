@@ -169,6 +169,7 @@ void APlayGameMode::BabaInputCheck()
 			HotCheck();
 			SinkCheck();
 			WinCheck();
+			DefeatCheck();
 			CanInput = false;
 			return;
 		}
@@ -198,6 +199,7 @@ void APlayGameMode::BabaInputCheck()
 			HotCheck();
 			SinkCheck();
 			WinCheck();
+			DefeatCheck();
 		}
 	}
 }
