@@ -17,6 +17,7 @@ ActiveState BabaUpdateHelper::ActiveFlag;
 ActiveState BabaUpdateHelper::ActiveWater;
 ActiveState BabaUpdateHelper::ActiveLava;
 ActiveState BabaUpdateHelper::ActiveGrass;
+ActiveState BabaUpdateHelper::ActiveIce;
 
 ActiveState BabaUpdateHelper::None;
 ActiveState BabaUpdateHelper::Float;
@@ -39,6 +40,7 @@ BabaState BabaUpdateHelper::Skull = BabaState::IsSkull;
 BabaState BabaUpdateHelper::Water = BabaState::IsWater;
 BabaState BabaUpdateHelper::Lava = BabaState::IsLava;
 BabaState BabaUpdateHelper::Grass = BabaState::IsGrass;
+BabaState BabaUpdateHelper::Ice = BabaState::IsIce;
 
 float ContentsHelper::Time = 2.f;
 

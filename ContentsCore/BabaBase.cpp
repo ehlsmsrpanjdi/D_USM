@@ -232,7 +232,10 @@ bool ABabaBase::MoveCheck()
 		Temp = BabaUpdateHelper::ActiveLava.IsMove || Temp;
 		break;
 	case BabaState::IsGrass:
-		Temp = BabaUpdateHelper::ActiveGrass.IsMove|| Temp;
+		Temp = BabaUpdateHelper::ActiveGrass.IsMove || Temp;
+		break;
+	case BabaState::IsIce:
+		Temp = BabaUpdateHelper::ActiveIce.IsMove || Temp;
 		break;
 	default:
 		break;
@@ -272,6 +275,9 @@ bool ABabaBase::PushCheck()
 		break;
 	case BabaState::IsGrass:
 		Temp = BabaUpdateHelper::ActiveGrass.IsPush || Temp;
+		break;
+	case BabaState::IsIce:
+		Temp = BabaUpdateHelper::ActiveIce.IsPush || Temp;
 		break;
 	case BabaState::IsWord:
 		Temp = true;
@@ -318,7 +324,10 @@ bool ABabaBase::StopCheck()
 		Temp = BabaUpdateHelper::ActiveLava.IsStop || Temp;
 		break;
 	case BabaState::IsGrass:
-		Temp = BabaUpdateHelper::ActiveGrass.IsStop|| Temp;
+		Temp = BabaUpdateHelper::ActiveGrass.IsStop || Temp;
+		break;
+	case BabaState::IsIce:
+		Temp = BabaUpdateHelper::ActiveIce.IsStop || Temp;
 		break;
 	default:
 		break;
@@ -608,6 +617,13 @@ void ABabaBase::BabaHelperUpdate()
 		}
 	}
 	break;
+	case BabaState::IsIce:
+	{
+		if (BState != BabaUpdateHelper::Ice) {
+			BState = BabaUpdateHelper::Ice;
+		}
+	}
+	break;
 	}
 }
 void ABabaBase::BabaUpdate()
@@ -652,6 +668,9 @@ void ABabaBase::BabaUpdate()
 		//LavaChange();
 		break;
 	case BabaState::IsGrass:
+		Renderer->SetOrder(0);
+		break;
+	case BabaState::IsIce:
 		Renderer->SetOrder(0);
 		break;
 	default:
@@ -736,6 +755,23 @@ void ABabaBase::RenderInit()
 	Renderer->CreateAnimation("FlagObj", "FlagObj.png", 0.1f);
 	Renderer->CreateAnimation("RockObj", "RockObj.png", 0.1f);
 	Renderer->CreateAnimation("SkullObj", "SkullObj.png", 0.1f);
+
+	Renderer->CreateAnimation("ICE0", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
+	Renderer->CreateAnimation("ICE1", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 21, 39 });
+	Renderer->CreateAnimation("ICE2", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 4, 22, 40 });
+	Renderer->CreateAnimation("ICE3", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 5, 23, 41 });
+	Renderer->CreateAnimation("ICE4", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 6, 24, 42 });
+	Renderer->CreateAnimation("ICE5", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 7, 25, 43 });
+	Renderer->CreateAnimation("ICE6", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 8, 26, 44 });
+	Renderer->CreateAnimation("ICE7", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 9, 27, 45 });
+	Renderer->CreateAnimation("ICE8", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 10, 28, 46 });
+	Renderer->CreateAnimation("ICE9", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{11, 29, 47 });
+	Renderer->CreateAnimation("ICE10", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{12, 30, 48 });
+	Renderer->CreateAnimation("ICE11", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{13, 31, 49 });
+	Renderer->CreateAnimation("ICE12", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{14, 32, 50 });
+	Renderer->CreateAnimation("ICE13", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{15, 33, 51 });
+	Renderer->CreateAnimation("ICE14", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{16, 34, 52 });
+	Renderer->CreateAnimation("ICE15", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
 
 	Renderer->CreateAnimation("Grass0", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
 	Renderer->CreateAnimation("Wall0", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
@@ -885,6 +921,10 @@ void ABabaBase::PrevStaticState()
 			break;
 		case BabaState::IsGrass:
 			BabaUpdateHelper::Grass = BBState;
+			break;
+		case BabaState::IsIce:
+			BabaUpdateHelper::Grass = BBState;
+			break;
 		default:
 		{
 			MsgBoxAssert("예외처리 안된 거 있는 것 같으니 수정 요망");
@@ -971,6 +1011,23 @@ void ABabaBase::RenderCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 			index += 8;
 		}
 		Renderer->ChangeAnimation("Grass" + std::to_string(index));
+	}
+	break;
+	case BabaState::IsIce:
+	{
+		if (RenderCheckHelper(_Map, TileD, BState)) {
+			index += 1;
+		}
+		if (RenderCheckHelper(_Map, TileW, BState)) {
+			index += 2;
+		}
+		if (RenderCheckHelper(_Map, TileA, BState)) {
+			index += 4;
+		}
+		if (RenderCheckHelper(_Map, TileS, BState)) {
+			index += 8;
+		}
+		Renderer->ChangeAnimation("Ice" + std::to_string(index));
 	}
 	break;
 	default:

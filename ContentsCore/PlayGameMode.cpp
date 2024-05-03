@@ -231,6 +231,16 @@ void APlayGameMode::IsReset()
 			_BabaBase->RenderCheck(Baba_Actors);
 		}
 	}
+	BabaUpdateHelper::ActiveBaba = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveRock = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveWord = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveWall = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveSkull = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveFlag = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveWater = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveLava = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveGrass = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveIce = BabaUpdateHelper::None;
 }
 
 void APlayGameMode::DeadReset()
@@ -536,7 +546,12 @@ std::shared_ptr<ABabaBase> APlayGameMode::SpawnBaba(TilePoint _Tile, std::string
 		Baba->SetBabaLocation(_Tile, 'D');
 		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
 	}
-
+	else if (Name._Equal("ICE")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("ICE");
+		Baba->StateInit(BabaState::IsIce);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
 	else {
 		MsgBoxAssert("ActiveName에 이상한거넣었음");
 	}

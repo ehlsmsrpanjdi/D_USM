@@ -70,7 +70,7 @@ void ActiveWord::SetActiveAnimation()
 	else if (ActiveName.IsMelt) {
 		Renderer->ChangeAnimation("melt" + StrOn);
 	}
-	else if (ActiveName.IsMove) {
+	else if (ActiveName.IsMove && !ActiveName.IsYou) {
 		Renderer->ChangeAnimation("move" + StrOn);
 	}
 	else if (ActiveName.IsPull) {

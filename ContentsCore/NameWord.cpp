@@ -22,6 +22,9 @@ void NameWord::BeginPlay()
 	Renderer->CreateAnimation("WallName", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
 	Renderer->CreateAnimation("WallNameOn", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 1, 19, 37 });
 
+	Renderer->CreateAnimation("IceName", "Ice.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
+	Renderer->CreateAnimation("IceNameOn", "Ice.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 1, 19, 37 });
+
 	Renderer->CreateAnimation("LavaName", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
 	Renderer->CreateAnimation("LavaNameOn", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 1, 19, 37 });
 
@@ -46,12 +49,13 @@ void NameWord::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	ABabaBase::Tick(_DeltaTime);
+	NameWordChangeAnimation();
 }
 
 void NameWord::NameWordChangeAnimation()
 {
 	std::string StrOn = "";
-	if (IsOn = true) {
+	if (IsOn == true) {
 		StrOn = "On";
 	}
 	switch (WordInfo)
@@ -81,6 +85,9 @@ void NameWord::NameWordChangeAnimation()
 		break;
 	case BabaState::IsGrass:
 		Renderer->ChangeAnimation("GrassName" + StrOn);
+		break;
+	case BabaState::IsIce:
+		Renderer->ChangeAnimation("IceName" + StrOn);
 		break;
 	default:
 		break;

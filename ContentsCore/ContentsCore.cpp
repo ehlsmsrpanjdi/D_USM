@@ -58,6 +58,7 @@ void ContentsCore::ResourcesInit()
 	UEngineSprite::CreateCutting("Baba_Up_3.png", 3, 1);
 	UEngineSprite::CreateCutting("Baba_Up_4.png", 3, 1);
 
+	UEngineSprite::CreateCutting("ICE.png", 18, 3);
 	UEngineSprite::CreateCutting("Wall.png", 18, 3);
 	UEngineSprite::CreateCutting("Grass.png", 18, 3);
 	UEngineSprite::CreateCutting("Lava.png", 18, 3);

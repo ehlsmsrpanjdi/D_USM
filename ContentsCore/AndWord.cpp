@@ -165,6 +165,12 @@ void AndWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
 
 	else if (BabaState::IsActive == _Right->GetBstate()) {
 		NameWord* _LeftName = dynamic_cast<NameWord*>(_Left);
+		if (_LeftName == nullptr) {
+			return;
+		}
+		_Left->IsOn = true;
+		_Right->IsOn = true;
+		IsOn = true;
 		switch (_LeftName->GetNameSet())
 		{
 		case BabaState::IsBaba:
@@ -191,6 +197,9 @@ void AndWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
 		case BabaState::IsGrass:
 			Who = &BabaUpdateHelper::ActiveGrass;
 			break;
+		case BabaState::IsIce:
+			Who = &BabaUpdateHelper::ActiveIce;
+			break;
 		}
 		ActiveChange(Who, _Right);
 	}
@@ -198,8 +207,14 @@ void AndWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
 
 void AndWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 {
+	_CurWord->IsOn = true;
+	_Name->IsOn = true;
+	IsOn = true;
 	NameWord* FrontWord = dynamic_cast<NameWord*>(_CurWord);
 	NameWord* BackWord = dynamic_cast<NameWord*>(_Name);
+	if (BackWord == nullptr || FrontWord == nullptr) {
+		return;
+	}
 	BabaState FrontName = FrontWord->GetNameSet();
 	BabaState* State = nullptr;
 	switch (FrontName)
@@ -227,6 +242,9 @@ void AndWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 		break;
 	case BabaState::IsGrass:
 		State = &BabaUpdateHelper::Grass;
+		break;
+	case BabaState::IsIce:
+		State = &BabaUpdateHelper::Ice;
 		break;
 	}
 
