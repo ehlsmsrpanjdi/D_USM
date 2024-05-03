@@ -129,6 +129,11 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		SwitchNum = 7;
 	}
 
+	ImGui::SameLine();
+	if (true == ImGui::Button("Grass")) {
+		SwitchNum = 8;
+	}
+
 
 	if (true == ImGui::Button("Is")) {
 		SwitchNum = 11;
@@ -214,6 +219,10 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	ImGui::SameLine();
 	if (true == ImGui::Button("NameLava")) {
 		SwitchNum = 37;
+	}
+	ImGui::SameLine();
+	if (true == ImGui::Button("NameGrass")) {
+		SwitchNum = 38;
 	}
 
 	if (true == ImGui::Button("Tile")) {
@@ -346,6 +355,11 @@ AActor* BabaEditor::EditorSwitch(int _X, int _Y, int _Num)
 		Baba = GameMode->SpawnBaba(_X, _Y, "Lava").get();
 	}
 	break;
+	case 8:
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Grass").get();
+	}
+	break;
 	case 11:
 	{
 		IsWord* Bababa = GameMode->SpawnIs(_X, _Y).get();
@@ -463,6 +477,12 @@ AActor* BabaEditor::EditorSwitch(int _X, int _Y, int _Num)
 	case 37:
 	{
 		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsLava).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 38:
+	{
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsGrass).get();
 		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;

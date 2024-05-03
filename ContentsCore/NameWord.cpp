@@ -22,6 +22,7 @@ void NameWord::BeginPlay()
 	Renderer->CreateAnimation("WallName", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
 	Renderer->CreateAnimation("LavaName", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
 	Renderer->CreateAnimation("WaterName", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
+	Renderer->CreateAnimation("GrassName", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 0, 18, 36 });
 	Renderer->CreateAnimation("RockName", "Rock.Png");
 	Renderer->CreateAnimation("SkullName", "Skull.Png");
 	Renderer->CreateAnimation("FlagName", "Flag.Png");
@@ -60,6 +61,9 @@ void NameWord::NameWordChangeAnimation()
 		break;
 	case BabaState::IsLava:
 		Renderer->ChangeAnimation("LavaName");
+		break;
+	case BabaState::IsGrass:
+		Renderer->ChangeAnimation("GrassName");
 		break;
 	default:
 		break;

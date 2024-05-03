@@ -38,6 +38,7 @@ BabaState BabaUpdateHelper::Flag = BabaState::IsFlag;
 BabaState BabaUpdateHelper::Skull = BabaState::IsSkull;
 BabaState BabaUpdateHelper::Water = BabaState::IsWater;
 BabaState BabaUpdateHelper::Lava = BabaState::IsLava;
+BabaState BabaUpdateHelper::Grass = BabaState::IsGrass;
 
 float ContentsHelper::Time = 2.f;
 

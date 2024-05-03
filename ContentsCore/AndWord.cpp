@@ -188,6 +188,9 @@ void AndWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
 		case BabaState::IsLava:
 			Who = &BabaUpdateHelper::ActiveLava;
 			break;
+		case BabaState::IsGrass:
+			Who = &BabaUpdateHelper::ActiveGrass;
+			break;
 		}
 		ActiveChange(Who, _Right);
 	}
@@ -221,6 +224,9 @@ void AndWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 		break;
 	case BabaState::IsLava:
 		State = &BabaUpdateHelper::Lava;
+		break;
+	case BabaState::IsGrass:
+		State = &BabaUpdateHelper::Grass;
 		break;
 	}
 

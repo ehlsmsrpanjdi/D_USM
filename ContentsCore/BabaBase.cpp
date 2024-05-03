@@ -231,6 +231,9 @@ bool ABabaBase::MoveCheck()
 	case BabaState::IsLava:
 		Temp = BabaUpdateHelper::ActiveLava.IsMove || Temp;
 		break;
+	case BabaState::IsGrass:
+		Temp = BabaUpdateHelper::ActiveGrass.IsMove|| Temp;
+		break;
 	default:
 		break;
 	}
@@ -266,6 +269,9 @@ bool ABabaBase::PushCheck()
 		break;
 	case BabaState::IsLava:
 		Temp = BabaUpdateHelper::ActiveLava.IsPush || Temp;
+		break;
+	case BabaState::IsGrass:
+		Temp = BabaUpdateHelper::ActiveGrass.IsPush || Temp;
 		break;
 	case BabaState::IsWord:
 		Temp = true;
@@ -310,6 +316,9 @@ bool ABabaBase::StopCheck()
 		break;
 	case BabaState::IsLava:
 		Temp = BabaUpdateHelper::ActiveLava.IsStop || Temp;
+		break;
+	case BabaState::IsGrass:
+		Temp = BabaUpdateHelper::ActiveGrass.IsStop|| Temp;
 		break;
 	default:
 		break;
@@ -592,6 +601,13 @@ void ABabaBase::BabaHelperUpdate()
 		}
 	}
 	break;
+	case BabaState::IsGrass:
+	{
+		if (BState != BabaUpdateHelper::Grass) {
+			BState = BabaUpdateHelper::Grass;
+		}
+	}
+	break;
 	}
 }
 void ABabaBase::BabaUpdate()
@@ -634,6 +650,9 @@ void ABabaBase::BabaUpdate()
 	case BabaState::IsLava:
 		Renderer->SetOrder(0);
 		//LavaChange();
+		break;
+	case BabaState::IsGrass:
+		Renderer->SetOrder(0);
 		break;
 	default:
 		break;
@@ -718,66 +737,82 @@ void ABabaBase::RenderInit()
 	Renderer->CreateAnimation("RockObj", "RockObj.png", 0.1f);
 	Renderer->CreateAnimation("SkullObj", "SkullObj.png", 0.1f);
 
+	Renderer->CreateAnimation("Grass0", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
 	Renderer->CreateAnimation("Wall0", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
 	Renderer->CreateAnimation("Lava0", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
 	Renderer->CreateAnimation("Water0", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
 
+	Renderer->CreateAnimation("Grass1", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 21, 39 });
 	Renderer->CreateAnimation("Wall1", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 21, 39 });
 	Renderer->CreateAnimation("Lava1", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 21, 39 });
 	Renderer->CreateAnimation("Water1", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 21, 39 });
 
+	Renderer->CreateAnimation("Grass2", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 4, 22, 40 });
 	Renderer->CreateAnimation("Wall2", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 4, 22, 40 });
 	Renderer->CreateAnimation("Lava2", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 4, 22, 40 });
 	Renderer->CreateAnimation("Water2", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 4, 22, 40 });
 
+	Renderer->CreateAnimation("Grass3", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 5, 23, 41 });
 	Renderer->CreateAnimation("Wall3", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 5, 23, 41 });
 	Renderer->CreateAnimation("Lava3", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 5, 23, 41 });
 	Renderer->CreateAnimation("Water3", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 5, 23, 41 });
 
+	Renderer->CreateAnimation("Grass4", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 6, 24, 42 });
 	Renderer->CreateAnimation("Wall4", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 6, 24, 42 });
 	Renderer->CreateAnimation("Lava4", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 6, 24, 42 });
 	Renderer->CreateAnimation("Water4", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 6, 24, 42 });
 
+	Renderer->CreateAnimation("Grass5", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 7, 25, 43 });
 	Renderer->CreateAnimation("Wall5", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 7, 25, 43 });
 	Renderer->CreateAnimation("Lava5", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 7, 25, 43 });
 	Renderer->CreateAnimation("Water5", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 7, 25, 43 });
 
+	Renderer->CreateAnimation("Grass6", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 8, 26, 44 });
 	Renderer->CreateAnimation("Wall6", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 8, 26, 44 });
 	Renderer->CreateAnimation("Lava6", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 8, 26, 44 });
 	Renderer->CreateAnimation("Water6", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 8, 26, 44 });
 
+	Renderer->CreateAnimation("Grass7", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 9, 27, 45 });
 	Renderer->CreateAnimation("Wall7", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 9, 27, 45 });
 	Renderer->CreateAnimation("Lava7", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 9, 27, 45 });
 	Renderer->CreateAnimation("Water7", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 9, 27, 45 });
 
+	Renderer->CreateAnimation("Grass8", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 10, 28, 46 });
 	Renderer->CreateAnimation("Wall8", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 10, 28, 46 });
 	Renderer->CreateAnimation("Lava8", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 10, 28, 46 });
 	Renderer->CreateAnimation("Water8", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 10, 28, 46 });
 
+	Renderer->CreateAnimation("Grass9", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{11, 29, 47 });
 	Renderer->CreateAnimation("Wall9", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{11, 29, 47 });
 	Renderer->CreateAnimation("Lava9", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{11, 29, 47 });
 	Renderer->CreateAnimation("Water9", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{11, 29, 47 });
 
+	Renderer->CreateAnimation("Grass10", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{12, 30, 48 });
 	Renderer->CreateAnimation("Wall10", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{12, 30, 48 });
 	Renderer->CreateAnimation("Lava10", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{12, 30, 48 });
 	Renderer->CreateAnimation("Water10", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{12, 30, 48 });
 
+	Renderer->CreateAnimation("Grass11", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{13, 31, 49 });
 	Renderer->CreateAnimation("Wall11", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{13, 31, 49 });
 	Renderer->CreateAnimation("Lava11", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{13, 31, 49 });
 	Renderer->CreateAnimation("Water11", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{13, 31, 49 });
 
+	Renderer->CreateAnimation("Grass12", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{14, 32, 50 });
 	Renderer->CreateAnimation("Wall12", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{14, 32, 50 });
 	Renderer->CreateAnimation("Lava12", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{14, 32, 50 });
 	Renderer->CreateAnimation("Water12", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{14, 32, 50 });
 
+	Renderer->CreateAnimation("Grass13", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{15, 33, 51 });
 	Renderer->CreateAnimation("Wall13", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{15, 33, 51 });
 	Renderer->CreateAnimation("Lava13", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{15, 33, 51 });
 	Renderer->CreateAnimation("Water13", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{15, 33, 51 });
 
+	Renderer->CreateAnimation("Grass14", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{16, 34, 52 });
 	Renderer->CreateAnimation("Wall14", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{16, 34, 52 });
 	Renderer->CreateAnimation("Lava14", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{16, 34, 52 });
 	Renderer->CreateAnimation("Water14", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{16, 34, 52 });;
 
+	Renderer->CreateAnimation("Grass15", "Grass.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
 	Renderer->CreateAnimation("Wall15", "Wall.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
 	Renderer->CreateAnimation("Lava15", "Lava.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
 	Renderer->CreateAnimation("Water15", "Water.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
@@ -848,6 +883,8 @@ void ABabaBase::PrevStaticState()
 		case BabaState::IsLava:
 			BabaUpdateHelper::Lava = BBState;
 			break;
+		case BabaState::IsGrass:
+			BabaUpdateHelper::Grass = BBState;
 		default:
 		{
 			MsgBoxAssert("예외처리 안된 거 있는 것 같으니 수정 요망");
@@ -917,6 +954,23 @@ void ABabaBase::RenderCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 			index += 8;
 		}
 		Renderer->ChangeAnimation("Lava" + std::to_string(index));
+	}
+	break;
+	case BabaState::IsGrass:
+	{
+		if (RenderCheckHelper(_Map, TileD, BState)) {
+			index += 1;
+		}
+		if (RenderCheckHelper(_Map, TileW, BState)) {
+			index += 2;
+		}
+		if (RenderCheckHelper(_Map, TileA, BState)) {
+			index += 4;
+		}
+		if (RenderCheckHelper(_Map, TileS, BState)) {
+			index += 8;
+		}
+		Renderer->ChangeAnimation("Grass" + std::to_string(index));
 	}
 	break;
 	default:

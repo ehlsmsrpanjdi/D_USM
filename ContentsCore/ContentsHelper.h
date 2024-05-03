@@ -102,6 +102,7 @@ enum class BabaState {
 	IsSkull,
 	IsWater,
 	IsLava,
+	IsGrass,	
 	IsWord,
 	IsActive,
 	IsIs,
@@ -156,6 +157,7 @@ public:
 	static BabaState Skull;
 	static BabaState Water;
 	static BabaState Lava;
+	static BabaState Grass;
 
 	static ActiveState StateToActive(BabaState _State) {
 		switch (_State)
@@ -181,6 +183,8 @@ public:
 		case BabaState::IsLava:
 			return BabaUpdateHelper::ActiveLava;
 			break;
+		case BabaState::IsGrass:
+			return BabaUpdateHelper::ActiveGrass;
 		case BabaState::IsWord:
 		case BabaState::IsActive:
 		case BabaState::IsIs:

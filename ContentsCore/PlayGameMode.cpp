@@ -302,13 +302,6 @@ void APlayGameMode::SinkCheck()
 					int i = 0;
 					ABabaBase* TempBaba[2] = { nullptr, };
 					for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
-						if (_Baba->GetBstate() == BabaState::IsWord ||
-							_Baba->GetBstate() == BabaState::IsIs ||
-							_Baba->GetBstate() == BabaState::IsActive) {
-							SinkCount--;
-							i--;
-							continue;
-						}
 						TempBaba[i] = _Baba;
 						SinkCount++;
 						i++;
@@ -534,6 +527,12 @@ std::shared_ptr<ABabaBase> APlayGameMode::SpawnBaba(TilePoint _Tile, std::string
 	else if (Name._Equal("LAVA")) {
 		Baba = GetWorld()->SpawnActor<ABabaBase>("LAVA");
 		Baba->StateInit(BabaState::IsLava);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("GRASS")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("GRASS");
+		Baba->StateInit(BabaState::IsGrass);
 		Baba->SetBabaLocation(_Tile, 'D');
 		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
 	}
