@@ -15,18 +15,31 @@ void ActiveWord::BeginPlay()
 {
 	Super::BeginPlay();
 	Renderer->SetOrder(2);
-	Renderer->SetMaterial("2DImage");		
+	Renderer->SetMaterial("2DImage");
 	Renderer->CreateAnimation("Baba", "Baba.Png");
-	Renderer->CreateAnimation("Move", "Move.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
-	Renderer->CreateAnimation("Pull", "Pull.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
-	Renderer->CreateAnimation("Push", "Push.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
-	Renderer->CreateAnimation("Stop", "Stop.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
-	Renderer->CreateAnimation("Defeat", "Defeat.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
-	Renderer->CreateAnimation("Hot", "Hot.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
-	Renderer->CreateAnimation("Sink", "Sink.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
-	Renderer->CreateAnimation("You", "You.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
-	Renderer->CreateAnimation("Win", "Win.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
-	Renderer->CreateAnimation("Melt", "Melt.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("MoveOn", "Move.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("PullOn", "Pull.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("PushOn", "Push.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("StopOn", "Stop.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("DefeatOn", "Defeat.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("HotOn", "Hot.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("SinkOn", "Sink.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("YouOn", "You.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("WinOn", "Win.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("MeltOn", "Melt.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+
+	Renderer->CreateAnimation("Move", "Move.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("Pull", "Pull.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("Push", "Push.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("Stop", "Stop.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("Defeat", "Defeat.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("Hot", "Hot.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("Sink", "Sink.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("You", "You.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("Win", "Win.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("Melt", "Melt.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+
+
 
 	Renderer->ChangeAnimation("push");
 }
@@ -35,6 +48,48 @@ void ActiveWord::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	ABabaBase::Tick(_DeltaTime);
+	SetActiveAnimation();
+}
+
+void ActiveWord::SetActiveAnimation()
+{
+	std::string StrOn = "";
+	if (IsOn = true) {
+		StrOn = "On";
+	}
+	if (ActiveName.IsDefeat) {
+		Renderer->ChangeAnimation("defeat" + StrOn);
+	}
+	else if (ActiveName.IsFloat) {
+		Renderer->ChangeAnimation("float" + StrOn);
+	}
+	else if (ActiveName.IsHot) {
+		Renderer->ChangeAnimation("hot" + StrOn);
+	}
+	else if (ActiveName.IsMelt) {
+		Renderer->ChangeAnimation("melt" + StrOn);
+	}
+	else if (ActiveName.IsMove) {
+		Renderer->ChangeAnimation("move" + StrOn);
+	}
+	else if (ActiveName.IsPull) {
+		Renderer->ChangeAnimation("pull" + StrOn);
+	}
+	else if (ActiveName.IsPush) {
+		Renderer->ChangeAnimation("push" + StrOn);
+	}
+	else if (ActiveName.IsSink) {
+		Renderer->ChangeAnimation("sink" + StrOn);
+	}
+	else if (ActiveName.IsStop) {
+		Renderer->ChangeAnimation("stop" + StrOn);
+	}
+	else if (ActiveName.IsWin) {
+		Renderer->ChangeAnimation("win" + StrOn);
+	}
+	else if (ActiveName.IsYou) {
+		Renderer->ChangeAnimation("You" + StrOn);
+	}
 }
 
 void ActiveWord::SetAnimation(std::string_view _Str)

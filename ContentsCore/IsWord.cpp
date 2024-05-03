@@ -20,7 +20,8 @@ void IsWord::BeginPlay()
 	Super::BeginPlay();
 	Renderer->SetOrder(2);
 	Renderer->SetMaterial("2DImage");
-	Renderer->CreateAnimation("Is", "Is.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 2, 4});
+	Renderer->CreateAnimation("IsOn", "Is.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{0, 2, 4});
+	Renderer->CreateAnimation("Is", "Is.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 3, 5});
 	Renderer->ChangeAnimation("is");
 }
 
@@ -28,6 +29,12 @@ void IsWord::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	ABabaBase::Tick(_DeltaTime);
+	if (IsOn == true) {
+		Renderer->ChangeAnimation("IsOn");
+	}
+	else {
+		Renderer->ChangeAnimation("Is");
+	}
 }
 
 void IsWord::UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)

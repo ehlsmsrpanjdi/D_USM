@@ -19,8 +19,11 @@ public:
 
 	ActiveState ActiveName;
 
+
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
+	void SetActiveAnimation();
 
 	void SetActive(ActiveState _Info) {
 		ActiveName = _Info;
