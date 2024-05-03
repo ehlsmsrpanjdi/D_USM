@@ -42,6 +42,7 @@ void ActiveWord::BeginPlay()
 
 
 	Renderer->ChangeAnimation("push");
+	IsOn = false;
 }
 
 void ActiveWord::Tick(float _DeltaTime)
@@ -54,7 +55,7 @@ void ActiveWord::Tick(float _DeltaTime)
 void ActiveWord::SetActiveAnimation()
 {
 	std::string StrOn = "";
-	if (IsOn = true) {
+	if (IsOn == true) {
 		StrOn = "On";
 	}
 	if (ActiveName.IsDefeat) {
