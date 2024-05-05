@@ -56,6 +56,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 		IsReset();
 		IsUpdate();
 		AndUpdate();
+		HasUpdate();
 		BabaInputCheck();
 	}
 	DebugMessageFunction();
@@ -278,6 +279,14 @@ void APlayGameMode::AndUpdate()
 	for (AndWord* _And : And_Vec) {
 		_And->UpCheck(Baba_Actors);
 		_And->AxisCheck(Baba_Actors);
+	}
+}
+
+void APlayGameMode::HasUpdate()
+{
+	for (HasWord* _Has : Has_Vec) {
+		_Has->UpCheck(Baba_Actors);
+		_Has->AxisCheck(Baba_Actors);
 	}
 }
 

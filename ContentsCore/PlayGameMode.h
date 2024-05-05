@@ -54,6 +54,7 @@ protected:
 	void DeadReset();
 	void IsUpdate();
 	void AndUpdate();
+	void HasUpdate();
 
 	void HotCheck();
 	void SinkCheck();

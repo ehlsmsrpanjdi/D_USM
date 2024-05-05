@@ -250,7 +250,7 @@ bool ABabaBase::MoveCheck()
 		Temp = BabaUpdateHelper::ActiveCrab.IsMove || Temp;
 		break;
 	case BabaState::IsJelly:
-		Temp = BabaUpdateHelper::ActiveIce.IsMove || Temp;
+		Temp = BabaUpdateHelper::ActiveJelly.IsMove || Temp;
 		break;
 	case BabaState::IsPillar:
 		Temp = BabaUpdateHelper::ActivePillar.IsMove || Temp;
@@ -1019,6 +1019,10 @@ void ABabaBase::DustSpawn(char _Input)
 void ABabaBase::DeadRender()
 {
 	Renderer->SetActive(!Dead);
+	if (HasState != BabaState::IsNone && Dead) {
+		BState = HasState;
+		SetDead(false);
+	}
 }
 
 bool ABabaBase::RenderCheckHelper(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile, BabaState _State)
