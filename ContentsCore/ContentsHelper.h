@@ -134,6 +134,8 @@ struct ActiveState {
 	bool IsMelt = false;
 	bool IsOpen = false;
 	bool IsShut = false;
+
+	BabaState HasState = BabaState::IsNone;
 };
 
 class BabaUpdateHelper {
@@ -220,6 +222,22 @@ public:
 			return BabaUpdateHelper::ActiveGrass;
 		case BabaState::IsIce:
 			return BabaUpdateHelper::ActiveIce;
+		case BabaState::IsAlgae:
+			return BabaUpdateHelper::ActiveAlgae;
+		case BabaState::IsBox:
+			return BabaUpdateHelper::ActiveBox;
+		case BabaState::IsDoor:
+			return BabaUpdateHelper::ActiveDoor;
+		case BabaState::IsCrab:
+			return BabaUpdateHelper::ActiveCrab;
+		case BabaState::IsJelly:
+			return BabaUpdateHelper::ActiveJelly;
+		case BabaState::IsPillar:
+			return BabaUpdateHelper::ActivePillar;
+		case BabaState::IsKey:
+			return BabaUpdateHelper::ActiveKey;
+		case BabaState::IsStar:
+			return BabaUpdateHelper::ActiveStar;
 		case BabaState::IsWord:
 		case BabaState::IsActive:
 		case BabaState::IsIs:

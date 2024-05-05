@@ -7,6 +7,7 @@
 #include "FadeINEffect.h"
 #include "Dust.h"
 #include "ContentsHelper.h"
+#include "ContentsCore.h"
 
 ABabaBase::ABabaBase()
 {
@@ -1019,9 +1020,9 @@ void ABabaBase::DustSpawn(char _Input)
 void ABabaBase::DeadRender()
 {
 	Renderer->SetActive(!Dead);
-	if (HasState != BabaState::IsNone && Dead) {
-		BState = HasState;
-		SetDead(false);
+	BabaState HasState = BabaUpdateHelper::StateToActive(BState).HasState;
+	if (HasState != BabaState::IsNone) {
+		ContentsCore::GameMode
 	}
 }
 

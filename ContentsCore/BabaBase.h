@@ -85,8 +85,6 @@ public:
 	__int64 GetPrevTile64() {
 		return PrevTile.Location;
 	}
-
-	BabaState HasState = BabaState::IsNone;
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
