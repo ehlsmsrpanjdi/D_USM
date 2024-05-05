@@ -237,6 +237,31 @@ bool ABabaBase::MoveCheck()
 	case BabaState::IsIce:
 		Temp = BabaUpdateHelper::ActiveIce.IsMove || Temp;
 		break;
+	case BabaState::IsAlgae:
+		Temp = BabaUpdateHelper::ActiveAlgae.IsMove || Temp;
+		break;
+	case BabaState::IsBox:
+		Temp = BabaUpdateHelper::ActiveBox.IsMove || Temp;
+		break;
+	case BabaState::IsDoor:
+		Temp = BabaUpdateHelper::ActiveDoor.IsMove || Temp;
+		break;
+	case BabaState::IsCrab:
+		Temp = BabaUpdateHelper::ActiveCrab.IsMove || Temp;
+		break;
+	case BabaState::IsJelly:
+		Temp = BabaUpdateHelper::ActiveIce.IsMove || Temp;
+		break;
+	case BabaState::IsPillar:
+		Temp = BabaUpdateHelper::ActivePillar.IsMove || Temp;
+		break;
+	case BabaState::IsKey:
+		Temp = BabaUpdateHelper::ActiveKey.IsMove || Temp;
+		break;
+	case BabaState::IsStar:
+		Temp = BabaUpdateHelper::ActiveStar.IsMove || Temp;
+		break;
+
 	default:
 		break;
 	}
@@ -278,6 +303,30 @@ bool ABabaBase::PushCheck()
 		break;
 	case BabaState::IsIce:
 		Temp = BabaUpdateHelper::ActiveIce.IsPush || Temp;
+		break;
+	case BabaState::IsAlgae:
+		Temp = BabaUpdateHelper::ActiveAlgae.IsPush || Temp;
+		break;
+	case BabaState::IsBox:
+		Temp = BabaUpdateHelper::ActiveBox.IsPush || Temp;
+		break;
+	case BabaState::IsDoor:
+		Temp = BabaUpdateHelper::ActiveDoor.IsPush || Temp;
+		break;
+	case BabaState::IsCrab:
+		Temp = BabaUpdateHelper::ActiveCrab.IsPush || Temp;
+		break;
+	case BabaState::IsJelly:
+		Temp = BabaUpdateHelper::ActiveIce.IsPush || Temp;
+		break;
+	case BabaState::IsPillar:
+		Temp = BabaUpdateHelper::ActivePillar.IsPush || Temp;
+		break;
+	case BabaState::IsKey:
+		Temp = BabaUpdateHelper::ActiveKey.IsPush || Temp;
+		break;
+	case BabaState::IsStar:
+		Temp = BabaUpdateHelper::ActiveStar.IsPush || Temp;
 		break;
 	case BabaState::IsWord:
 		Temp = true;
@@ -328,6 +377,30 @@ bool ABabaBase::StopCheck()
 		break;
 	case BabaState::IsIce:
 		Temp = BabaUpdateHelper::ActiveIce.IsStop || Temp;
+		break;
+	case BabaState::IsAlgae:
+		Temp = BabaUpdateHelper::ActiveAlgae.IsStop || Temp;
+		break;
+	case BabaState::IsBox:
+		Temp = BabaUpdateHelper::ActiveBox.IsStop || Temp;
+		break;
+	case BabaState::IsDoor:
+		Temp = BabaUpdateHelper::ActiveDoor.IsStop || Temp;
+		break;
+	case BabaState::IsCrab:
+		Temp = BabaUpdateHelper::ActiveCrab.IsStop || Temp;
+		break;
+	case BabaState::IsJelly:
+		Temp = BabaUpdateHelper::ActiveIce.IsStop || Temp;
+		break;
+	case BabaState::IsPillar:
+		Temp = BabaUpdateHelper::ActivePillar.IsStop || Temp;
+		break;
+	case BabaState::IsKey:
+		Temp = BabaUpdateHelper::ActiveKey.IsStop || Temp;
+		break;
+	case BabaState::IsStar:
+		Temp = BabaUpdateHelper::ActiveStar.IsStop || Temp;
 		break;
 	default:
 		break;
@@ -673,6 +746,38 @@ void ABabaBase::BabaUpdate()
 	case BabaState::IsIce:
 		Renderer->SetOrder(0);
 		break;
+	case BabaState::IsAlgae:
+		AlgaeChange();
+		Renderer->SetOrder(0);
+		break;
+	case BabaState::IsBox:
+		BoxChange();
+		Renderer->SetOrder(0);
+		break;
+	case BabaState::IsDoor:
+		DoorChange();
+		Renderer->SetOrder(0);
+		break;
+	case BabaState::IsCrab:
+		CrabChange();
+		Renderer->SetOrder(0);
+		break;
+	case BabaState::IsJelly:
+		JellyChange();
+		Renderer->SetOrder(0);
+		break;
+	case BabaState::IsPillar:
+		PillarChange();
+		Renderer->SetOrder(0);
+		break;
+	case BabaState::IsKey:
+		KeyChange();
+		Renderer->SetOrder(0);
+		break;
+	case BabaState::IsStar:
+		StarChange();
+		Renderer->SetOrder(0);
+		break;
 	default:
 		break;
 	}
@@ -724,6 +829,46 @@ void ABabaBase::WallChange()
 	Renderer->ChangeAnimation("Wall0");
 }
 
+void ABabaBase::AlgaeChange()
+{
+	Renderer->ChangeAnimation("AlgaeObj");
+}
+
+void ABabaBase::BoxChange()
+{
+	Renderer->ChangeAnimation("BoxObj");
+}
+
+void ABabaBase::DoorChange()
+{
+	Renderer->ChangeAnimation("DoorObj");
+}
+
+void ABabaBase::CrabChange()
+{
+	Renderer->ChangeAnimation("CrabObj");
+}
+
+void ABabaBase::JellyChange()
+{
+	Renderer->ChangeAnimation("JellyObj");
+}
+
+void ABabaBase::PillarChange()
+{
+	Renderer->ChangeAnimation("PillarObj");
+}
+
+void ABabaBase::KeyChange()
+{
+	Renderer->ChangeAnimation("KeyObj");
+}
+
+void ABabaBase::StarChange()
+{
+	Renderer->ChangeAnimation("StarObj");
+}
+
 void ABabaBase::Babachange()
 {
 	InfoUpdate();
@@ -755,6 +900,14 @@ void ABabaBase::RenderInit()
 	Renderer->CreateAnimation("FlagObj", "FlagObj.png", 0.1f);
 	Renderer->CreateAnimation("RockObj", "RockObj.png", 0.1f);
 	Renderer->CreateAnimation("SkullObj", "SkullObj.png", 0.1f);
+	Renderer->CreateAnimation("DoorObj", "Door.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("AlgaeObj", "Algae.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("BoxObj", "Box.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("JellyObj", "Jelly.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("KeyObj", "Key.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("PillarObj", "Pillar.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("StarObj", "Star.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("CrabObj", "Crab.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 8, 13});
 
 	Renderer->CreateAnimation("ICE0", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
 	Renderer->CreateAnimation("ICE1", "ICE.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 21, 39 });
@@ -923,8 +1076,33 @@ void ABabaBase::PrevStaticState()
 			BabaUpdateHelper::Grass = BBState;
 			break;
 		case BabaState::IsIce:
-			BabaUpdateHelper::Grass = BBState;
+			BabaUpdateHelper::Ice = BBState;
 			break;
+		case BabaState::IsAlgae:
+			BabaUpdateHelper::Algae = BBState;
+			break;
+		case BabaState::IsBox:
+			BabaUpdateHelper::Box = BBState;
+			break;
+		case BabaState::IsDoor:
+			BabaUpdateHelper::Door = BBState;
+			break;
+		case BabaState::IsCrab:
+			BabaUpdateHelper::Crab = BBState;
+			break;
+		case BabaState::IsJelly:
+			BabaUpdateHelper::Jelly = BBState;
+			break;
+		case BabaState::IsPillar:
+			BabaUpdateHelper::Pillar = BBState;
+			break;
+		case BabaState::IsKey:
+			BabaUpdateHelper::Key = BBState;
+			break;
+		case BabaState::IsStar:
+			BabaUpdateHelper::Star = BBState;
+			break;
+
 		default:
 		{
 			MsgBoxAssert("예외처리 안된 거 있는 것 같으니 수정 요망");

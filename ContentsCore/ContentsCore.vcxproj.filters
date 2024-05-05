@@ -52,6 +52,9 @@
     <ClInclude Include="AndWord.h">
       <Filter>Level\Actor\Word</Filter>
     </ClInclude>
+    <ClInclude Include="HasWord.h">
+      <Filter>Level\Actor\Word</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -103,6 +106,9 @@
       <Filter>Level\Actor\Base</Filter>
     </ClCompile>
     <ClCompile Include="AndWord.cpp">
+      <Filter>Level\Actor\Word</Filter>
+    </ClCompile>
+    <ClCompile Include="HasWord.cpp">
       <Filter>Level\Actor\Word</Filter>
     </ClCompile>
   </ItemGroup>

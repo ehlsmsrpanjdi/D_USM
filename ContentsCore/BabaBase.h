@@ -86,6 +86,7 @@ public:
 		return PrevTile.Location;
 	}
 
+	BabaState HasState = BabaState::IsNone;
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -187,6 +188,14 @@ protected:
 	void WaterChange();
 	void LavaChange();
 	void WallChange();
+	void AlgaeChange();
+	void BoxChange();
+	void DoorChange();
+	void CrabChange();
+	void JellyChange();
+	void PillarChange();
+	void KeyChange();
+	void StarChange();
 
 	void RenderInit();
 

@@ -8,6 +8,7 @@ class IsWord;
 class NameWord;
 class ActiveWord;
 class AndWord;
+class HasWord;
 class BottomTile;
 
 // Ό³Έν :
@@ -36,6 +37,7 @@ protected:
 	std::vector<ABabaBase*> Change_Baba;
 	std::vector<IsWord*> Is_Vec;
 	std::vector<AndWord*> And_Vec;
+	std::vector<HasWord*> Has_Vec;
 	std::stack<char> Stack_Input;
 	bool IsInput = false;
 	int Count = 0;
@@ -47,7 +49,7 @@ protected:
 	void Change_BabaPos();
 	void BabaInputCheck();
 	void DebugMessageFunction();
-	
+
 	void IsReset();
 	void DeadReset();
 	void IsUpdate();
@@ -63,6 +65,7 @@ protected:
 
 	std::shared_ptr<IsWord> SpawnIs(TilePoint _Tile);
 	std::shared_ptr<AndWord> SpawnAnd(TilePoint _Tile);
+	std::shared_ptr<HasWord> SpawnHas(TilePoint _Tile);
 	std::shared_ptr<NameWord> SpawnName(TilePoint _Tile, BabaState _Info);
 	std::shared_ptr<ActiveWord> SpawnActive(TilePoint _Tile, std::string_view _Str);
 	std::shared_ptr<ABabaBase> SpawnBaba(TilePoint _Tile, std::string_view _Str);
@@ -71,7 +74,7 @@ protected:
 		return SpawnIs(TilePoint(_X, _Y));
 	}
 	std::shared_ptr<NameWord> SpawnName(int _X, int _Y, BabaState _Info) {
-		return SpawnName(TilePoint(_X, _Y),_Info);
+		return SpawnName(TilePoint(_X, _Y), _Info);
 	}
 	std::shared_ptr<ActiveWord> SpawnActive(int _X, int _Y, std::string_view _Str) {
 		return SpawnActive(TilePoint(_X, _Y), _Str);
@@ -83,6 +86,10 @@ protected:
 
 	std::shared_ptr<AndWord> SpawnAnd(int _X, int _Y) {
 		return SpawnAnd(TilePoint(_X, _Y));
+	}
+
+	std::shared_ptr<HasWord> SpawnHas(int _X, int _Y) {
+		return SpawnHas(TilePoint(_X, _Y));
 	}
 
 	std::shared_ptr<BottomTile> SpawnTile(int _X, int _Y) {

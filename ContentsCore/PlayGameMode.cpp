@@ -16,6 +16,7 @@
 #include "FadeOUTEffect.h"
 #include "ContentsHelper.h"
 #include "AndWord.h"
+#include "HasWord.h"
 #include "BackGround.h"
 #include "BottomTile.h"
 #include "ContentsCore.h"
@@ -430,6 +431,17 @@ std::shared_ptr<AndWord> APlayGameMode::SpawnAnd(TilePoint _Tile)
 	return And;
 }
 
+std::shared_ptr<HasWord> APlayGameMode::SpawnHas(TilePoint _Tile)
+{
+	std::shared_ptr<HasWord> Has = GetWorld()->SpawnActor<HasWord>("Word");
+	Has->SetOrder(1);
+	Has->StateInit(BabaState::IsHas);
+	Has->SetBabaLocation(_Tile);
+	Baba_Actors[Has->GetTile()].push_back(Has.get());
+	Has_Vec.push_back(Has.get());
+	return Has;
+}
+
 std::shared_ptr<NameWord> APlayGameMode::SpawnName(TilePoint _Tile, BabaState _Info)
 {
 	std::shared_ptr<NameWord> Name = GetWorld()->SpawnActor<NameWord>("Name");
@@ -478,6 +490,12 @@ std::shared_ptr<ActiveWord> APlayGameMode::SpawnActive(TilePoint _Tile, std::str
 	}
 	else if (Name._Equal("MELT")) {
 		Astate = &BabaUpdateHelper::Melt;
+	}
+	else if (Name._Equal("OPEN")) {
+		Astate = &BabaUpdateHelper::Open;
+	}
+	else if (Name._Equal("SHUT")) {
+		Astate = &BabaUpdateHelper::Shut;
 	}
 	else {
 		MsgBoxAssert("ActiveName에 이상한거넣었음");
@@ -551,6 +569,54 @@ std::shared_ptr<ABabaBase> APlayGameMode::SpawnBaba(TilePoint _Tile, std::string
 	else if (Name._Equal("ICE")) {
 		Baba = GetWorld()->SpawnActor<ABabaBase>("ICE");
 		Baba->StateInit(BabaState::IsIce);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("ALGAE")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("ALGAE");
+		Baba->StateInit(BabaState::IsAlgae);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("BOX")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("BOX");
+		Baba->StateInit(BabaState::IsBox);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("DOOR")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("DOOR");
+		Baba->StateInit(BabaState::IsDoor);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("CRAB")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("CRAB");
+		Baba->StateInit(BabaState::IsCrab);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("JELLY")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("JELLY");
+		Baba->StateInit(BabaState::IsJelly);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("PILLAR")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("PILLAR");
+		Baba->StateInit(BabaState::IsPillar);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("KEY")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("KEY");
+		Baba->StateInit(BabaState::IsKey);
+		Baba->SetBabaLocation(_Tile, 'D');
+		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
+	}
+	else if (Name._Equal("STAR")) {
+		Baba = GetWorld()->SpawnActor<ABabaBase>("STAR");
+		Baba->StateInit(BabaState::IsStar);
 		Baba->SetBabaLocation(_Tile, 'D');
 		Baba_Actors[Baba->GetTile()].push_back(Baba.get());
 	}

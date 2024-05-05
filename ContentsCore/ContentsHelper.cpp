@@ -18,6 +18,14 @@ ActiveState BabaUpdateHelper::ActiveWater;
 ActiveState BabaUpdateHelper::ActiveLava;
 ActiveState BabaUpdateHelper::ActiveGrass;
 ActiveState BabaUpdateHelper::ActiveIce;
+ActiveState BabaUpdateHelper::ActiveAlgae;
+ActiveState BabaUpdateHelper::ActiveBox;
+ActiveState BabaUpdateHelper::ActiveDoor;
+ActiveState BabaUpdateHelper::ActiveCrab;
+ActiveState BabaUpdateHelper::ActiveJelly;
+ActiveState BabaUpdateHelper::ActivePillar;
+ActiveState BabaUpdateHelper::ActiveKey;
+ActiveState BabaUpdateHelper::ActiveStar;
 
 ActiveState BabaUpdateHelper::None;
 ActiveState BabaUpdateHelper::Float;
@@ -31,6 +39,8 @@ ActiveState BabaUpdateHelper::Hot;
 ActiveState BabaUpdateHelper::Sink;
 ActiveState BabaUpdateHelper::You;
 ActiveState BabaUpdateHelper::Melt;
+ActiveState BabaUpdateHelper::Open;
+ActiveState BabaUpdateHelper::Shut;
 
 BabaState BabaUpdateHelper::Baba = BabaState::IsBaba;
 BabaState BabaUpdateHelper::Rock = BabaState::IsRock;
@@ -41,6 +51,14 @@ BabaState BabaUpdateHelper::Water = BabaState::IsWater;
 BabaState BabaUpdateHelper::Lava = BabaState::IsLava;
 BabaState BabaUpdateHelper::Grass = BabaState::IsGrass;
 BabaState BabaUpdateHelper::Ice = BabaState::IsIce;
+BabaState BabaUpdateHelper::Algae = BabaState::IsAlgae;
+BabaState BabaUpdateHelper::Box = BabaState::IsBox;
+BabaState BabaUpdateHelper::Door = BabaState::IsDoor;
+BabaState BabaUpdateHelper::Crab = BabaState::IsCrab;
+BabaState BabaUpdateHelper::Jelly = BabaState::IsJelly;
+BabaState BabaUpdateHelper::Pillar = BabaState::IsPillar;
+BabaState BabaUpdateHelper::Key = BabaState::IsKey;
+BabaState BabaUpdateHelper::Star = BabaState::IsStar;
 
 float ContentsHelper::Time = 2.f;
 
@@ -77,6 +95,9 @@ void ContentsHelper::WordInit()
 	BabaUpdateHelper::You.IsYou = true;
 	BabaUpdateHelper::You.IsMove = true;
 	BabaUpdateHelper::Melt.IsMelt = true;
+	BabaUpdateHelper::Open.IsOpen= true;
+	BabaUpdateHelper::Shut.IsShut = true;
+
 }
 
 enum class Fade {

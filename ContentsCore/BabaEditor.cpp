@@ -7,6 +7,7 @@
 #include "NameWord.h"
 #include "IsWord.h"
 #include "AndWord.h"
+#include "HasWord.h"
 #include "ContentsCore.h"
 #include "BottomTile.h"
 #include "TileMap.h"
@@ -139,6 +140,45 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		SwitchNum = 9;
 	}
 
+	ImGui::SameLine();
+	if (true == ImGui::Button("Algae")) {
+		SwitchNum = 51;
+	}
+
+	if (true == ImGui::Button("Box")) {
+		SwitchNum = 52;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("Door")) {
+		SwitchNum = 53;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("Crab")) {
+		SwitchNum = 54;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("Jelly")) {
+		SwitchNum = 55;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("Pillar")) {
+		SwitchNum = 56;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("Key")) {
+		SwitchNum = 57;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("Star")) {
+		SwitchNum = 58;
+	}
+
 	if (true == ImGui::Button("Is")) {
 		SwitchNum = 11;
 	}
@@ -147,6 +187,21 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	if (true == ImGui::Button("And")) {
 		SwitchNum = 12;
 	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("Has")) {
+		SwitchNum = 13;
+	}
+
+	if (true == ImGui::Button("Open")) {
+		SwitchNum = 17;
+	}
+	ImGui::SameLine();
+
+	if (true == ImGui::Button("Shut")) {
+		SwitchNum = 18;
+	}
+	ImGui::SameLine();
 
 	if (true == ImGui::Button("Melt")) {
 		SwitchNum = 19;
@@ -157,7 +212,6 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		SwitchNum = 20;
 	}
 
-	ImGui::SameLine();
 	if (true == ImGui::Button("Push")) {
 		SwitchNum = 21;
 	}
@@ -212,7 +266,6 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	if (true == ImGui::Button("NameFlag")) {
 		SwitchNum = 34;
 	}
-	ImGui::SameLine();
 	if (true == ImGui::Button("NameSkull")) {
 		SwitchNum = 35;
 	}
@@ -234,9 +287,50 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 		SwitchNum = 39;
 	}
 
+	ImGui::SameLine();
+	if (true == ImGui::Button("NameAlgae")) {
+		SwitchNum = 41;
+	}
+
+	if (true == ImGui::Button("NameBox")) {
+		SwitchNum = 42;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("NameDoor")) {
+		SwitchNum = 43;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("NameCrab")) {
+		SwitchNum = 44;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("NameJelly")) {
+		SwitchNum = 45;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("NamePillar")) {
+		SwitchNum = 46;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("NameKey")) {
+		SwitchNum = 47;
+	}
+
+	ImGui::SameLine();
+	if (true == ImGui::Button("NameStar")) {
+		SwitchNum = 48;
+	}
+
 	if (true == ImGui::Button("Tile")) {
 		SwitchNum = 40;
 	}
+
+
 
 	if (true == ImGui::Button("Clear")) {
 		ClearAll();
@@ -386,6 +480,24 @@ AActor* BabaEditor::EditorSwitch(int _X, int _Y, int _Num)
 		Baba = static_cast<ABabaBase*>(Bababa);
 	}
 	break;
+	case 13:
+	{
+		HasWord* Bababa = GameMode->SpawnHas(_X, _Y).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 17:
+	{
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Open").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 18:
+	{
+		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Shut").get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
 	case 19:
 	{
 		ActiveWord* Bababa = GameMode->SpawnActive(_X, _Y, "Melt").get();
@@ -513,6 +625,95 @@ AActor* BabaEditor::EditorSwitch(int _X, int _Y, int _Num)
 		AActor* Actor = static_cast<AActor*>(Tile);
 		return Actor;
 	}
+	break;
+	case 41:
+	{
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsAlgae).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 42:
+	{
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsBox).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 43:
+	{
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsDoor).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 44:
+	{
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsCrab).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 45:
+	{
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsJelly).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 46:
+	{
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsPillar).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 47:
+	{
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsKey).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 48:
+	{
+		NameWord* Bababa = GameMode->SpawnName(_X, _Y, BabaState::IsStar).get();
+		Baba = static_cast<ABabaBase*>(Bababa);
+	}
+	break;
+	case 51:
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Algae").get();
+	}
+	break;
+	case 52:
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Box").get();
+	}
+	break;
+	case 53:
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Door").get();
+	}
+	break;
+	case 54:
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Crab").get();
+	}
+	break;
+	case 55:
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Jelly").get();
+	}
+	break;
+	case 56:
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Pillar").get();
+	}
+	break;
+	case 57:
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Key").get();
+	}
+	break;
+	case 58:
+	{
+		Baba = GameMode->SpawnBaba(_X, _Y, "Star").get();
+	}
+	break;
 	default:
 		break;
 	}

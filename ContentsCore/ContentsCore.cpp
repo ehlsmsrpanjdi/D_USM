@@ -91,6 +91,18 @@ void ContentsCore::ResourcesInit()
 	UEngineSprite::CreateCutting("And.png", 3, 3);
 	UEngineSprite::CreateCutting("TILE.png", 3, 1);
 
+	UEngineSprite::CreateCutting("Algae.png", 3, 3);
+	UEngineSprite::CreateCutting("Box.png", 3, 3);
+	UEngineSprite::CreateCutting("Crab.png", 6, 3);
+	UEngineSprite::CreateCutting("Door.png", 3, 3);
+	UEngineSprite::CreateCutting("Jelly.png", 3, 3);
+	UEngineSprite::CreateCutting("Key.png", 3, 3);
+	UEngineSprite::CreateCutting("Pillar.png", 3, 3);
+	UEngineSprite::CreateCutting("Star.png", 3, 3);
+	UEngineSprite::CreateCutting("Has.png", 3, 3);
+	UEngineSprite::CreateCutting("Open.png", 3, 3);
+	UEngineSprite::CreateCutting("Shut.png", 3, 3);
+
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsShader");

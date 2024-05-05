@@ -160,6 +160,30 @@ void IsWord::ActiveUpdate(ABabaBase* _Left, ABabaBase* _Right)
 		case BabaState::IsIce:
 			Who = &BabaUpdateHelper::ActiveIce;
 			break;
+		case BabaState::IsAlgae:
+			Who = &BabaUpdateHelper::ActiveAlgae;
+			break;
+		case BabaState::IsBox:
+			Who = &BabaUpdateHelper::ActiveBox;
+			break;
+		case BabaState::IsDoor:
+			Who = &BabaUpdateHelper::ActiveDoor;
+			break;
+		case BabaState::IsCrab:
+			Who = &BabaUpdateHelper::ActiveCrab;
+			break;
+		case BabaState::IsJelly:
+			Who = &BabaUpdateHelper::ActiveJelly;
+			break;
+		case BabaState::IsPillar:
+			Who = &BabaUpdateHelper::ActivePillar;
+			break;
+		case BabaState::IsKey:
+			Who = &BabaUpdateHelper::ActiveKey;
+			break;
+		case BabaState::IsStar:
+			Who = &BabaUpdateHelper::ActiveStar;
+			break;
 		}
 		ActiveChange(Who, _Right);
 	}
@@ -206,6 +230,30 @@ void IsWord::WordChange(ABabaBase* _CurWord, ABabaBase* _Name)
 	case BabaState::IsIce:
 		State = &BabaUpdateHelper::Ice;
 		break;
+	case BabaState::IsAlgae:
+		State = &BabaUpdateHelper::Algae;
+		break;
+	case BabaState::IsBox:
+		State = &BabaUpdateHelper::Box;
+		break;
+	case BabaState::IsDoor:
+		State = &BabaUpdateHelper::Door;
+		break;
+	case BabaState::IsCrab:
+		State = &BabaUpdateHelper::Crab;
+		break;
+	case BabaState::IsJelly:
+		State = &BabaUpdateHelper::Jelly;
+		break;
+	case BabaState::IsPillar:
+		State = &BabaUpdateHelper::Pillar;
+		break;
+	case BabaState::IsKey:
+		State = &BabaUpdateHelper::Key;
+		break;
+	case BabaState::IsStar:
+		State = &BabaUpdateHelper::Star;
+		break;
 	default:
 		return;
 		break;
@@ -238,6 +286,8 @@ void IsWord::ActiveChange(ActiveState* _CurWord, ABabaBase* _Active)
 	_CurWord->IsSink = _CurWord->IsSink || Info.IsSink;
 	_CurWord->IsYou = _CurWord->IsYou || Info.IsYou;
 	_CurWord->IsMelt = _CurWord->IsMelt || Info.IsMelt;
+	_CurWord->IsOpen = _CurWord->IsOpen || Info.IsOpen;
+	_CurWord->IsShut = _CurWord->IsShut || Info.IsShut;
 }
 
 // isbaba, ismove, ispush

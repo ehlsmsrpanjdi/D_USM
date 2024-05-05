@@ -27,6 +27,8 @@ void ActiveWord::BeginPlay()
 	Renderer->CreateAnimation("YouOn", "You.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
 	Renderer->CreateAnimation("WinOn", "Win.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
 	Renderer->CreateAnimation("MeltOn", "Melt.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("OpenOn", "Open.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
+	Renderer->CreateAnimation("ShutOn", "Shut.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{2, 5, 8});
 
 	Renderer->CreateAnimation("Move", "Move.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
 	Renderer->CreateAnimation("Pull", "Pull.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
@@ -38,6 +40,8 @@ void ActiveWord::BeginPlay()
 	Renderer->CreateAnimation("You", "You.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
 	Renderer->CreateAnimation("Win", "Win.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
 	Renderer->CreateAnimation("Melt", "Melt.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("Open", "Open.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
+	Renderer->CreateAnimation("Shut", "Shut.png", std::vector<float>{0.1f, 0.1f, 0.1f}, std::vector<int>{1, 4, 7});
 
 
 
@@ -127,6 +131,12 @@ void ActiveWord::SetAnimation(std::string_view _Str)
 	}
 	else if (_Str._Equal("MELT")) {
 		Renderer->ChangeAnimation("MELT");
+	}
+	else if (_Str._Equal("SHUT")) {
+		Renderer->ChangeAnimation("SHUT");
+	}
+	else if (_Str._Equal("OPEN")) {
+		Renderer->ChangeAnimation("OPEN");
 	}
 	else {
 		MsgBoxAssert("ActiveName에 이상한거넣었음");

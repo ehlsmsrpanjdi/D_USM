@@ -104,10 +104,19 @@ enum class BabaState {
 	IsLava,
 	IsGrass,	
 	IsIce,
+	IsAlgae,
+	IsBox,
+	IsDoor,
+	IsCrab,
+	IsJelly,
+	IsPillar,
+	IsKey,
+	IsStar,
 	IsWord,
 	IsActive,
 	IsIs,
 	IsAnd,
+	IsHas,
 };
 
 struct ActiveState {
@@ -123,6 +132,8 @@ struct ActiveState {
 	bool IsSink = false;
 	bool IsYou = false;
 	bool IsMelt = false;
+	bool IsOpen = false;
+	bool IsShut = false;
 };
 
 class BabaUpdateHelper {
@@ -137,6 +148,14 @@ public:
 	static ActiveState ActiveLava;
 	static ActiveState ActiveGrass;
 	static ActiveState ActiveIce;
+	static ActiveState ActiveAlgae;
+	static ActiveState ActiveBox;
+	static ActiveState ActiveDoor;
+	static ActiveState ActiveCrab;
+	static ActiveState ActiveJelly;
+	static ActiveState ActivePillar;
+	static ActiveState ActiveKey;
+	static ActiveState ActiveStar;
 
 
 	static ActiveState None;
@@ -151,6 +170,8 @@ public:
 	static ActiveState Sink;
 	static ActiveState You;
 	static ActiveState Melt;
+	static ActiveState Open;
+	static ActiveState Shut;
 
 	static BabaState Baba;
 	static BabaState Wall;
@@ -161,6 +182,15 @@ public:
 	static BabaState Lava;
 	static BabaState Grass;
 	static BabaState Ice;
+	static BabaState Algae;
+	static BabaState Box;
+	static BabaState Door;
+	static BabaState Crab;
+	static BabaState Jelly;
+	static BabaState Pillar;
+	static BabaState Key;
+	static BabaState Star;
+
 
 	static ActiveState StateToActive(BabaState _State) {
 		switch (_State)
@@ -194,6 +224,7 @@ public:
 		case BabaState::IsActive:
 		case BabaState::IsIs:
 		case BabaState::IsAnd:
+		case BabaState::IsHas:
 			return BabaUpdateHelper::ActiveWord;
 			break;
 		default:

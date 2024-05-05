@@ -42,6 +42,30 @@ void NameWord::BeginPlay()
 	Renderer->CreateAnimation("SkullNameOn", "Skull.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{1,3,5});
 	Renderer->CreateAnimation("FlagNameOn", "Flag.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 5, 8});
 
+	Renderer->CreateAnimation("StarName", "Star.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("StarNameOn", "Star.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{1, 4, 7});
+
+	Renderer->CreateAnimation("JellyName", "Jelly.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("JellyNameOn", "Jelly.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{1, 4, 7});
+
+	Renderer->CreateAnimation("CrabName", "Crab.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{0, 6, 12});
+	Renderer->CreateAnimation("CrabNameOn", "Crab.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{1, 7, 13});
+
+	Renderer->CreateAnimation("KeyName", "Key.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("KeyNameOn", "Key.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{1, 4, 7});
+
+	Renderer->CreateAnimation("BoxName", "Box.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("BoxNameOn", "Box.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{1, 4, 7});
+
+	Renderer->CreateAnimation("DoorName", "Door.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("DoorNameOn", "Door.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{1, 4, 7});
+
+	Renderer->CreateAnimation("AlgaeName", "Algae.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("AlgaeNameOn", "Algae.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{1, 4, 7});
+
+	Renderer->CreateAnimation("PillarName", "Pillar.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{0, 3, 6});
+	Renderer->CreateAnimation("PillarNameOn", "Pillar.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{1, 4, 7});
+
 	Renderer->ChangeAnimation("WallName");
 }
 
@@ -88,6 +112,30 @@ void NameWord::NameWordChangeAnimation()
 		break;
 	case BabaState::IsIce:
 		Renderer->ChangeAnimation("IceName" + StrOn);
+		break;
+	case BabaState::IsAlgae:
+		Renderer->ChangeAnimation("AlgaeName" + StrOn);
+		break;
+	case BabaState::IsBox:
+		Renderer->ChangeAnimation("BoxName" + StrOn);
+		break;
+	case BabaState::IsDoor:
+		Renderer->ChangeAnimation("DoorName" + StrOn);
+		break;
+	case BabaState::IsCrab:
+		Renderer->ChangeAnimation("CrabName" + StrOn);
+		break;
+	case BabaState::IsJelly:
+		Renderer->ChangeAnimation("JellyName" + StrOn);
+		break;
+	case BabaState::IsPillar:
+		Renderer->ChangeAnimation("PillarName" + StrOn);
+		break;
+	case BabaState::IsKey:
+		Renderer->ChangeAnimation("KeyName" + StrOn);
+		break;
+	case BabaState::IsStar:
+		Renderer->ChangeAnimation("StarName" + StrOn);
 		break;
 	default:
 		break;
