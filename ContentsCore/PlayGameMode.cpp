@@ -37,7 +37,7 @@ void APlayGameMode::BeginPlay()
 	Camera->SetActorLocation(FVector(320.0f, 160.0f, -100.0f));
 
 	ContentsHelper::WordInit();
-	TileMap::TileSet(10, 10);
+	TileMap::TileSet(30, 30);
 
 	InputOn();
 }

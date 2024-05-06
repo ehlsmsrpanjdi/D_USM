@@ -1021,9 +1021,9 @@ void ABabaBase::DeadRender()
 {
 	Renderer->SetActive(!Dead);
 	BabaState HasState = BabaUpdateHelper::StateToActive(BState).HasState;
-	if (HasState != BabaState::IsNone) {
-		ContentsCore::GameMode
-	}
+	//if (HasState != BabaState::IsNone) {
+	//	ContentsCore::GameMode
+	//}
 }
 
 bool ABabaBase::RenderCheckHelper(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile, BabaState _State)
