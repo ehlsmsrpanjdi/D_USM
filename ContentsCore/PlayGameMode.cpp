@@ -38,7 +38,7 @@ void APlayGameMode::BeginPlay()
 
 	ContentsHelper::WordInit();
 	TileMap::TileSet(30, 30);
-
+	ContentsCore::Editor->GameMode = this;
 	InputOn();
 }
 
@@ -650,10 +650,6 @@ void APlayGameMode::ContainerReset()
 	//std::vector<AndWord*> And_Vec;
 	//std::vector<HasWord*> Has_Vec;
 	//std::stack<char> Stack_Input;
-
-	int a = 0;
-
-
 
 	Baba_Actors.clear();
 	Change_Baba.clear();

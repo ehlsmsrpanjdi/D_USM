@@ -36,8 +36,15 @@ void SelectGameMode::BeginPlay()
 	std::shared_ptr<Selector> SelectorActor = GetWorld()->SpawnActor<Selector>("Select");
 	SelectorActor->CurGameMode = this;
 	std::shared_ptr<SelectMap> Map = GetWorld()->SpawnActor<SelectMap>("Map");
-	SpawnStage(0, 5, "05");
+	SpawnStage(-8, -7, "00");
+	SpawnStage(-7, -5, "01");
+	SpawnStage(-7, -4, "02");
+	SpawnStage(-6, -5, "03");
+	SpawnStage(-6, -4, "04");
+	SpawnStage(-7, -3, "05");
+	SpawnStage(-5, -4, "06");
+	SpawnStage(-6, -3, "07");
 
-	SelectorActor->SetBabaLocation(3, 3);
+	SelectorActor->SetBabaLocation(-8, -7);
 }
 

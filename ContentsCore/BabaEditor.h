@@ -27,6 +27,7 @@ public:
 
 	void Save(std::string_view File_Name);
 	void Load(std::string_view File_Name);
+	APlayGameMode* GameMode = nullptr;
 
 protected:
 	void Init() override;
@@ -35,7 +36,6 @@ protected:
 
 	Int2D MousePosCul(ULevel* _Level);
 
-	APlayGameMode* GameMode = nullptr;
 
 	int Location[2] = { 0, };
 	

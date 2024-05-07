@@ -11,6 +11,7 @@ SelectMap::SelectMap()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
+	Renderer->SetAutoSize(1.5f, true);
 }
 
 SelectMap::~SelectMap()
@@ -21,7 +22,6 @@ void SelectMap::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(1280.0f, 720.0f, 100.0f));
 	Renderer->SetMaterial("2DImage");
 	Renderer->CreateAnimation("SelectMap", "SelectMap_background.png");
 	Renderer->ChangeAnimation("SelectMap");

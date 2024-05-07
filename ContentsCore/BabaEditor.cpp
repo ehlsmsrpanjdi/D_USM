@@ -40,9 +40,9 @@ void BabaEditor::EditorReleaseFunction()
 {
 	TilePoint TileLocation = { Location[0],Location[1] };
 	if (nullptr != Baba_Actors[TileLocation]) {
-		ContentsCore::GameMode->Baba_Actors[TileLocation].clear();
-		std::vector<IsWord*> VecIs = ContentsCore::GameMode->Is_Vec;
-		std::vector<AndWord*> VecAnd = ContentsCore::GameMode->And_Vec;
+		GameMode->Baba_Actors[TileLocation].clear();
+		std::vector<IsWord*> VecIs = GameMode->Is_Vec;
+		std::vector<AndWord*> VecAnd = GameMode->And_Vec;
 		for (IsWord* Is : VecIs) {
 			if (Is->GetTile() == TileLocation) {
 				Is = nullptr;
@@ -70,9 +70,6 @@ void BabaEditor::Tick(ULevel* Level, float _Delta)
 
 	if (str._Equal("PlayLevel")) {
 		On();
-		if (GameMode == nullptr) {
-			GameMode = dynamic_cast<APlayGameMode*>(Level->GetGameMode().get());
-		}
 	}
 
 	else {
@@ -717,7 +714,10 @@ void BabaEditor::ClearAll()
 	}
 	BabaData.clear();
 	Baba_Actors.clear();
-	BabaEditor::GameMode->ContainerReset();
+	if (GameMode == nullptr) {
+		return;
+	}
+	GameMode->ContainerReset();
 }
 
 void BabaEditor::Save(std::string_view File_Name)

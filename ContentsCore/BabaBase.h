@@ -205,12 +205,12 @@ protected:
 	void RenderCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map);
 	bool RenderCheckHelper(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile, BabaState _State);
 	std::string PrevAnimation = "";
+	float2D Location2D{};
+	float2D NextLocation2D{};
 private:
 	std::stack<bool> Move_Stack = {};
 	std::stack<int> Type_Stack = {};
 	float4 Color;
-	float2D Location2D{};
-	float2D NextLocation2D{};
 	TilePoint PrevTile = { 0,0 };
 	bool IsChecked = false;
 	bool CanMove = false;
