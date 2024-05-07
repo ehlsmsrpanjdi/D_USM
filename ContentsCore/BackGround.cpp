@@ -2,6 +2,7 @@
 #include "BackGround.h"
 #include <EngineCore/DefaultSceneComponent.h>
 
+float4 BackGround::BackgroundSize = {};
 
 BackGround::BackGround()
 {
@@ -9,7 +10,9 @@ BackGround::BackGround()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
-	Renderer->SetAutoSize(10, true);
+	Renderer->SetAutoSize(1, true);
+	//BackgroundSize = Renderer->();
+	int a = 0;
 }
 
 BackGround::~BackGround()

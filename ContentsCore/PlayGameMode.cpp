@@ -36,6 +36,8 @@ void APlayGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(320.0f, 160.0f, -100.0f));
 
+	GetWorld()->SpawnActor<BackGround>("a");
+
 	ContentsHelper::WordInit();
 	TileMap::TileSet(30, 30);
 	ContentsCore::Editor->GameMode = this;
