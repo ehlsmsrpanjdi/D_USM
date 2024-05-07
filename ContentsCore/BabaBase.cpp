@@ -15,8 +15,8 @@ ABabaBase::ABabaBase()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
-	Renderer->SetAutoSize(1.0f, true);
-	Renderer->SetScale(FVector{ 36.f, 36.f });
+	Renderer->SetAutoSize(1.4f, true);
+	//Renderer->SetScale(FVector{ .f, 36.f });
 }
 
 ABabaBase::~ABabaBase()

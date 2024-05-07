@@ -349,7 +349,7 @@ void APlayGameMode::WinCheck()
 				TilePoint Tile = _BabaBase->GetTile();
 				for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
 					if (true == BabaUpdateHelper::StateToActive(_Baba->GetBstate()).IsYou) {
-						int a = 0;
+						ContentsHelper::FadeEffectOut(GetWorld());
 					}
 				}
 			}
