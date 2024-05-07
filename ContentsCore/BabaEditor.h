@@ -25,8 +25,8 @@ public:
 	BabaEditor& operator=(const BabaEditor& _Other) = delete;
 	BabaEditor& operator=(BabaEditor&& _Other) noexcept = delete;
 
-	void EditorFunction();
-	void EditorReleaseFunction();
+	void Save(std::string_view File_Name);
+	void Load(std::string_view File_Name);
 
 protected:
 	void Init() override;
@@ -54,6 +54,11 @@ protected:
 	AActor* EditorSwitch(int _X, int _Y, int _Num);
 	void SaveFunction();
 	void ClearAll();
+	void EditorFunction();
+	void EditorReleaseFunction();
+
+
+
 private:
 
 };

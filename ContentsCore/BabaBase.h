@@ -85,6 +85,17 @@ public:
 	__int64 GetPrevTile64() {
 		return PrevTile.Location;
 	}
+
+	void SetBabaLocation(int _X, int _Y, char _Input = 'D') {
+		Info.Tile.X = static_cast<int>(_X);
+		Info.Tile.Y = static_cast<int>(_Y);
+		BabaInput = _Input;
+		StartInput = _Input;
+		InfoUpdate();
+		SetLocation2D(TileReturn());
+		SetActorlocation2D(TileReturn());
+		SetNextLocation2D(TileReturn());
+	}
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -119,16 +130,6 @@ protected:
 		return float2D{ X,Y };
 	}
 
-	void SetBabaLocation(int _X, int _Y, char _Input = 'D') {
-		Info.Tile.X = static_cast<int>(_X);
-		Info.Tile.Y = static_cast<int>(_Y);
-		BabaInput = _Input;
-		StartInput = _Input;
-		InfoUpdate();
-		SetLocation2D(TileReturn());
-		SetActorlocation2D(TileReturn());
-		SetNextLocation2D(TileReturn());
-	}
 
 	void SetBabaLocation(TilePoint _Tile, char _Input = 'D') {
 		Info.Tile.X = static_cast<int>(_Tile.X);

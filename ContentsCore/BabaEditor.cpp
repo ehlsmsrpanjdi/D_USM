@@ -341,48 +341,11 @@ void BabaEditor::OnGui(ULevel* Level, float _Delta)
 	}
 
 	if (true == ImGui::Button("Save")) {
-		SaveFunction();
-		if (TileData.empty() == true) {
-			str = "FileSaveFail";
-			FileState = true;
-			return;
-		}
-
-		UEngineSerializer Ser;
-		Ser << TileData;
-		std::string Str = FileName;
-		UEngineFile File = Dir.GetPathFromFile(Str + ".Data");
-		File.Open(EIOOpenMode::Write, EIODataType::Binary);
-		File.Save(Ser);
-		str = "FileSave";
-		FileState = true;
+		Save(FileName);
 	}
 
 	if (true == ImGui::Button("Load")) {
-		ClearAll();
-		TileData.clear();
-		UEngineSerializer Ser;
-		std::string Str = FileName;
-		UEngineFile File = Dir.GetPathFromFile(Str + ".Data");
-		if (false == File.IsExists()) {
-			str = "File is no exist";
-			FileState = true;
-			return;
-		}
-		File.Open(EIOOpenMode::Read, EIODataType::Binary);
-		File.Load(Ser);
-		str = "FileLoad";
-		FileState = true;
-		Ser >> TileData;
-		int Index = 0;
-		TilePoint Tile = {};
-		while (TileData.size() > Index) {
-			Tile.X = TileData[Index];
-			Tile.Y = TileData[Index + 1];
-			BabaData[Tile] = TileData[Index + 2];
-			Baba_Actors[Tile] = EditorSwitch(TileData[Index], TileData[Index + 1], TileData[Index + 2]);
-			Index += 3;
-		}
+		Load(FileName);
 	}
 
 	if (FileState == true) {
@@ -754,6 +717,53 @@ void BabaEditor::ClearAll()
 	}
 	BabaData.clear();
 	Baba_Actors.clear();
-	ContentsCore::GameMode->ContainerReset();
+	BabaEditor::GameMode->ContainerReset();
+}
+
+void BabaEditor::Save(std::string_view File_Name)
+{
+	SaveFunction();
+	if (TileData.empty() == true) {
+		str = "FileSaveFail";
+		FileState = true;
+		return;
+	}
+
+	UEngineSerializer Ser;
+	Ser << TileData;
+	std::string Str = File_Name.data();
+	UEngineFile File = Dir.GetPathFromFile(Str + ".Data");
+	File.Open(EIOOpenMode::Write, EIODataType::Binary);
+	File.Save(Ser);
+	str = "FileSave";
+	FileState = true;
+}
+
+void BabaEditor::Load(std::string_view File_Name)
+{
+	ClearAll();
+	TileData.clear();
+	UEngineSerializer Ser;
+	std::string Str = File_Name.data();
+	UEngineFile File = Dir.GetPathFromFile(Str + ".Data");
+	if (false == File.IsExists()) {
+		str = "File is no exist";
+		FileState = true;
+		return;
+	}
+	File.Open(EIOOpenMode::Read, EIODataType::Binary);
+	File.Load(Ser);
+	str = "FileLoad";
+	FileState = true;
+	Ser >> TileData;
+	int Index = 0;
+	TilePoint Tile = {};
+	while (TileData.size() > Index) {
+		Tile.X = TileData[Index];
+		Tile.Y = TileData[Index + 1];
+		BabaData[Tile] = TileData[Index + 2];
+		Baba_Actors[Tile] = EditorSwitch(TileData[Index], TileData[Index + 1], TileData[Index + 2]);
+		Index += 3;
+	}
 }
 

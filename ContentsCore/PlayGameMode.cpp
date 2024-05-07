@@ -644,16 +644,22 @@ std::shared_ptr<BottomTile> APlayGameMode::SpawnTile(TilePoint _Tile)
 
 void APlayGameMode::ContainerReset()
 {
-	std::map <TilePoint, std::list<ABabaBase*>> Baba_Actors1;
-	std::vector<ABabaBase*> Change_Baba1;
-	std::vector<IsWord*> Is_Vec1;
-	std::vector<AndWord*> And_Vec1;
-	std::stack<char> Stack_Input1;
+	//std::map <TilePoint, std::list<ABabaBase*>> Baba_Actors;
+	//std::vector<ABabaBase*> Change_Baba;
+	//std::vector<IsWord*> Is_Vec;
+	//std::vector<AndWord*> And_Vec;
+	//std::vector<HasWord*> Has_Vec;
+	//std::stack<char> Stack_Input;
+
+	int a = 0;
+
+
 
 	Baba_Actors.clear();
 	Change_Baba.clear();
 	Is_Vec.clear();
 	And_Vec.clear();
+	Has_Vec.clear();
 	while (Stack_Input.empty() != true) {
 		Stack_Input.pop();
 	}

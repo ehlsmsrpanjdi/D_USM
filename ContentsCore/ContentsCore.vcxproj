@@ -228,6 +228,22 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="SelectGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SelectMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Selector.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StageBox.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TileMap.h" />
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +320,22 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PreCompile.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PreCompile.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="SelectGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SelectMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Selector.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StageBox.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>

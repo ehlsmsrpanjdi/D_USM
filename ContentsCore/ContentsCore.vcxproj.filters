@@ -4,14 +4,8 @@
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
-    <ClInclude Include="PlayGameMode.h">
-      <Filter>Level</Filter>
-    </ClInclude>
     <ClInclude Include="ContentsCore.h">
       <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayBack.h">
-      <Filter>Level\Actor</Filter>
     </ClInclude>
     <ClInclude Include="ContentsHelper.h">
       <Filter>Helper</Filter>
@@ -55,19 +49,31 @@
     <ClInclude Include="HasWord.h">
       <Filter>Level\Actor\Word</Filter>
     </ClInclude>
+    <ClInclude Include="PlayGameMode.h">
+      <Filter>Level\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectGameMode.h">
+      <Filter>Level\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayBack.h">
+      <Filter>Level\Actor\Gear</Filter>
+    </ClInclude>
+    <ClInclude Include="Selector.h">
+      <Filter>Level\Actor\Gear</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectMap.h">
+      <Filter>Level\Actor\Gear</Filter>
+    </ClInclude>
+    <ClInclude Include="StageBox.h">
+      <Filter>Level\Actor\Gear</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
-    <ClCompile Include="PlayGameMode.cpp">
-      <Filter>Level</Filter>
-    </ClCompile>
     <ClCompile Include="ContentsCore.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayBack.cpp">
-      <Filter>Level\Actor</Filter>
     </ClCompile>
     <ClCompile Include="ContentsHelper.cpp">
       <Filter>Helper</Filter>
@@ -111,6 +117,24 @@
     <ClCompile Include="HasWord.cpp">
       <Filter>Level\Actor\Word</Filter>
     </ClCompile>
+    <ClCompile Include="PlayGameMode.cpp">
+      <Filter>Level\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectGameMode.cpp">
+      <Filter>Level\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayBack.cpp">
+      <Filter>Level\Actor\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="Selector.cpp">
+      <Filter>Level\Actor\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectMap.cpp">
+      <Filter>Level\Actor\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="StageBox.cpp">
+      <Filter>Level\Actor\Gear</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -142,6 +166,12 @@
     </Filter>
     <Filter Include="Effect">
       <UniqueIdentifier>{eb6f895b-33ca-4482-85c0-cb17805e5367}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameMode">
+      <UniqueIdentifier>{b4c0a8f9-d82e-49e3-81f2-9aad3560091e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Actor\Gear">
+      <UniqueIdentifier>{0e1fd273-e1b4-49c2-9606-c95699571a6e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

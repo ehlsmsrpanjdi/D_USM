@@ -1,10 +1,10 @@
 #include "PreCompile.h"
-#include "PlayBack.h"
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/DefaultSceneComponent.h>
+#include "SelectMap.h"
 
-APlayBack::APlayBack()
+SelectMap::SelectMap()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 
@@ -13,21 +13,22 @@ APlayBack::APlayBack()
 	SetRoot(Root);
 }
 
-APlayBack::~APlayBack()
-{}
+SelectMap::~SelectMap()
+{
+}
 
-void APlayBack::BeginPlay()
+void SelectMap::BeginPlay()
 {
 	Super::BeginPlay();
 
 	SetActorScale3D(FVector(1280.0f, 720.0f, 100.0f));
-
-	// 내부에서 샘플러도 같이 찾을
-	Renderer->SetSprite("SelectMap_background.png");
+	Renderer->SetMaterial("2DImage");
+	Renderer->CreateAnimation("SelectMap", "SelectMap_background.png");
+	Renderer->ChangeAnimation("SelectMap");
+	SetOrder(-100);
 }
 
-void APlayBack::Tick(float _DeltaTime)
+void SelectMap::Tick(float _DeltaTime)
 {
-	// 위에 뭔가를 쳐야할때도 있다.
 	Super::Tick(_DeltaTime);
 }

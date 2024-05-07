@@ -2,6 +2,7 @@
 #include <EngineCore/EngineCore.h>
 
 class APlayGameMode;
+class BabaEditor;
 // Ό³Έν :
 class ContentsCore : public UserCore
 {
@@ -17,6 +18,7 @@ public:
 	ContentsCore& operator=(ContentsCore&& _Other) noexcept = delete;
 
 	static APlayGameMode* GameMode;
+	static BabaEditor* Editor;
 
 protected:
 	void Initialize() override;

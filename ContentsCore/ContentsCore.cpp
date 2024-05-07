@@ -5,10 +5,12 @@
 #include "BabaEditor.h"
 #include <EngineCore/EngineEditorGUI.h>
 #include<EngineCore/EnginePixelShader.h>
+#include "SelectGameMode.h"
+
 
 
 APlayGameMode* ContentsCore::GameMode = nullptr;
-
+BabaEditor* ContentsCore::Editor = nullptr;
 ContentsCore::ContentsCore()
 {
 }
@@ -21,10 +23,11 @@ void ContentsCore::Initialize()
 {
 	ResourcesInit();
 
-	UEngineEditorGUI::CreateEditorWindow<BabaEditor>("BabaEditor");
+	Editor = UEngineEditorGUI::CreateEditorWindow<BabaEditor>("BabaEditor").get();
 
 
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
+	GEngine->CreateLevel<SelectGameMode>("SelectGameLevel");
 	GEngine->ChangeLevel("PlayLevel");
 
 }
@@ -102,6 +105,11 @@ void ContentsCore::ResourcesInit()
 	UEngineSprite::CreateCutting("Has.png", 3, 3);
 	UEngineSprite::CreateCutting("Open.png", 3, 3);
 	UEngineSprite::CreateCutting("Shut.png", 3, 3);
+	
+	UEngineSprite::CreateCutting("NumberFont.png", 5, 2);
+	UEngineSprite::CreateCutting("SelectMap_background.png", 3, 1);
+	UEngineSprite::CreateCutting("SelectObj.png", 3, 1);
+
 
 	{
 		UEngineDirectory Dir;
