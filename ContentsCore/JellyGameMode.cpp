@@ -4,7 +4,7 @@
 #include "ContentsHelper.h"
 #include "TileMap.h"
 #include "Selector.h"
-#include "SelectMap.h"
+#include "JellySelectMap.h"
 #include "StageBox.h"
 
 JellyGameMode::JellyGameMode()
@@ -41,7 +41,7 @@ void JellyGameMode::BeginPlay()
 
 	std::shared_ptr<Selector> SelectorActor = GetWorld()->SpawnActor<Selector>("Select");
 	SelectorActor->CurGameMode = this;
-	std::shared_ptr<SelectMap> Map = GetWorld()->SpawnActor<SelectMap>("Map");
+	std::shared_ptr<JellySelectMap> Map = GetWorld()->SpawnActor<JellySelectMap>("Map");
 	StageBox* Box0 = SpawnStage(-8, -7, "00");
 	StageBox* Box1 = SpawnStage(-7, -5, "01");
 	StageBox* Box2 = SpawnStage(-7, -4, "02");

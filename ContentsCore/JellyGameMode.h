@@ -3,13 +3,13 @@
 #include <EngineCore/GameMode.h>
 #include <stack>
 #include "ContentsHelper.h"
-#include "PlayGameMode.h"
+#include "SelectGameMode.h"
 
 class ABabaBase;
 class StageBox;
 class Selector;
 // Ό³Έν :
-class JellyGameMode : public APlayGameMode
+class JellyGameMode : public SelectGameMode
 {
 	GENERATED_BODY(AGameMode)
 	friend Selector;

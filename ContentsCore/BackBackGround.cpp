@@ -19,7 +19,7 @@ BackBackGround::~BackBackGround()
 void BackBackGround::BeginPlay()
 {
 	Super::BeginPlay();
-	Renderer->SetSprite("Back_One.png");
+	Renderer->SetSprite("Back_Two.png");
 	Renderer->SetOrder(-200);
 
 }

@@ -20,6 +20,8 @@
 #include "BackGround.h"
 #include "BottomTile.h"
 #include "ContentsCore.h"
+#include "BackBackGround.h"
+
 
 APlayGameMode::APlayGameMode()
 {
@@ -47,6 +49,8 @@ void APlayGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.f, 0.0f, -100.0f));
 	GetWorld()->SpawnActor<BackGround>("a");
+
+	GetWorld()->SpawnActor<BackBackGround>("A");
 
 	ContentsHelper::WordInit();
 	TileMap::TileSet(30, 30);

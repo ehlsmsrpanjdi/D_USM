@@ -19,8 +19,8 @@ public:
 	Selector& operator=(const Selector& _Other) = delete;
 	Selector& operator=(Selector&& _Other) noexcept = delete;
 
-protected:
 	SelectGameMode* CurGameMode = nullptr;
+protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void Input();
