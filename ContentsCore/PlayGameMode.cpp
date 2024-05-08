@@ -35,6 +35,11 @@ void APlayGameMode::LevelEnd(ULevel* _NextLevel)
 	BackGroundImage::Back->AddRenderSize(-BackSize);
 }
 
+void APlayGameMode::LevelStart(ULevel* _NextLevel)
+{
+	InputOn();
+}
+
 void APlayGameMode::BeginPlay()
 {
 	Super::BeginPlay();
@@ -352,10 +357,17 @@ void APlayGameMode::WinCheck()
 	{
 		std::list<ABabaBase*>& BabaBase = Iter.second;
 		for (ABabaBase*& _BabaBase : BabaBase) {
+			if (_BabaBase->GetDead() == true) {
+				continue;
+			}
 			if (GetActive(_BabaBase->GetBstate()).IsWin == true) {
 				TilePoint Tile = _BabaBase->GetTile();
 				for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
+					if (_Baba->GetDead() == true) {
+						continue;
+					}
 					if (true == BabaUpdateHelper::StateToActive(_Baba->GetBstate()).IsYou) {
+						InputOff();
 						ContentsHelper::FadeEffectOut(GetWorld());
 					}
 				}
@@ -363,7 +375,6 @@ void APlayGameMode::WinCheck()
 		}
 	}
 }
-
 void APlayGameMode::DefeatCheck()
 {
 	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)

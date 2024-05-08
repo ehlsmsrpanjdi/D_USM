@@ -179,6 +179,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BackBackGround.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BackGround.h">
       <SubType>
       </SubType>
@@ -212,6 +216,18 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="IsWord.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="JellyBackGround.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="JellyGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="JellySelectMap.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -263,6 +279,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BackBackGround.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BackGround.cpp">
       <SubType>
       </SubType>
@@ -296,6 +316,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="IsWord.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="JellyBackGround.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="JellyGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="JellySelectMap.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -31,6 +31,7 @@ public:
 
 protected:
 	void LevelEnd(ULevel* _NextLevel) override;
+	void LevelStart(ULevel* _NextLevel) override;
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	char Key = '0';

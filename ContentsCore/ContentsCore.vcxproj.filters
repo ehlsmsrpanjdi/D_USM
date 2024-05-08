@@ -67,6 +67,18 @@
     <ClInclude Include="StageBox.h">
       <Filter>Level\Actor\Gear</Filter>
     </ClInclude>
+    <ClInclude Include="BackBackGround.h">
+      <Filter>Level\Actor\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="JellySelectMap.h">
+      <Filter>Level\Actor\Gear</Filter>
+    </ClInclude>
+    <ClInclude Include="JellyBackGround.h">
+      <Filter>Level\Actor\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="JellyGameMode.h">
+      <Filter>Level\GameMode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -134,6 +146,18 @@
     </ClCompile>
     <ClCompile Include="StageBox.cpp">
       <Filter>Level\Actor\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="BackBackGround.cpp">
+      <Filter>Level\Actor\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="JellySelectMap.cpp">
+      <Filter>Level\Actor\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="JellyBackGround.cpp">
+      <Filter>Level\Actor\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="JellyGameMode.cpp">
+      <Filter>Level\GameMode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
