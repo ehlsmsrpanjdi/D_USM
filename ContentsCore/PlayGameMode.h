@@ -30,6 +30,7 @@ public:
 	APlayGameMode& operator=(APlayGameMode&& _Other) noexcept = delete;
 
 protected:
+	void LevelEnd(ULevel* _NextLevel) override;
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	char Key = '0';

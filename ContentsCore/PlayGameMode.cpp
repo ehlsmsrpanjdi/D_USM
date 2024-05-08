@@ -29,13 +29,18 @@ APlayGameMode::APlayGameMode()
 APlayGameMode::~APlayGameMode()
 {}
 
+void APlayGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	float4 BackSize = BackGroundImage::Back->Size;
+	BackGroundImage::Back->AddRenderSize(-BackSize);
+}
+
 void APlayGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(320.0f, 160.0f, -100.0f));
-
+	Camera->SetActorLocation(FVector(0.f, 0.0f, -100.0f));
 	GetWorld()->SpawnActor<BackGround>("a");
 
 	ContentsHelper::WordInit();
@@ -63,7 +68,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 	}
 	DebugMessageFunction();
 
-	if (IsPress('Q')) {
+	if (IsPress('R')) {
 		ContentsHelper::FadeEffectOut(GetWorld());
 	}
 

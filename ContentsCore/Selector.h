@@ -25,6 +25,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 	void Input();
 	void StageCheck();
+	void SizeChange(std::string_view _Str);
 	char Key = '0';
 	bool CanInput = true;
 private:

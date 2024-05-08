@@ -28,7 +28,7 @@ void ContentsCore::Initialize()
 
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
 	GEngine->CreateLevel<SelectGameMode>("SelectGameLevel");
-	GEngine->ChangeLevel("PlayLevel");
+	GEngine->ChangeLevel("SelectGameLevel");
 
 }
 

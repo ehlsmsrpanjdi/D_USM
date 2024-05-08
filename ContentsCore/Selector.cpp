@@ -6,7 +6,7 @@
 #include "StageBox.h"
 #include "ContentsCore.h"
 #include "BabaEditor.h"
-
+#include "BackGround.h"
 
 Selector::Selector()
 {
@@ -52,7 +52,7 @@ void Selector::Input()
 		Key = 'A';
 		CanInput = false;
 		ContentsHelper::Time = 0;
-		}
+	}
 
 	else if (true == IsDown('D'))
 	{
@@ -94,9 +94,66 @@ void Selector::StageCheck()
 			continue;
 		}
 		TilePoint TempTile = Box->GetTile();
-			if (GetTile() == TempTile) {
-				GEngine->ChangeLevel("PlayLevel");
-				ContentsCore::Editor->Load("Stage" + Box->StageName);
+
+		if (GetTile() == TempTile) {
+			GEngine->ChangeLevel("PlayLevel");
+			ContentsCore::Editor->Load("Stage" + Box->StageName);
+			SizeChange(Box->StageName);
+			Box->RenderOn();
 		}
+	}
+}
+
+void Selector::SizeChange(std::string_view _Str)
+{
+	if (_Str._Equal("00")) {
+		BackGroundImage::Back->Size = FVector(12 * 16, 8 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(12 * 16, 8 * 16));
+	}
+	else if (_Str._Equal("01")) {
+		BackGroundImage::Back->Size = FVector(16 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(16 * 16,14 * 16));
+	}
+	else if (_Str._Equal("02")) {
+		BackGroundImage::Back->Size = FVector(16 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(16 * 16,14 * 16));
+	}
+	else if (_Str._Equal("03")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16,14 * 16));
+	}
+	else if (_Str._Equal("04")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
+	}
+	else if (_Str._Equal("05")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
+	}
+	else if (_Str._Equal("06")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
+	}
+	else if (_Str._Equal("07")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
+	}
+	else if (_Str._Equal("00")) {
+
+	}
+	else if (_Str._Equal("00")) {
+
+	}
+	else if (_Str._Equal("00")) {
+
+	}
+	else if (_Str._Equal("00")) {
+
+	}
+	else if (_Str._Equal("00")) {
+
+	}
+	else if (_Str._Equal("00")) {
+
 	}
 }

@@ -18,12 +18,20 @@ StageBox::StageBox()
 	RRenderer->SetAutoSize(1.0f, true);
 	LRenderer->SetScale(FVector(18, 36));
 	RRenderer->SetScale(FVector(18, 36));
+	SetActive(false);
 }
 
 StageBox::~StageBox()
 {
 }
 
+
+void StageBox::RenderOn()
+{
+	for (StageBox* Box : NextStage) {
+		Box->SetActive(true);
+	}
+}
 
 void StageBox::BeginPlay()
 {

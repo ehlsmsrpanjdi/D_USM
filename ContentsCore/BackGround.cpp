@@ -2,7 +2,7 @@
 #include "BackGround.h"
 #include <EngineCore/DefaultSceneComponent.h>
 
-float4 BackGround::BackgroundSize = {};
+BackGround* BackGroundImage::Back = nullptr;
 
 BackGround::BackGround()
 {
@@ -11,12 +11,17 @@ BackGround::BackGround()
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
 	Renderer->SetAutoSize(1, true);
-	//BackgroundSize = Renderer->();
-	int a = 0;
+	BackGroundImage::Back = this;
 }
 
 BackGround::~BackGround()
 {
+}
+
+void BackGround::AddRenderSize(float4 _Size)
+{
+	Renderer->AddPosition(_Size);
+	GetWorld()->GetMainCamera()->AddActorLocation(_Size);
 }
 
 void BackGround::BeginPlay()
@@ -24,6 +29,9 @@ void BackGround::BeginPlay()
 	Super::BeginPlay();
 	Renderer->SetSprite("Back_One.png");
 	Renderer->SetOrder(-100);
+	Renderer->SetScale(FVector(33 * 32, 18 * 32));
+	Size = Renderer->GetLocalScale();
+	
 }
 
 void BackGround::Tick(float _DeltaTime)

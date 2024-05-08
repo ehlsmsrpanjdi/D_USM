@@ -17,7 +17,9 @@ public:
 	BackGround(BackGround&& _Other) noexcept = delete;
 	BackGround& operator=(const BackGround& _Other) = delete;
 	BackGround& operator=(BackGround&& _Other) noexcept = delete;
-	static float4 BackgroundSize;
+
+	void AddRenderSize(float4 _Size);
+	float4 Size = {};
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -27,3 +29,9 @@ protected:
 private:
 	USpriteRenderer* Renderer = nullptr;
 };
+
+class BackGroundImage {
+public:
+	static BackGround* Back;
+};
+

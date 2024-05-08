@@ -26,6 +26,10 @@ public:
 		return Tile;
 	}
 
+	std::vector<StageBox*> NextStage = {};
+
+	void RenderOn();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

@@ -7,6 +7,8 @@
 #include "AndWord.h"
 #include "FadeINEffect.h"
 #include "FadeOUTEffect.h"
+#include "BackGround.h"
+
 
 ActiveState BabaUpdateHelper::ActiveBaba;
 ActiveState BabaUpdateHelper::ActiveRock;
@@ -155,10 +157,14 @@ void ContentsHelper::CoolTimeCheck(float _DeltaTime)
 		if (FadeNum == Fade::FadeIn) {
 			FadeIn->ResetTime();
 			FadeIn->EffectOff();
+			GEngine->ChangeLevel("SelectGameLevel");
+			float4 BackSize = BackGroundImage::Back->Size;
+			BackGroundImage::Back->AddRenderSize(-BackSize);
 		}
 		if (FadeNum == Fade::FadeOut) {
 			FadeOut->ResetTime();
 			FadeOut->EffectOff();
+			GEngine->ChangeLevel("SelectGameLevel");
 		}
 		FadeNum = Fade::FadeNone;
 	}
