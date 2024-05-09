@@ -29,7 +29,7 @@ void ContentsCore::Initialize()
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
 	GEngine->CreateLevel<SelectGameMode>("SelectGameLevel");
 	GEngine->CreateLevel<JellyGameMode>("JellySelectGameLevel");
-	GEngine->ChangeLevel("JellySelectGameLevel");
+	GEngine->ChangeLevel("SelectGameLevel");
 
 }
 

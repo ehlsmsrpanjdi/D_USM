@@ -38,7 +38,9 @@ void Selector::Tick(float _DeltaTime)
 	if (ContentsHelper::Time <= MoveTime) {
 		CanInput = true;
 	}
+	if (CanInput == true) {
 	Input();
+	}
 	SetActorlocation2D(Lerp(_DeltaTime));
 }
 
