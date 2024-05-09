@@ -14,7 +14,8 @@
 
 BabaEditor::BabaEditor()
 {
-	Off();
+	//Off();
+	GameMode = ContentsCore::GameMode;
 }
 
 BabaEditor::~BabaEditor()
@@ -73,7 +74,7 @@ void BabaEditor::Tick(ULevel* Level, float _Delta)
 	}
 
 	else {
-		Off();
+		//Off();
 	}
 
 	if (UEngineInput::IsPress(VK_LBUTTON)) {

@@ -9,7 +9,7 @@ struct Int2D {
 };
 
 class ABabaBase;
-
+class ContentsCore;
 class APlayGameMode;
 // Ό³Έν :
 class BabaEditor : public UEngineDebugMsgWindow

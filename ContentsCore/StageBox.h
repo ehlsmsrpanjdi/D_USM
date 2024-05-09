@@ -2,6 +2,15 @@
 #include "BabaBase.h"
 #include "TileMap.h"
 // Ό³Έν :
+
+enum class BoxEnum {
+	None,
+	Stage,
+	Line,
+	Map,
+};
+
+
 class StageBox : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -28,14 +37,22 @@ public:
 
 	std::vector<StageBox*> NextStage = {};
 
+	void SetNextStage(std::string_view _StageName);
+	void SetLine(bool _Right, bool _Up, bool _Left, bool _Down);
 	void RenderOn();
+	void AnimationInit();
 
+	BoxEnum GetBoxInfo() {
+		return BoxInfo;
+	}
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void NumRender();
 	USpriteRenderer* LRenderer = nullptr;
 	USpriteRenderer* RRenderer = nullptr;
+	USpriteRenderer* Renderer = nullptr;
+	BoxEnum BoxInfo = BoxEnum::None;
 private:
 
 };

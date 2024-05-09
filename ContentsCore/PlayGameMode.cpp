@@ -25,7 +25,7 @@
 
 APlayGameMode::APlayGameMode()
 {
-	ContentsCore::GameMode = this;
+
 }
 
 APlayGameMode::~APlayGameMode()
@@ -39,6 +39,7 @@ void APlayGameMode::LevelEnd(ULevel* _NextLevel)
 
 void APlayGameMode::LevelStart(ULevel* _NextLevel)
 {
+	ContentsCore::GameMode = this;
 	InputOn();
 }
 

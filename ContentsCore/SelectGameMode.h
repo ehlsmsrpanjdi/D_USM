@@ -24,8 +24,9 @@ public:
 	SelectGameMode& operator=(const SelectGameMode& _Other) = delete;
 	SelectGameMode& operator=(SelectGameMode&& _Other) noexcept = delete;
 
+	StageBox* SpawnNextStage(int _X, int _Y, std::string_view _Stage);
 	StageBox* SpawnStage(int _X, int _Y, std::string_view _Stage);
-
+	StageBox* SpawnLine(int _X, int _Y, bool _Right, bool _Up, bool _Left, bool _Down);
 protected:
 	void LevelEnd(ULevel* _NextLevel) override;
 	void BeginPlay() override;

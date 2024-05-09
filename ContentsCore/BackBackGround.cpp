@@ -10,6 +10,8 @@ BackBackGround::BackBackGround()
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
 	Renderer->SetAutoSize(1, true);
+	Renderer->SetSprite("Back_Two.png");
+	Renderer->SetOrder(-200);
 }
 
 BackBackGround::~BackBackGround()
@@ -19,8 +21,6 @@ BackBackGround::~BackBackGround()
 void BackBackGround::BeginPlay()
 {
 	Super::BeginPlay();
-	Renderer->SetSprite("Back_Two.png");
-	Renderer->SetOrder(-200);
 
 }
 void BackBackGround::Tick(float _DeltaTime)

@@ -28,6 +28,7 @@ public:
 
 protected:
 	void LevelEnd(ULevel* _NextLevel) override;
+	void LevelStart(ULevel* _NextLevel) override;
 	void BeginPlay() override;
 	std::vector<StageBox*> Stage = { nullptr, };
 private:

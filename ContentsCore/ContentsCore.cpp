@@ -6,7 +6,7 @@
 #include <EngineCore/EngineEditorGUI.h>
 #include<EngineCore/EnginePixelShader.h>
 #include "SelectGameMode.h"
-
+#include "JellyGameMode.h"
 
 
 APlayGameMode* ContentsCore::GameMode = nullptr;
@@ -28,7 +28,8 @@ void ContentsCore::Initialize()
 
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
 	GEngine->CreateLevel<SelectGameMode>("SelectGameLevel");
-	GEngine->ChangeLevel("PlayLevel");
+	GEngine->CreateLevel<JellyGameMode>("JellySelectGameLevel");
+	GEngine->ChangeLevel("JellySelectGameLevel");
 
 }
 
@@ -66,6 +67,7 @@ void ContentsCore::ResourcesInit()
 	UEngineSprite::CreateCutting("Grass.png", 18, 3);
 	UEngineSprite::CreateCutting("Lava.png", 18, 3);
 	UEngineSprite::CreateCutting("Water.png", 18, 3);
+	UEngineSprite::CreateCutting("Line.png", 18, 3);
 
 	UEngineSprite::CreateCutting("Is.png", 2, 3);
 

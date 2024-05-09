@@ -11,7 +11,9 @@ JellySelectMap::JellySelectMap()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
-	Renderer->SetAutoSize(1.5f, true);
+	Renderer->SetAutoSize(1.f, true);
+	Renderer->SetMaterial("2DImage");
+	Renderer->SetSprite("Back_Jelly.png");
 }
 
 JellySelectMap::~JellySelectMap()
@@ -22,9 +24,6 @@ void JellySelectMap::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetMaterial("2DImage");
-	Renderer->CreateAnimation("JellySelectMap", "JellySelectMap_background.png");
-	Renderer->ChangeAnimation("JellySelectMap");
 	SetOrder(-100);
 }
 

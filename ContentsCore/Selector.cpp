@@ -95,12 +95,31 @@ void Selector::StageCheck()
 		}
 		TilePoint TempTile = Box->GetTile();
 
-		if (GetTile() == TempTile) {
-			GEngine->ChangeLevel("PlayLevel");
-			ContentsCore::Editor->Load("Stage" + Box->StageName);
-			SizeChange(Box->StageName);
-			Box->RenderOn();
+		BoxEnum Info = Box->GetBoxInfo();
+
+		switch (Info)
+		{
+		case BoxEnum::Stage:
+		{
+			if (GetTile() == TempTile) {
+				GEngine->ChangeLevel("PlayLevel");
+				ContentsCore::Editor->Load("Stage" + Box->StageName);
+				SizeChange(Box->StageName);
+				Box->RenderOn();
+			}
 		}
+			break;
+		case BoxEnum::Map:
+		{
+			if (GetTile() == TempTile) {
+				GEngine->ChangeLevel("JellySelectGameLevel");
+			}
+		}
+			break;
+		default:
+			break;
+		}
+				
 	}
 }
 
