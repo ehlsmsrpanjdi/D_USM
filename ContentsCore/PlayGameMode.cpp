@@ -55,7 +55,6 @@ void APlayGameMode::BeginPlay()
 
 	ContentsHelper::WordInit();
 	TileMap::TileSet(30, 30);
-	ContentsCore::Editor->GameMode = this;
 	InputOn();
 }
 
