@@ -77,10 +77,6 @@ void BabaEditor::Tick(ULevel* Level, float _Delta)
 		//Off();
 	} 
 
-	if (GameMode != ContentsCore::GameMode) {
-		GameMode = ContentsCore::GameMode;
-	}
-
 	if (UEngineInput::IsPress(VK_LBUTTON)) {
 		EditorFunction();
 	}
@@ -770,5 +766,12 @@ void BabaEditor::Load(std::string_view File_Name)
 		Baba_Actors[Tile] = EditorSwitch(TileData[Index], TileData[Index + 1], TileData[Index + 2]);
 		Index += 3;
 	}
+}
+
+void BabaEditor::Ignore()
+{
+	Baba_Actors.clear();
+	BabaData.clear();
+	TileData.clear();
 }
 

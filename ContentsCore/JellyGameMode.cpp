@@ -7,6 +7,7 @@
 #include "JellySelectMap.h"
 #include "StageBox.h"
 #include "JellyBackGround.h"
+#include "BabaEditor.h"
 #include "ContentsCore.h"
 
 
@@ -30,12 +31,10 @@ StageBox* JellyGameMode::SpawnStage(int _X, int _Y, std::string_view _Stage)
 
 void JellyGameMode::LevelEnd(ULevel* _NextLevel)
 {
-	int a = 0;
 }
 
 void JellyGameMode::LevelStart(ULevel* _NextLevel)
 {
-	ContentsCore::GameMode = this;
 	InputOn();
 }
 
@@ -47,7 +46,7 @@ void JellyGameMode::BeginPlay()
 	Camera->AddActorLocation(FVector(32 * 40, 32 * 40));
 
 	ContentsHelper::WordInit();
-	TileMap::TileSet(30, 30);
+	TileMap::TileSet(100, 100);
 
 	std::shared_ptr<Selector> SelectorActor = GetWorld()->SpawnActor<Selector>("Select");
 	SelectorActor->CurGameMode = this;
@@ -57,5 +56,10 @@ void JellyGameMode::BeginPlay()
 	std::shared_ptr<JellyBackGround> BackGroundMap = GetWorld()->SpawnActor<JellyBackGround>("BackGround");
 	BackGroundMap->AddActorLocation(FVector(32 * 40, 32 * 40));
 	JellyBack->AddActorLocation(FVector(32 * 40, 32 * 40));
+
+	ContentsCore::Editor->GameMode = this;
+	ContentsCore::Editor->Load("JellyStage");
+	ContentsCore::Editor->Ignore();
 }
+
 

@@ -11,7 +11,6 @@ JellyBackGround::JellyBackGround()
 	SetRoot(Root);
 	Renderer->SetAutoSize(1, true);
 	Renderer->SetSprite("Back_Two.png");
-	Renderer->SetOrder(-100);
 }
 
 JellyBackGround::~JellyBackGround()
@@ -21,6 +20,7 @@ JellyBackGround::~JellyBackGround()
 void JellyBackGround::BeginPlay()
 {
 	Super::BeginPlay();
+	Renderer->SetOrder(-100);
 }
 
 void JellyBackGround::Tick(float _DeltaTime)

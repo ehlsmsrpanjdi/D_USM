@@ -28,7 +28,7 @@ public:
 	void Save(std::string_view File_Name);
 	void Load(std::string_view File_Name);
 	APlayGameMode* GameMode = nullptr;
-
+	void Ignore();
 protected:
 	void Init() override;
 	void Tick(ULevel* Level, float _Delta) override;

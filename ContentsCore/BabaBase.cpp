@@ -21,6 +21,7 @@ ABabaBase::ABabaBase()
 
 ABabaBase::~ABabaBase()
 {
+	int a = 0;
 }
 
 void ABabaBase::BeginPlay()

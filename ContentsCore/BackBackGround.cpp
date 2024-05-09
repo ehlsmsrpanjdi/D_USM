@@ -9,7 +9,7 @@ BackBackGround::BackBackGround()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
-	Renderer->SetAutoSize(1, true);
+	Renderer->SetAutoSize(2.0f, true);
 	Renderer->SetSprite("Back_Two.png");
 	Renderer->SetOrder(-200);
 }

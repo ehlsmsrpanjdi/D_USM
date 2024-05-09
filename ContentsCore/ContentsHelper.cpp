@@ -62,7 +62,7 @@ BabaState BabaUpdateHelper::Pillar = BabaState::IsPillar;
 BabaState BabaUpdateHelper::Key = BabaState::IsKey;
 BabaState BabaUpdateHelper::Star = BabaState::IsStar;
 
-float ContentsHelper::Time = 2.f;
+float ContentsHelper::Time = 1.f;
 
 ContentsHelper::ContentsHelper()
 {

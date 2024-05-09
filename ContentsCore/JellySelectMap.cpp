@@ -4,6 +4,7 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include "JellySelectMap.h"
 
+
 JellySelectMap::JellySelectMap()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
@@ -24,7 +25,8 @@ void JellySelectMap::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetOrder(-100);
+	Renderer->SetOrder(-100);
+
 }
 
 void JellySelectMap::Tick(float _DeltaTime)

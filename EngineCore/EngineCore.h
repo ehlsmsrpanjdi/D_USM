@@ -10,6 +10,7 @@
 
 #include "EngineGraphicDevice.h"
 #include "EngineOption.h"
+#include "GameMode.h"
 
 #pragma comment (lib, "EngineBase.lib")
 #pragma comment (lib, "EnginePlatform.lib")
@@ -69,16 +70,17 @@ public:
 		return EngineDevice.GetContext();
 	}
 	
-	void ChangeLevel(std::string_view _Name)
+	AGameMode* ChangeLevel(std::string_view _Name)
 	{
 		std::string UpperName = UEngineString::ToUpper(_Name);
 
 		if (true != Levels.contains(UpperName))
 		{
 			MsgBoxAssert("존재하지 않는 레벨을 지정하려고 했습니다.");
-			return;
+			return nullptr;
 		}
 		NextLevel = Levels[UpperName];
+		return NextLevel->GameMode.get();
 	}
 
 	template<typename GameModeType>

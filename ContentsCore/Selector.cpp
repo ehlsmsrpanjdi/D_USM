@@ -35,8 +35,11 @@ void Selector::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	ContentsHelper::CoolTimeCheck(_DeltaTime);
-	if (ContentsHelper::Time <= MoveTime) {
+	if (ContentsHelper::Time >= MoveTime) {
 		CanInput = true;
+	}
+	else {
+		CanInput = false;
 	}
 	if (CanInput == true) {
 	Input();
@@ -54,6 +57,7 @@ void Selector::Input()
 		Key = 'A';
 		CanInput = false;
 		ContentsHelper::Time = 0;
+		KeyTileSet(Key);
 	}
 
 	else if (true == IsDown('D'))
@@ -61,6 +65,7 @@ void Selector::Input()
 		Key = 'D';
 		CanInput = false;
 		ContentsHelper::Time = 0;
+		KeyTileSet(Key);
 	}
 
 	else if (true == IsDown('W'))
@@ -68,6 +73,7 @@ void Selector::Input()
 		Key = 'W';
 		CanInput = false;
 		ContentsHelper::Time = 0;
+		KeyTileSet(Key);
 	}
 
 	else if (true == IsDown('S'))
@@ -75,6 +81,7 @@ void Selector::Input()
 		Key = 'S';
 		CanInput = false;
 		ContentsHelper::Time = 0;
+		KeyTileSet(Key);
 	}
 
 	else if (true == IsDown(VK_RETURN)) {
@@ -85,8 +92,8 @@ void Selector::Input()
 		Key = '0';
 		return;
 	}
-
-	KeyTileSet(Key);
+	
+	
 }
 
 void Selector::StageCheck()
@@ -104,7 +111,7 @@ void Selector::StageCheck()
 		case BoxEnum::Stage:
 		{
 			if (GetTile() == TempTile) {
-				GEngine->ChangeLevel("PlayLevel");
+				ContentsCore::Editor->GameMode = dynamic_cast<APlayGameMode*>(GEngine->ChangeLevel("PlayLevel"));
 				ContentsCore::Editor->Load("Stage" + Box->StageName);
 				SizeChange(Box->StageName);
 				Box->RenderOn();
