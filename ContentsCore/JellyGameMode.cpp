@@ -44,15 +44,18 @@ void JellyGameMode::BeginPlay()
 	Super::BeginPlay();
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0, 0, -100));
+	Camera->AddActorLocation(FVector(32 * 40, 32 * 40));
 
 	ContentsHelper::WordInit();
 	TileMap::TileSet(30, 30);
 
 	std::shared_ptr<Selector> SelectorActor = GetWorld()->SpawnActor<Selector>("Select");
 	SelectorActor->CurGameMode = this;
-	SelectorActor->SetBabaLocation(-1, -6);
+	SelectorActor->SetBabaLocation(35, 35);
 
-	//std::shared_ptr<JellySelectMap> JellyBack = GetWorld()->SpawnActor<JellySelectMap>("Jelly");
-	//std::shared_ptr<JellyBackGround> BackGroundMap = GetWorld()->SpawnActor<JellyBackGround>("BackGround");
+	std::shared_ptr<JellySelectMap> JellyBack = GetWorld()->SpawnActor<JellySelectMap>("Jelly");
+	std::shared_ptr<JellyBackGround> BackGroundMap = GetWorld()->SpawnActor<JellyBackGround>("BackGround");
+	BackGroundMap->AddActorLocation(FVector(32 * 40, 32 * 40));
+	JellyBack->AddActorLocation(FVector(32 * 40, 32 * 40));
 }
 
