@@ -39,7 +39,6 @@ StageBox* SelectGameMode::SpawnStage(int _X, int _Y, std::string_view _Stage)
 StageBox* SelectGameMode::SpawnLine(int _X, int _Y, bool _Right, bool _Up, bool _Left, bool _Down)
 {
 	std::shared_ptr<StageBox> box = GetWorld()->SpawnActor<StageBox>("Box");
-	Stage.push_back(box.get());
 	box->SetLine(_Right, _Up, _Left, _Down);
 	box->SetActorLocation(FVector{ _X * 32.f, _Y * 32.f });
 	box->Tile = TilePoint(_X, _Y);

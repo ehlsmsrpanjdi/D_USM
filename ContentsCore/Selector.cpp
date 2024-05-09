@@ -121,7 +121,7 @@ void Selector::StageCheck()
 		case BoxEnum::Map:
 		{
 			if (GetTile() == TempTile) {
-				GEngine->ChangeLevel("JellySelectGameLevel");
+				GEngine->ChangeLevel(Box->GetMapName());
 			}
 		}
 			break;
@@ -166,22 +166,28 @@ void Selector::SizeChange(std::string_view _Str)
 		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
 		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
 	}
-	else if (_Str._Equal("00")) {
-
+	else if (_Str._Equal("08")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
 	}
-	else if (_Str._Equal("00")) {
-
+	else if (_Str._Equal("09")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
 	}
-	else if (_Str._Equal("00")) {
-
+	else if (_Str._Equal("10")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
 	}
-	else if (_Str._Equal("00")) {
-
+	else if (_Str._Equal("11")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
 	}
-	else if (_Str._Equal("00")) {
-
+	else if (_Str._Equal("12")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
 	}
-	else if (_Str._Equal("00")) {
-
+	else if (_Str._Equal("13")) {
+		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
 	}
 }

@@ -32,13 +32,14 @@ void StageBox::SetNextStage(std::string_view _StageName)
 {
 	std::string Name = _StageName.data();
 
-	Renderer->CreateAnimation(Name, Name + ".png" , std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 5, 8});
+
 	Renderer->ChangeAnimation(Name);
 
 	LRenderer->SetActive(false);
 	RRenderer->SetActive(false);
 	Renderer->SetActive(true);
 	BoxInfo = BoxEnum::Map;
+	MapName = _StageName;
 }
 
 void StageBox::SetLine(bool _Right, bool _Up, bool _Left, bool _Down)
@@ -92,6 +93,7 @@ void StageBox::AnimationInit()
 	RRenderer->CreateAnimation("7", "NumberFont.png", std::vector<float>{ 0.1f }, std::vector<int>{ 7 });
 	RRenderer->CreateAnimation("8", "NumberFont.png", std::vector<float>{ 0.1f }, std::vector<int>{ 8 });
 	RRenderer->CreateAnimation("9", "NumberFont.png", std::vector<float>{ 0.1f }, std::vector<int>{ 9 });
+	Renderer->CreateAnimation("SelectGameLevel", "Line.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
 	Renderer->CreateAnimation("Line0", "Line.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 2, 20, 38 });
 	Renderer->CreateAnimation("Line1", "Line.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 21, 39 });
 	Renderer->CreateAnimation("Line2", "Line.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 4, 22, 40 });
@@ -108,6 +110,18 @@ void StageBox::AnimationInit()
 	Renderer->CreateAnimation("Line13", "Line.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{15, 33, 51 });
 	Renderer->CreateAnimation("Line14", "Line.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{16, 34, 52 });
 	Renderer->CreateAnimation("Line15", "Line.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{17, 35, 53 });
+	Renderer->CreateAnimation("Jelly", "Jelly.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{2, 5, 8});
+}
+
+void StageBox::RenderTrue()
+{
+	Renderer->SetActive(true);
+}
+
+void StageBox::LRRenderTrue()
+{
+	LRenderer->SetActive(true);
+	RRenderer->SetActive(true);
 }
 
 void StageBox::BeginPlay()

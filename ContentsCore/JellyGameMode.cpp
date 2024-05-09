@@ -57,6 +57,19 @@ void JellyGameMode::BeginPlay()
 	BackGroundMap->AddActorLocation(FVector(32 * 40, 32 * 40));
 	JellyBack->AddActorLocation(FVector(32 * 40, 32 * 40));
 
+	StageBox* PrevStage = SpawnNextStage(40, 33, "SelectGameLevel");
+	PrevStage->RenderTrue();
+	StageBox* Line1 = SpawnLine(40, 34, 0,1,0,1);
+	Line1->RenderTrue();
+	StageBox* Line2 = SpawnLine(40, 35, 0, 1, 0, 1);
+	Line2->RenderTrue();
+
+	StageBox* Box3 = SpawnStage(40, 36, "08");
+	StageBox* Box4 = SpawnStage(40, 37, "09");
+	StageBox* Box5 = SpawnStage(40, 38, "10");
+	StageBox* Box6 = SpawnStage(39, 37, "11");
+	StageBox* Box7 = SpawnStage(39, 38, "12");
+
 	ContentsCore::Editor->GameMode = this;
 	ContentsCore::Editor->Load("JellyStage");
 	ContentsCore::Editor->Ignore();

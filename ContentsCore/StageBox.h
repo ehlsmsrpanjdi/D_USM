@@ -36,11 +36,17 @@ public:
 	}
 
 	std::vector<StageBox*> NextStage = {};
-
+	std::string MapName = "";
 	void SetNextStage(std::string_view _StageName);
 	void SetLine(bool _Right, bool _Up, bool _Left, bool _Down);
 	void RenderOn();
 	void AnimationInit();
+	std::string_view GetMapName() {
+		return MapName;
+	}
+
+	void RenderTrue();
+	void LRRenderTrue();
 
 	BoxEnum GetBoxInfo() {
 		return BoxInfo;
