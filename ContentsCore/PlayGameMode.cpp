@@ -40,7 +40,7 @@ void APlayGameMode::LevelEnd(ULevel* _NextLevel)
 void APlayGameMode::LevelStart(ULevel* _NextLevel)
 {
 	ContentsCore::GameMode = this;
-	
+
 	InputOn();
 }
 
@@ -51,7 +51,7 @@ void APlayGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.f, 0.0f, -100.0f));
 	BackGroundImage::Back = GetWorld()->SpawnActor<BackGround>("a").get();
-	
+
 	GetWorld()->SpawnActor<BackBackGround>("A");
 
 	ContentsHelper::WordInit();
@@ -63,6 +63,12 @@ void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	ContentsHelper::CoolTimeCheck(_DeltaTime);
+	if (false == RestartCheck()) {
+		NotMoveTime += _DeltaTime;
+	}
+	else {
+		NotMoveTime = 0.f;
+	}
 	if (ContentsHelper::Time >= 1) {
 		CanInput = true;
 	}
@@ -78,13 +84,17 @@ void APlayGameMode::Tick(float _DeltaTime)
 	}
 	DebugMessageFunction();
 
+	if (NotMoveTime >= 3.0f) {
+		int a = 0;
+	}
+
 	if (IsPress('R')) {
 		ContentsHelper::FadeEffectOut(GetWorld());
 	}
 
 }
 
-void APlayGameMode::RestartCheck()
+bool APlayGameMode::RestartCheck()
 {
 	bool CanActive = false;
 	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
@@ -97,10 +107,15 @@ void APlayGameMode::RestartCheck()
 			if (_BabaBase->MoveCheck() == false) {
 				continue;
 			}
-			bool Temp = _BabaBase->BabaMoveCheck(Key, Change_Baba, Baba_Actors);
+			bool Temp = false;;
+			Temp |= _BabaBase->BabaMoveResetCheck('A', Baba_Actors);
+			Temp |= _BabaBase->BabaMoveResetCheck('S', Baba_Actors);
+			Temp |= _BabaBase->BabaMoveResetCheck('D', Baba_Actors);
+			Temp |= _BabaBase->BabaMoveResetCheck('W', Baba_Actors);
 			CanActive = (CanActive || Temp);
 		}
 	}
+	return CanActive;
 }
 
 void APlayGameMode::Baba_Input()

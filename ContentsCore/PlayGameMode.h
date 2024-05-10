@@ -44,7 +44,9 @@ protected:
 	bool IsInput = false;
 	int Count = 0;
 
-	void RestartCheck();
+	float NotMoveTime = 0.f;
+
+	bool RestartCheck();
 	void Baba_Input();
 
 	void Stack_Push(char _Key);

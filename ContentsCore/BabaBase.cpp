@@ -91,6 +91,82 @@ float2D ABabaBase::Lerp(float _DeltaTime)
 	}
 }
 
+bool ABabaBase::BabaMoveResetCheck(char _Input, std::map<TilePoint, std::list<ABabaBase*>>& _Map)
+{
+	if (MoveCheck() == false) {
+		return false;
+	}
+	if (BabaMapCheck(_Input) == false) {
+		return false;
+	}
+
+	if (true == GetDead()) {
+		return false;
+	}
+
+	TilePoint TempTile = KeyTileReturn(_Input);
+
+	if (true == BabaNextTileCheck(_Map, TempTile)) {
+		return true;
+	}
+
+	bool CheckBool = true;
+	std::list<ABabaBase*>& _List = _Map[TempTile];
+	for (ABabaBase*& Baba : _List) {
+		bool Check = Baba->BabaPushResetCheck(_Input, _Map);
+		CheckBool = (CheckBool && Check);
+	}
+	if (true == CheckBool) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	return false;
+}
+
+bool ABabaBase::BabaPushResetCheck(char _Input, std::map<TilePoint, std::list<ABabaBase*>>& _Map)
+{
+	if (StopCheck() == true) {
+		return false;
+	}
+
+	if (true == GetDead()) {
+		return true;
+	}
+
+	if (MoveCheck() == false) {
+		if (false == PushCheck()) {
+			return true;
+		}
+	}
+
+	if (false == BabaMapCheck(_Input)) {
+		return false;
+	}
+
+	TilePoint TempTile = KeyTileReturn(_Input);
+
+	if (true == BabaNextTileCheck(_Map, TempTile)) {
+		return true;
+	}
+
+	else {
+		bool TempBool = true;
+		std::list<ABabaBase*>& _List = _Map[TempTile];
+		for (ABabaBase*& Baba : _List) {
+			bool Temp = Baba->BabaPushResetCheck(_Input, _Map);
+			TempBool = (TempBool && Temp);
+		}
+		if (true == TempBool) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+}
+
 void ABabaBase::IndexPlus(BabaInfo& _Info)
 {
 	if (BState == BabaState::IsBaba) {

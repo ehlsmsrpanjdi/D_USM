@@ -110,3 +110,9 @@ void SelectGameMode::BeginPlay()
 	SelectorActor->SetBabaLocation(-8, -7);
 }
 
+void SelectGameMode::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+	ContentsHelper::CoolTimeCheck(_DeltaTime);
+}
+

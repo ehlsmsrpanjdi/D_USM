@@ -130,6 +130,8 @@ protected:
 		return float2D{ X,Y };
 	}
 
+	bool BabaMoveResetCheck(char _Input, std::map<TilePoint, std::list<ABabaBase*>>& _Map);
+	bool BabaPushResetCheck(char _Input, std::map<TilePoint, std::list<ABabaBase*>>& _Map);
 
 	void SetBabaLocation(TilePoint _Tile, char _Input = 'D') {
 		Info.Tile.X = static_cast<int>(_Tile.X);
