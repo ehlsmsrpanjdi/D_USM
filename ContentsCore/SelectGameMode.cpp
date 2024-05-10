@@ -115,7 +115,7 @@ void SelectGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	ContentsHelper::CoolTimeCheck(_DeltaTime);
-	if (IsPress(VK_ESCAPE)) {
+	if (IsDown(VK_ESCAPE)) {
 		GEngine->ChangeLevel("Title");
 	}
 }

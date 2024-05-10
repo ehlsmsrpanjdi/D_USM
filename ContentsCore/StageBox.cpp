@@ -85,6 +85,28 @@ void StageBox::RenderOn()
 
 void StageBox::AnimationInit()
 {
+	LRenderer->CreateAnimation("0Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 1, 11, 21 });
+	LRenderer->CreateAnimation("1Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 13, 23 });
+	LRenderer->CreateAnimation("2Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 5, 15, 25 });
+	LRenderer->CreateAnimation("3Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 7, 17, 27 });
+	LRenderer->CreateAnimation("4Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 9, 19, 29 });
+	LRenderer->CreateAnimation("5Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 31, 41, 51 });
+	LRenderer->CreateAnimation("6Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 33, 43, 53 });
+	LRenderer->CreateAnimation("7Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 35, 45, 55 });
+	LRenderer->CreateAnimation("8Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 37, 47, 57 });
+	LRenderer->CreateAnimation("9Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 39, 49, 59 });
+
+	RRenderer->CreateAnimation("0Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 1, 11, 21 });
+	RRenderer->CreateAnimation("1Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 3, 13, 23 });
+	RRenderer->CreateAnimation("2Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 5, 15, 25 });
+	RRenderer->CreateAnimation("3Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 7, 17, 27 });
+	RRenderer->CreateAnimation("4Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 9, 19, 29 });
+	RRenderer->CreateAnimation("5Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 31, 41, 51 });
+	RRenderer->CreateAnimation("6Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 33, 43, 53 });
+	RRenderer->CreateAnimation("7Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 35, 45, 55 });
+	RRenderer->CreateAnimation("8Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 37, 47, 57 });
+	RRenderer->CreateAnimation("9Off", "NumbersFont.png", std::vector<float>{ 0.1f, 0.1f, 0.1f }, std::vector<int>{ 39, 49, 59 });
+
 	LRenderer->CreateAnimation("0", "NumberFont.png", std::vector<float>{ 0.1f }, std::vector<int>{ 0 });
 	LRenderer->CreateAnimation("1", "NumberFont.png", std::vector<float>{ 0.1f }, std::vector<int>{ 1 });
 	LRenderer->CreateAnimation("2", "NumberFont.png", std::vector<float>{ 0.1f }, std::vector<int>{ 2 });
@@ -163,19 +185,30 @@ void StageBox::Tick(float _DeltaTime)
 void StageBox::SetStageNum(std::string_view _Num)
 {
 	StageName = _Num;
-	NumRender();
 	BoxInfo = BoxEnum::Stage;
+	NumRender();
 }
 
 void StageBox::NumRender()
 {
-	if (StageName._Equal("Line")) {
+	if (BoxInfo != BoxEnum::Stage) {
 		return;
 	}
 	std::string LeftNum = StageName.substr(0, 1);
 	std::string RightNum = StageName.substr(1, 1);
 	LRenderer->ChangeAnimation(LeftNum);
 	RRenderer->ChangeAnimation(RightNum);
+}
+
+void StageBox::NumOffRender()
+{
+	if (BoxInfo != BoxEnum::Stage) {
+		return;
+	}
+	std::string LeftNum = StageName.substr(0, 1);
+	std::string RightNum = StageName.substr(1, 1);
+	LRenderer->ChangeAnimation(LeftNum + "Off");
+	RRenderer->ChangeAnimation(RightNum + "Off");
 }
 
 

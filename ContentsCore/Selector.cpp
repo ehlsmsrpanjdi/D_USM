@@ -115,6 +115,7 @@ void Selector::StageCheck()
 				ContentsCore::Editor->Load("Stage" + Box->StageName);
 				SizeChange(Box->StageName);
 				Box->RenderOn();
+				Box->NumOffRender();
 			}
 		}
 			break;

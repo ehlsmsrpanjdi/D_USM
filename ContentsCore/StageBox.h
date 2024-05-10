@@ -51,6 +51,7 @@ public:
 	BoxEnum GetBoxInfo() {
 		return BoxInfo;
 	}
+	void NumOffRender();
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

@@ -88,7 +88,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 		int a = 0;
 	}
 
-	if (IsPress(VK_ESCAPE)) {
+	if (IsDown(VK_ESCAPE)) {
 		GEngine->ChangeLevel("SelectGameLevel");
 	}
 
