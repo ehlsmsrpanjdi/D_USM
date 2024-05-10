@@ -95,7 +95,13 @@ void TitleGameMode::Tick(float _DeltaTime)
 
 	if (IsDown(VK_RETURN)) {
 		if (Select == 0) {
-			Effect = GetWorld()->GetLastTarget()->AddEffect<FadeOUTEffect>().get();
+			if (Effect != nullptr) {
+				Effect->EffectON();
+				Effect->ResetTime();
+			}
+			else {
+				Effect = GetWorld()->GetLastTarget()->AddEffect<FadeOUTEffect>().get();
+			}
 			FadeOn = true;
 			InputOff();
 		}
@@ -110,7 +116,14 @@ void TitleGameMode::Tick(float _DeltaTime)
 			Effect->ResetTime();
 			Effect->EffectOff();
 			GEngine->ChangeLevel("SelectGameLevel");
+			FadeTime = 0.f;
+			FadeOn = false;
 		}
 	}
 
+}
+
+void TitleGameMode::LevelStart(ULevel* _Level)
+{
+	InputOn();
 }

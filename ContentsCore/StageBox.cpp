@@ -21,7 +21,9 @@ StageBox::StageBox()
 	Renderer->SetAutoSize(1.4f, true);
 	LRenderer->SetScale(FVector(18, 36));
 	RRenderer->SetScale(FVector(18, 36));
-	SetActive(true);
+	Renderer->SetActive(false);
+	LRenderer->SetActive(false);
+	RRenderer->SetActive(false);
 }
 
 StageBox::~StageBox()
@@ -35,9 +37,6 @@ void StageBox::SetNextStage(std::string_view _StageName)
 
 	Renderer->ChangeAnimation(Name);
 
-	LRenderer->SetActive(false);
-	RRenderer->SetActive(false);
-	Renderer->SetActive(true);
 	BoxInfo = BoxEnum::Map;
 	MapName = _StageName;
 }
@@ -58,15 +57,29 @@ void StageBox::SetLine(bool _Right, bool _Up, bool _Left, bool _Down)
 		index += 8;
 	}
 	Renderer->ChangeAnimation("Line" + std::to_string(index));
-	LRenderer->SetActive(false);
-	RRenderer->SetActive(false);
 	BoxInfo = BoxEnum::Line;
 }
 
 void StageBox::RenderOn()
 {
 	for (StageBox* Box : NextStage) {
-		Box->SetActive(true);
+		BoxEnum BB = Box->GetBoxInfo();
+		switch (BB)
+		{
+		case BoxEnum::None:
+			break;
+		case BoxEnum::Stage:
+			Box->LRRenderTrue();
+			break;
+		case BoxEnum::Line:
+			Box->RenderTrue();
+			break;
+		case BoxEnum::Map:
+			Box->RenderTrue();
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -163,7 +176,6 @@ void StageBox::NumRender()
 	std::string RightNum = StageName.substr(1, 1);
 	LRenderer->ChangeAnimation(LeftNum);
 	RRenderer->ChangeAnimation(RightNum);
-	Renderer->SetActive(false);
 }
 
 

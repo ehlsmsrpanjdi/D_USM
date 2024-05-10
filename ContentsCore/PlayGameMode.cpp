@@ -88,8 +88,8 @@ void APlayGameMode::Tick(float _DeltaTime)
 		int a = 0;
 	}
 
-	if (IsPress('R')) {
-		ContentsHelper::FadeEffectOut(GetWorld());
+	if (IsPress(VK_ESCAPE)) {
+		GEngine->ChangeLevel("SelectGameLevel");
 	}
 
 }

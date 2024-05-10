@@ -27,6 +27,8 @@ protected:
 	float FadeTime = 0.0f;
 	bool FadeOn = false;
 	FadeOUTEffect* Effect = nullptr;
+
+	void LevelStart(ULevel* _Level) override;
 private:
 	int Select = 0;
 };

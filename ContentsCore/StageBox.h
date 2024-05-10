@@ -47,7 +47,7 @@ public:
 
 	void RenderTrue();
 	void LRRenderTrue();
-
+	bool IsClick = false;
 	BoxEnum GetBoxInfo() {
 		return BoxInfo;
 	}

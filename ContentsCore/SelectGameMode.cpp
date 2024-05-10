@@ -106,13 +106,17 @@ void SelectGameMode::BeginPlay()
 	Box5->NextStage.push_back(Box7);
 	Box4->NextStage.push_back(Box7);
 	Box4->NextStage.push_back(Box6);
-	Box0->SetActive(true);
+	Box0->LRRenderTrue();
 	SelectorActor->SetBabaLocation(-8, -7);
+	InputOn();
 }
 
 void SelectGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	ContentsHelper::CoolTimeCheck(_DeltaTime);
+	if (IsPress(VK_ESCAPE)) {
+		GEngine->ChangeLevel("Title");
+	}
 }
 
