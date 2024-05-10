@@ -81,14 +81,12 @@ void ABabaBase::PopLerpMove()
 
 float2D ABabaBase::Lerp(float _DeltaTime)
 {
+	NextLocation2D = float2D(Info.Tile.X * 32.f, Info.Tile.Y * 32.f);
 	if (ContentsHelper::Time < MoveTime) {
 		return Location2D * (MoveTime - ContentsHelper::Time) + NextLocation2D * (ContentsHelper::Time);
 	}
 	else {
 		Location2D = NextLocation2D;
-		//Info.Tile.X = Location2D.x / 
-		Info.Tile.X = Location2D.x / 32;
-		Info.Tile.Y = Location2D.y / 32;;
 		return Location2D;
 	}
 }

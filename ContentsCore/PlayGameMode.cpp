@@ -40,6 +40,7 @@ void APlayGameMode::LevelEnd(ULevel* _NextLevel)
 void APlayGameMode::LevelStart(ULevel* _NextLevel)
 {
 	ContentsCore::GameMode = this;
+	
 	InputOn();
 }
 
@@ -49,8 +50,8 @@ void APlayGameMode::BeginPlay()
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.f, 0.0f, -100.0f));
-	GetWorld()->SpawnActor<BackGround>("a");
-
+	BackGroundImage::Back = GetWorld()->SpawnActor<BackGround>("a").get();
+	
 	GetWorld()->SpawnActor<BackBackGround>("A");
 
 	ContentsHelper::WordInit();

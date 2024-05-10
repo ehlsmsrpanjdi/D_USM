@@ -95,7 +95,7 @@ void TitleGameMode::Tick(float _DeltaTime)
 
 	if (IsDown(VK_RETURN)) {
 		if (Select == 0) {
-			ContentsHelper::FadeOut = GetWorld()->GetLastTarget()->AddEffect<FadeOUTEffect>();
+			Effect = GetWorld()->GetLastTarget()->AddEffect<FadeOUTEffect>().get();
 			FadeOn = true;
 			InputOff();
 		}
@@ -107,8 +107,8 @@ void TitleGameMode::Tick(float _DeltaTime)
 	if (FadeOn == true) {
 		FadeTime += _DeltaTime;
 		if (FadeTime >= 2) {
-			ContentsHelper::FadeOut->ResetTime();
-			ContentsHelper::FadeOut->EffectOff();
+			Effect->ResetTime();
+			Effect->EffectOff();
 			GEngine->ChangeLevel("SelectGameLevel");
 		}
 	}

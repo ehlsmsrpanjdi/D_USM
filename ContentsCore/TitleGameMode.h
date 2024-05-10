@@ -26,6 +26,7 @@ protected:
 	Text* Selector = nullptr;
 	float FadeTime = 0.0f;
 	bool FadeOn = false;
+	FadeOUTEffect* Effect = nullptr;
 private:
 	int Select = 0;
 };

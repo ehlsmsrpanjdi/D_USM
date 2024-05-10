@@ -1,6 +1,9 @@
 #include "PreCompile.h"
 #include "BackGround.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "ContentsCore.h"
+#include "BabaEditor.h"
+#include "PlayGameMode.h"
 
 BackGround* BackGroundImage::Back = nullptr;
 
@@ -11,7 +14,6 @@ BackGround::BackGround()
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
 	Renderer->SetAutoSize(1, true);
-	BackGroundImage::Back = this;
 }
 
 BackGround::~BackGround()
@@ -21,7 +23,8 @@ BackGround::~BackGround()
 void BackGround::AddRenderSize(float4 _Size)
 {
 	Renderer->AddPosition(_Size);
-	GetWorld()->GetMainCamera()->AddActorLocation(_Size);
+	//GetWorld()->GetMainCamera()->AddActorLocation(_Size);
+	ContentsCore::Editor->GameMode->GetWorld()->GetMainCamera()->AddActorLocation(_Size);
 }
 
 void BackGround::BeginPlay()

@@ -119,7 +119,7 @@ void ContentsHelper::FadeEffectIn(ULevel* _Level)
 {
 	ContentsHelper::FadeNum = Fade::FadeIn;
 	EffectTime = 2.0f;
-
+	FadeIn->ResetTime();
 	if (nullptr == ContentsHelper::FadeIn) {
 		ContentsHelper::FadeIn = _Level->GetLastTarget()->AddEffect<FadeINEffect>();
 	}
@@ -132,7 +132,6 @@ void ContentsHelper::FadeEffectOut(ULevel* _Level)
 {
 	ContentsHelper::FadeNum = Fade::FadeOut;
 	EffectTime = 2.0f;
-
 	if (nullptr == ContentsHelper::FadeOut) {
 	ContentsHelper::FadeOut = _Level->GetLastTarget()->AddEffect<FadeOUTEffect>();
 	}
