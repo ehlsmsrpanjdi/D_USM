@@ -44,6 +44,7 @@ protected:
 	bool IsInput = false;
 	int Count = 0;
 
+	void RestartCheck();
 	void Baba_Input();
 
 	void Stack_Push(char _Key);

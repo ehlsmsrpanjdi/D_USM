@@ -141,6 +141,13 @@ void ContentsHelper::FadeEffectOut(ULevel* _Level)
 	}
 }
 
+void ContentsHelper::FadeOutHelper(ULevel* _Level) {
+
+}
+void ContentsHelper::FadeInHelper(ULevel* _Level) {
+
+}
+
 void ContentsHelper::CoolTimeCheck(float _DeltaTime)
 {
 	if (Time < MoveTime) {

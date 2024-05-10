@@ -83,6 +83,25 @@ void APlayGameMode::Tick(float _DeltaTime)
 
 }
 
+void APlayGameMode::RestartCheck()
+{
+	bool CanActive = false;
+	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
+	{
+		std::list<ABabaBase*>& BabaBase = Iter.second;
+		for (ABabaBase*& _BabaBase : BabaBase) {
+			if (_BabaBase->IsChecked == true) {
+				continue;
+			}
+			if (_BabaBase->MoveCheck() == false) {
+				continue;
+			}
+			bool Temp = _BabaBase->BabaMoveCheck(Key, Change_Baba, Baba_Actors);
+			CanActive = (CanActive || Temp);
+		}
+	}
+}
+
 void APlayGameMode::Baba_Input()
 {
 	switch (Key)
@@ -218,6 +237,8 @@ void APlayGameMode::BabaInputCheck()
 			SinkCheck();
 			WinCheck();
 			DefeatCheck();
+		}
+		else {
 		}
 	}
 }

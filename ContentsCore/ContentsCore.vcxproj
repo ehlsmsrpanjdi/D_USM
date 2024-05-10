@@ -260,7 +260,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Text.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TitleButton.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TitleGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActiveWord.cpp">
@@ -369,7 +381,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TitleButton.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EngineBase\EngineBase.vcxproj">

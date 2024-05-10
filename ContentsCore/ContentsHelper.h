@@ -275,6 +275,8 @@ public:
 	static void WordInit();
 	static void FadeEffectIn(ULevel* _Level);
 	static void FadeEffectOut(ULevel* _Level);
+	static void FadeOutHelper(ULevel* _Level);
+	static void FadeInHelper(ULevel* _Level);
 	static std::shared_ptr<FadeINEffect> FadeIn;
 	static std::shared_ptr<FadeOUTEffect> FadeOut;
 	static Fade FadeNum;

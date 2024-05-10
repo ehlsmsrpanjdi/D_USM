@@ -79,6 +79,15 @@
     <ClInclude Include="JellyGameMode.h">
       <Filter>Level\GameMode</Filter>
     </ClInclude>
+    <ClInclude Include="TitleGameMode.h">
+      <Filter>Level\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Level\Actor\Gear\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleButton.h">
+      <Filter>Level\Actor\Gear\Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -159,6 +168,15 @@
     <ClCompile Include="JellyGameMode.cpp">
       <Filter>Level\GameMode</Filter>
     </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <Filter>Level\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Level\Actor\Gear\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleButton.cpp">
+      <Filter>Level\Actor\Gear\Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -196,6 +214,9 @@
     </Filter>
     <Filter Include="Level\Actor\Gear">
       <UniqueIdentifier>{0e1fd273-e1b4-49c2-9606-c95699571a6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Actor\Gear\Title">
+      <UniqueIdentifier>{49d9839c-2879-4634-822c-9a6a4aa775d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

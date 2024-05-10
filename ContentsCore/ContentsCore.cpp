@@ -7,7 +7,7 @@
 #include<EngineCore/EnginePixelShader.h>
 #include "SelectGameMode.h"
 #include "JellyGameMode.h"
-
+#include "TitleGameMode.h"
 
 APlayGameMode* ContentsCore::GameMode = nullptr;
 BabaEditor* ContentsCore::Editor = nullptr;
@@ -29,7 +29,8 @@ void ContentsCore::Initialize()
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
 	GEngine->CreateLevel<SelectGameMode>("SelectGameLevel");
 	GEngine->CreateLevel<JellyGameMode>("Jelly");
-	GEngine->ChangeLevel("PlayLevel");
+	GEngine->CreateLevel<TitleGameMode>("Title");
+	GEngine->ChangeLevel("Title");
 
 }
 
@@ -111,6 +112,21 @@ void ContentsCore::ResourcesInit()
 	UEngineSprite::CreateCutting("NumberFont.png", 5, 2);
 	UEngineSprite::CreateCutting("SelectMap_background.png", 3, 1);
 	UEngineSprite::CreateCutting("SelectObj.png", 3, 1);
+
+	UEngineSprite::CreateCutting("NumbersFont.png", 10, 6);
+	UEngineSprite::CreateCutting("Alphabet.png", 14, 12);
+	UEngineSprite::CreateCutting("U.png", 1, 3);
+	UEngineSprite::CreateCutting("N.png", 1, 3);
+	UEngineSprite::CreateCutting("D.png", 1, 3);
+	UEngineSprite::CreateCutting("O.png", 1, 3);
+	UEngineSprite::CreateCutting("R.png", 1, 3);
+	UEngineSprite::CreateCutting("E.png", 1, 3);
+	UEngineSprite::CreateCutting("S.png", 1, 3);
+	UEngineSprite::CreateCutting("T.png", 1, 3);
+	UEngineSprite::CreateCutting("A.png", 1, 3);
+	UEngineSprite::CreateCutting("B.png", 1, 3);
+	UEngineSprite::CreateCutting("I.png", 1, 3);
+	UEngineSprite::CreateCutting("Y.png", 1, 3);
 
 
 	{
