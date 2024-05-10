@@ -86,6 +86,9 @@ float2D ABabaBase::Lerp(float _DeltaTime)
 	}
 	else {
 		Location2D = NextLocation2D;
+		//Info.Tile.X = Location2D.x / 
+		Info.Tile.X = Location2D.x / 32;
+		Info.Tile.Y = Location2D.y / 32;;
 		return Location2D;
 	}
 }
