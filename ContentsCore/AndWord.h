@@ -22,7 +22,9 @@ public:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map);
+	void DownCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map);
 	void AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map);
+	void AxisRightCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map);
 	ABabaBase* WorldCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
 	bool WordOnCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
 

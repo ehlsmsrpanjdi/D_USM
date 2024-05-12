@@ -26,11 +26,11 @@ void ContentsCore::Initialize()
 	Editor = UEngineEditorGUI::CreateEditorWindow<BabaEditor>("BabaEditor").get();
 
 
-	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
-	GEngine->CreateLevel<SelectGameMode>("SelectGameLevel");
 	GEngine->CreateLevel<JellyGameMode>("Jelly");
+	GEngine->CreateLevel<SelectGameMode>("SelectGameLevel");
 	GEngine->CreateLevel<TitleGameMode>("Title");
-	GEngine->ChangeLevel("SelectGameLevel");
+	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
+	GEngine->ChangeLevel("PlayLevel");
 
 }
 

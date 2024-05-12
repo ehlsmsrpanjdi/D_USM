@@ -36,6 +36,8 @@ void JellyGameMode::LevelEnd(ULevel* _NextLevel)
 void JellyGameMode::LevelStart(ULevel* _NextLevel)
 {
 	InputOn();
+	TileMap::TileSet(100, 100);
+
 }
 
 void JellyGameMode::BeginPlay()
@@ -46,7 +48,6 @@ void JellyGameMode::BeginPlay()
 	Camera->AddActorLocation(FVector(32 * 40, 32 * 40));
 
 	ContentsHelper::WordInit();
-	TileMap::TileSet(100, 100);
 
 	std::shared_ptr<Selector> SelectorActor = GetWorld()->SpawnActor<Selector>("Select");
 	SelectorActor->CurGameMode = this;

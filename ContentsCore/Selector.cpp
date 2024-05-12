@@ -42,7 +42,7 @@ void Selector::Tick(float _DeltaTime)
 		CanInput = false;
 	}
 	if (CanInput == true) {
-	Input();
+		Input();
 	}
 	SetActorlocation2D(Lerp(_DeltaTime));
 }
@@ -92,8 +92,8 @@ void Selector::Input()
 		Key = '0';
 		return;
 	}
-	
-	
+
+
 }
 
 void Selector::StageCheck()
@@ -111,25 +111,26 @@ void Selector::StageCheck()
 		case BoxEnum::Stage:
 		{
 			if (GetTile() == TempTile) {
-				ContentsCore::Editor->GameMode = dynamic_cast<APlayGameMode*>(GEngine->ChangeLevel("PlayLevel"));
+				ContentsCore::Editor->GameMode = ContentsCore::GameMode;
+				GEngine->ChangeLevel("PlayLevel");
 				ContentsCore::Editor->Load("Stage" + Box->StageName);
 				SizeChange(Box->StageName);
 				Box->RenderOn();
 				Box->NumOffRender();
 			}
 		}
-			break;
+		break;
 		case BoxEnum::Map:
 		{
 			if (GetTile() == TempTile) {
 				GEngine->ChangeLevel(Box->GetMapName());
 			}
 		}
-			break;
+		break;
 		default:
 			break;
 		}
-				
+
 	}
 }
 
@@ -141,15 +142,15 @@ void Selector::SizeChange(std::string_view _Str)
 	}
 	else if (_Str._Equal("01")) {
 		BackGroundImage::Back->Size = FVector(16 * 16, 14 * 16);
-		BackGroundImage::Back->AddRenderSize(FVector(16 * 16,14 * 16));
+		BackGroundImage::Back->AddRenderSize(FVector(16 * 16, 14 * 16));
 	}
 	else if (_Str._Equal("02")) {
 		BackGroundImage::Back->Size = FVector(16 * 16, 14 * 16);
-		BackGroundImage::Back->AddRenderSize(FVector(16 * 16,14 * 16));
+		BackGroundImage::Back->AddRenderSize(FVector(16 * 16, 14 * 16));
 	}
 	else if (_Str._Equal("03")) {
 		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
-		BackGroundImage::Back->AddRenderSize(FVector(20 * 16,14 * 16));
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
 	}
 	else if (_Str._Equal("04")) {
 		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);

@@ -69,6 +69,44 @@ void AndWord::UpCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 
 }
 
+void AndWord::DownCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
+{
+	TilePoint ATile = this->KeyTileReturn('W');
+
+	bool Check = WordOnCheck(_Map, ATile);
+
+	if (false == Check) {
+		return;
+	}
+
+	TilePoint UpTile = GetTile() + TilePoint{ 0,-3 };
+
+	ABabaBase* LeftWord = WorldCheck(_Map, UpTile);
+
+	if (nullptr == LeftWord) {
+		return;
+	}
+	if (BabaState::IsActive != LeftWord->GetBstate()) {
+		return;
+	}
+
+	TilePoint DTile = this->KeyTileReturn('W');
+
+
+	ABabaBase* RightWord = WorldCheck(_Map, DTile);
+
+	if (nullptr == RightWord) {
+		return;
+	}
+
+	if (BabaState::IsNone == RightWord->GetBstate()) {
+		return;
+	}
+
+	ActiveUpdate(RightWord, LeftWord);
+
+}
+
 void AndWord::AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 	TilePoint ATile = this->KeyTileReturn('A');
@@ -106,6 +144,43 @@ void AndWord::AxisCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 	ActiveUpdate(LeftWord, RightWord);
 
 
+
+}
+
+void AndWord::AxisRightCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map)
+{
+	TilePoint ATile = this->KeyTileReturn('A');
+
+	bool Check = WordOnCheck(_Map, ATile);
+
+	if (false == Check) {
+		return;
+	}
+
+	TilePoint LeftTile = GetTile() + TilePoint{ 3,0 };
+
+	ABabaBase* LeftWord = WorldCheck(_Map, LeftTile);
+
+	if (nullptr == LeftWord) {
+		return;
+	}
+	if (BabaState::IsActive != LeftWord->GetBstate()) {
+		return;
+	}
+
+	TilePoint DTile = this->KeyTileReturn('A');
+
+
+	ABabaBase* RightWord = WorldCheck(_Map, DTile);
+
+	if (nullptr == RightWord) {
+		return;
+	}
+
+	if (BabaState::IsNone == RightWord->GetBstate()) {
+		return;
+	}
+	ActiveUpdate(RightWord, LeftWord);
 
 }
 

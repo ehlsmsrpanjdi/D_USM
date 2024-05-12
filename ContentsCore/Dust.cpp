@@ -10,7 +10,7 @@ Dust::Dust()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	SetRoot(Root);
-	Renderer->SetAutoSize(1.f ,true);
+	Renderer->SetAutoSize(0.7f ,true);
 }
 
 Dust::~Dust()

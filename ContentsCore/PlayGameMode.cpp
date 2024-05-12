@@ -39,7 +39,8 @@ void APlayGameMode::LevelEnd(ULevel* _NextLevel)
 
 void APlayGameMode::LevelStart(ULevel* _NextLevel)
 {
-	ContentsCore::GameMode = this;
+	ContentsCore::Editor->GameMode = this;
+	TileMap::TileSet(30, 30);
 
 	InputOn();
 }
@@ -49,13 +50,14 @@ void APlayGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.f, 0.0f, -100.0f));
 	BackGroundImage::Back = GetWorld()->SpawnActor<BackGround>("a").get();
+	Camera->AddActorLocation(FVector(450.f, 300.0f, -100.0f));
+	BackGroundImage::Back->AddActorLocation(FVector(450.f, 300.0f));
+	ContentsCore::GameMode = this;
 
 	GetWorld()->SpawnActor<BackBackGround>("A");
 
 	ContentsHelper::WordInit();
-	TileMap::TileSet(30, 30);
 	InputOn();
 }
 
@@ -309,6 +311,17 @@ void APlayGameMode::DeadReset()
 			_BabaBase->SetDead(false);
 		}
 	}
+	for (ABabaBase* FirstSink : SinkBaba) {
+		if (FirstSink == nullptr) continue;
+		for (ABabaBase* SecondSink : SinkBaba) {
+			if (SecondSink == nullptr) continue;
+			if (FirstSink == SecondSink) continue;
+			if (FirstSink->GetTile() == SecondSink->GetTile()) {
+				FirstSink->SetDead(true);
+				SecondSink->SetDead(true);
+			}
+		}
+	}
 }
 
 void APlayGameMode::IsUpdate()
@@ -332,6 +345,8 @@ void APlayGameMode::AndUpdate()
 	for (AndWord* _And : And_Vec) {
 		_And->UpCheck(Baba_Actors);
 		_And->AxisCheck(Baba_Actors);
+		_And->DownCheck(Baba_Actors);
+		_And->AxisRightCheck(Baba_Actors);
 	}
 }
 
@@ -363,6 +378,17 @@ void APlayGameMode::HotCheck()
 
 void APlayGameMode::SinkCheck()
 {
+	std::vector<ABabaBase*> temp;
+	for (ABabaBase* Dead : SinkBaba) {
+		if (Dead == nullptr) continue;
+		if (Dead->GetDead() == false) {
+			temp.push_back(Dead);
+		}
+	}
+	for (ABabaBase* Dead : temp) {
+		SinkBaba.remove(Dead);
+	}
+	temp.clear();
 	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
 	{
 		std::list<ABabaBase*>& BabaBase = Iter.second;
@@ -383,6 +409,8 @@ void APlayGameMode::SinkCheck()
 						if (SinkCount >= 2) {
 							TempBaba[0]->SetDead(true);
 							TempBaba[1]->SetDead(true);
+							SinkBaba.push_back(TempBaba[0]);
+							SinkBaba.push_back(TempBaba[1]);
 							break;
 						}
 					}
@@ -390,6 +418,7 @@ void APlayGameMode::SinkCheck()
 			}
 		}
 	}
+	SinkBaba.unique();
 }
 
 void APlayGameMode::WinCheck()
@@ -423,6 +452,9 @@ void APlayGameMode::DefeatCheck()
 		std::list<ABabaBase*>& BabaBase = Iter.second;
 		for (ABabaBase*& _BabaBase : BabaBase) {
 			if (GetActive(_BabaBase->GetBstate()).IsDefeat == true) {
+				if (_BabaBase->GetDead() == true) {
+					continue;
+				}
 				TilePoint Tile = _BabaBase->GetTile();
 				for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
 					if (true == BabaUpdateHelper::StateToActive(_Baba->GetBstate()).IsYou) {
@@ -471,6 +503,41 @@ ActiveState APlayGameMode::GetActive(const BabaState& State)
 	case BabaState::IsWater:
 	{
 		return BabaUpdateHelper::ActiveWater;
+	}
+	break;
+	case BabaState::IsStar:
+	{
+		return BabaUpdateHelper::ActiveStar;
+	}
+	break;
+	case BabaState::IsCrab:
+	{
+		return BabaUpdateHelper::ActiveCrab;
+	}
+	break;
+	case BabaState::IsBox:
+	{
+		return BabaUpdateHelper::ActiveBox;
+	}
+	break;
+	case BabaState::IsDoor:
+	{
+		return BabaUpdateHelper::ActiveDoor;
+	}
+	break;
+	case BabaState::IsJelly:
+	{
+		return BabaUpdateHelper::ActiveJelly;
+	}
+	break;
+	case BabaState::IsPillar:
+	{
+		return BabaUpdateHelper::ActivePillar;
+	}
+	break;
+	case BabaState::IsKey:
+	{
+		return BabaUpdateHelper::ActiveKey;
 	}
 	break;
 	}
