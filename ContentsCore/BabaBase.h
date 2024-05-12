@@ -168,6 +168,8 @@ protected:
 	bool MoveCheck();
 	bool PushCheck();
 	bool StopCheck();
+	bool ShutCheck();
+	bool OpenCheck();
 	void StateInit(BabaState _State);
 
 	bool BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map);

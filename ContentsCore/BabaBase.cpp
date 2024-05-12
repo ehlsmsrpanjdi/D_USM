@@ -489,6 +489,136 @@ bool ABabaBase::StopCheck()
 	return Temp;
 }
 
+bool ABabaBase::ShutCheck()
+{
+	bool Temp = false;
+	switch (BState)
+	{
+	case BabaState::IsNone:
+		break;
+	case BabaState::IsBaba:
+		Temp = BabaUpdateHelper::ActiveBaba.IsShut || Temp;
+		break;
+	case BabaState::IsRock:
+		Temp = BabaUpdateHelper::ActiveRock.IsShut || Temp;
+		break;
+	case BabaState::IsWall:
+		Temp = BabaUpdateHelper::ActiveWall.IsShut || Temp;
+		break;
+	case BabaState::IsFlag:
+		Temp = BabaUpdateHelper::ActiveFlag.IsShut || Temp;
+		break;
+	case BabaState::IsSkull:
+		Temp = BabaUpdateHelper::ActiveSkull.IsShut || Temp;
+		break;
+	case BabaState::IsWater:
+		Temp = BabaUpdateHelper::ActiveWater.IsShut || Temp;
+		break;
+	case BabaState::IsLava:
+		Temp = BabaUpdateHelper::ActiveLava.IsShut || Temp;
+		break;
+	case BabaState::IsGrass:
+		Temp = BabaUpdateHelper::ActiveGrass.IsShut || Temp;
+		break;
+	case BabaState::IsIce:
+		Temp = BabaUpdateHelper::ActiveIce.IsShut || Temp;
+		break;
+	case BabaState::IsAlgae:
+		Temp = BabaUpdateHelper::ActiveAlgae.IsShut || Temp;
+		break;
+	case BabaState::IsBox:
+		Temp = BabaUpdateHelper::ActiveBox.IsShut || Temp;
+		break;
+	case BabaState::IsDoor:
+		Temp = BabaUpdateHelper::ActiveDoor.IsShut || Temp;
+		break;
+	case BabaState::IsCrab:
+		Temp = BabaUpdateHelper::ActiveCrab.IsShut || Temp;
+		break;
+	case BabaState::IsJelly:
+		Temp = BabaUpdateHelper::ActiveIce.IsShut || Temp;
+		break;
+	case BabaState::IsPillar:
+		Temp = BabaUpdateHelper::ActivePillar.IsShut || Temp;
+		break;
+	case BabaState::IsKey:
+		Temp = BabaUpdateHelper::ActiveKey.IsShut || Temp;
+		break;
+	case BabaState::IsStar:
+		Temp = BabaUpdateHelper::ActiveStar.IsShut || Temp;
+		break;
+	default:
+		break;
+	}
+
+	return Temp;
+}
+
+bool ABabaBase::OpenCheck()
+{
+	bool Temp = false;
+	switch (BState)
+	{
+	case BabaState::IsNone:
+		break;
+	case BabaState::IsBaba:
+		Temp = BabaUpdateHelper::ActiveBaba.IsOpen|| Temp;
+		break;
+	case BabaState::IsRock:
+		Temp = BabaUpdateHelper::ActiveRock.IsOpen || Temp;
+		break;
+	case BabaState::IsWall:
+		Temp = BabaUpdateHelper::ActiveWall.IsOpen || Temp;
+		break;
+	case BabaState::IsFlag:
+		Temp = BabaUpdateHelper::ActiveFlag.IsOpen || Temp;
+		break;
+	case BabaState::IsSkull:
+		Temp = BabaUpdateHelper::ActiveSkull.IsOpen || Temp;
+		break;
+	case BabaState::IsWater:
+		Temp = BabaUpdateHelper::ActiveWater.IsOpen || Temp;
+		break;
+	case BabaState::IsLava:
+		Temp = BabaUpdateHelper::ActiveLava.IsOpen || Temp;
+		break;
+	case BabaState::IsGrass:
+		Temp = BabaUpdateHelper::ActiveGrass.IsOpen || Temp;
+		break;
+	case BabaState::IsIce:
+		Temp = BabaUpdateHelper::ActiveIce.IsOpen || Temp;
+		break;
+	case BabaState::IsAlgae:
+		Temp = BabaUpdateHelper::ActiveAlgae.IsOpen || Temp;
+		break;
+	case BabaState::IsBox:
+		Temp = BabaUpdateHelper::ActiveBox.IsOpen || Temp;
+		break;
+	case BabaState::IsDoor:
+		Temp = BabaUpdateHelper::ActiveDoor.IsOpen || Temp;
+		break;
+	case BabaState::IsCrab:
+		Temp = BabaUpdateHelper::ActiveCrab.IsOpen || Temp;
+		break;
+	case BabaState::IsJelly:
+		Temp = BabaUpdateHelper::ActiveIce.IsOpen || Temp;
+		break;
+	case BabaState::IsPillar:
+		Temp = BabaUpdateHelper::ActivePillar.IsOpen || Temp;
+		break;
+	case BabaState::IsKey:
+		Temp = BabaUpdateHelper::ActiveKey.IsOpen || Temp;
+		break;
+	case BabaState::IsStar:
+		Temp = BabaUpdateHelper::ActiveStar.IsOpen|| Temp;
+		break;
+	default:
+		break;
+	}
+
+	return Temp;
+}
+
 void ABabaBase::StateInit(BabaState _State)
 {
 	BState = _State;
@@ -561,6 +691,22 @@ bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 			return true;
 		}
 	}
+	TilePoint TempTile = KeyTileReturn(_Input);
+
+	if (ShutCheck() == true) {
+		std::list<ABabaBase*>& _List = _Map[TempTile];
+		for (ABabaBase* Baba : _List) {
+			if (Baba == nullptr) {
+				continue;
+			}
+			if (Baba->OpenCheck() == true) {
+				IsChecked = true;
+				CanMove = false;
+				return true;
+			}
+		}
+
+	}
 
 	if (false == BabaMapCheck(_Input)) {
 		IsChecked = true;
@@ -568,7 +714,6 @@ bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 		return false;
 	}
 
-	TilePoint TempTile = KeyTileReturn(_Input);
 
 	if (true == BabaNextTileCheck(_Map, TempTile)) {
 		DustSpawn(_Input);
@@ -774,6 +919,62 @@ void ABabaBase::BabaHelperUpdate()
 	{
 		if (BState != BabaUpdateHelper::Ice) {
 			BState = BabaUpdateHelper::Ice;
+		}
+	}
+	break;
+	case BabaState::IsBox:
+	{
+		if (BState != BabaUpdateHelper::Box) {
+			BState = BabaUpdateHelper::Box;
+		}
+	}
+	break;
+	case BabaState::IsCrab:
+	{
+		if (BState != BabaUpdateHelper::Crab) {
+			BState = BabaUpdateHelper::Crab;
+		}
+	}
+	break;
+	case BabaState::IsDoor:
+	{
+		if (BState != BabaUpdateHelper::Door) {
+			BState = BabaUpdateHelper::Door;
+		}
+	}
+	break;
+	case BabaState::IsAlgae:
+	{
+		if (BState != BabaUpdateHelper::Algae) {
+			BState = BabaUpdateHelper::Algae;
+		}
+	}
+	break;
+	case BabaState::IsJelly:
+	{
+		if (BState != BabaUpdateHelper::Jelly) {
+			BState = BabaUpdateHelper::Jelly;
+		}
+	}
+	break;
+	case BabaState::IsPillar:
+	{
+		if (BState != BabaUpdateHelper::Pillar) {
+			BState = BabaUpdateHelper::Pillar;
+		}
+	}
+	break;
+	case BabaState::IsKey:
+	{
+		if (BState != BabaUpdateHelper::Key) {
+			BState = BabaUpdateHelper::Key;
+		}
+	}
+	break;
+	case BabaState::IsStar:
+	{
+		if (BState != BabaUpdateHelper::Star) {
+			BState = BabaUpdateHelper::Star;
 		}
 	}
 	break;

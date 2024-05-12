@@ -62,12 +62,12 @@ protected:
 	void HasUpdate();
 
 	void HotCheck();
-	std::list<ABabaBase*> HotBaba = { nullptr, };
+	void DefeatCheck();
+	void WinCheck();
 	void SinkCheck();
 	std::list<ABabaBase*> SinkBaba = { nullptr, };
-	void DefeatCheck();
-	std::list<ABabaBase*> DefeatBaba = { nullptr, };
-	void WinCheck();
+	void DoorOpenCheck();
+	std::list<ABabaBase*> OpenBaba = { nullptr, };
 
 	ActiveState GetActive(const BabaState& State);
 

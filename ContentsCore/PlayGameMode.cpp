@@ -223,6 +223,7 @@ void APlayGameMode::BabaInputCheck()
 			DeadReset();
 			HotCheck();
 			SinkCheck();
+			DoorOpenCheck();
 			WinCheck();
 			DefeatCheck();
 			CanInput = false;
@@ -253,7 +254,9 @@ void APlayGameMode::BabaInputCheck()
 			DeadReset();
 			HotCheck();
 			SinkCheck();
+			DoorOpenCheck();
 			WinCheck();
+
 			DefeatCheck();
 		}
 		else {
@@ -314,6 +317,17 @@ void APlayGameMode::DeadReset()
 	for (ABabaBase* FirstSink : SinkBaba) {
 		if (FirstSink == nullptr) continue;
 		for (ABabaBase* SecondSink : SinkBaba) {
+			if (SecondSink == nullptr) continue;
+			if (FirstSink == SecondSink) continue;
+			if (FirstSink->GetTile() == SecondSink->GetTile()) {
+				FirstSink->SetDead(true);
+				SecondSink->SetDead(true);
+			}
+		}
+	}
+	for (ABabaBase* FirstSink : OpenBaba) {
+		if (FirstSink == nullptr) continue;
+		for (ABabaBase* SecondSink : OpenBaba) {
 			if (SecondSink == nullptr) continue;
 			if (FirstSink == SecondSink) continue;
 			if (FirstSink->GetTile() == SecondSink->GetTile()) {
@@ -419,6 +433,62 @@ void APlayGameMode::SinkCheck()
 		}
 	}
 	SinkBaba.unique();
+}
+
+void APlayGameMode::DoorOpenCheck()
+{
+	std::vector<ABabaBase*> temp;
+	for (ABabaBase* Dead : OpenBaba) {
+		if (Dead == nullptr) continue;
+		if (Dead->GetDead() == false) {
+			temp.push_back(Dead);
+		}
+	}
+	for (ABabaBase* Dead : temp) {
+		OpenBaba.remove(Dead);
+	}
+	temp.clear();
+	for (std::pair<const TilePoint, std::list<ABabaBase*>>& Iter : Baba_Actors)
+	{
+		std::list<ABabaBase*>& BabaBase = Iter.second;
+		for (ABabaBase*& _BabaBase : BabaBase) {
+			int OpenCount = 0;
+			if (GetActive(_BabaBase->GetBstate()).IsShut == true) {
+				if (true == _BabaBase->GetDead()) {
+					continue;
+				}
+				TilePoint Tile = _BabaBase->GetTile();
+				if (2 <= Baba_Actors[Tile].size()) {
+					int i = 0;
+					ABabaBase* TempBaba[2] = { nullptr, };
+					bool OpenBool = false;
+					bool ShutBool = false;
+					for (ABabaBase*& _Baba : Baba_Actors[Tile]) {
+						if (_Baba->OpenCheck() == true && !OpenBool) {
+							TempBaba[i] = _Baba;
+							OpenBool = true;
+							OpenCount++;
+							i++;
+						}
+						if (_Baba->ShutCheck() == true && !ShutBool) {
+							TempBaba[i] = _Baba;
+							ShutBool = true;
+							OpenCount++;
+							i++;
+						}
+						if (OpenCount >= 2) {
+							TempBaba[0]->SetDead(true);
+							TempBaba[1]->SetDead(true);
+							OpenBaba.push_back(TempBaba[0]);
+							OpenBaba.push_back(TempBaba[1]);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	OpenBaba.unique();
 }
 
 void APlayGameMode::WinCheck()
