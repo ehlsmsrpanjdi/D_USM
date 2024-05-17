@@ -12,6 +12,7 @@ BackBackGround::BackBackGround()
 	Renderer->SetAutoSize(2.0f, true);
 	Renderer->SetSprite("Back_Two.png");
 	Renderer->SetOrder(-200);
+	AddActorLocation(FVector{ 0,0,400 });
 }
 
 BackBackGround::~BackBackGround()

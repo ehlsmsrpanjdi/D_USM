@@ -51,8 +51,8 @@ void APlayGameMode::BeginPlay()
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	BackGroundImage::Back = GetWorld()->SpawnActor<BackGround>("a").get();
-	Camera->AddActorLocation(FVector(450.f, 300.0f, -100.0f));
-	BackGroundImage::Back->AddActorLocation(FVector(450.f, 300.0f));
+	//Camera->AddActorLocation(FVector(450.f, 300.0f, -100.0f));
+	BackGroundImage::Back->SetActorLocation(FVector(0,0,300));
 	ContentsCore::GameMode = this;
 
 	GetWorld()->SpawnActor<BackBackGround>("A");
@@ -63,6 +63,7 @@ void APlayGameMode::BeginPlay()
 
 void APlayGameMode::Tick(float _DeltaTime)
 {
+	//BackGroundImage::Back->AddActorLocation(FVector{ 10.f,10.f } *_DeltaTime);
 	Super::Tick(_DeltaTime);
 	ContentsHelper::CoolTimeCheck(_DeltaTime);
 	if (false == RestartCheck()) {
