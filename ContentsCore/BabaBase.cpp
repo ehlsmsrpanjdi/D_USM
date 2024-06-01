@@ -562,7 +562,7 @@ bool ABabaBase::OpenCheck()
 	case BabaState::IsNone:
 		break;
 	case BabaState::IsBaba:
-		Temp = BabaUpdateHelper::ActiveBaba.IsOpen|| Temp;
+		Temp = BabaUpdateHelper::ActiveBaba.IsOpen || Temp;
 		break;
 	case BabaState::IsRock:
 		Temp = BabaUpdateHelper::ActiveRock.IsOpen || Temp;
@@ -610,7 +610,7 @@ bool ABabaBase::OpenCheck()
 		Temp = BabaUpdateHelper::ActiveKey.IsOpen || Temp;
 		break;
 	case BabaState::IsStar:
-		Temp = BabaUpdateHelper::ActiveStar.IsOpen|| Temp;
+		Temp = BabaUpdateHelper::ActiveStar.IsOpen || Temp;
 		break;
 	default:
 		break;
@@ -624,7 +624,7 @@ void ABabaBase::StateInit(BabaState _State)
 	BState = _State;
 }
 
-bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map)
+bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map, bool IsKey)
 {
 	if (MoveCheck() == false) {
 		return false;
@@ -650,7 +650,7 @@ bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 	bool CheckBool = true;
 	std::list<ABabaBase*>& _List = _Map[TempTile];
 	for (ABabaBase*& Baba : _List) {
-		bool Check = Baba->BabaPushCheck(_Input, _Vec, _Map);
+		bool Check = Baba->BabaPushCheck(_Input, _Vec, _Map, OpenCheck());
 		CheckBool = (CheckBool && Check);
 	}
 	if (true == CheckBool) {
@@ -670,19 +670,27 @@ bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 	return false;
 }
 
-bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map)
+bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map, bool IsKey)
 {
 	if (StopCheck() == true) {
 		IsChecked = true;
 		CanMove = false;
 		return false;
 	}
-
 	if (true == GetDead()) {
 		IsChecked = true;
 		CanMove = false;
 		return true;
 	}
+
+	if (IsKey == false) {
+		if (ShutCheck() == true) {
+			IsChecked = true;
+			CanMove = false;
+			return false;
+		}
+	}
+
 
 	if (MoveCheck() == false) {
 		if (false == PushCheck()) {
@@ -727,7 +735,7 @@ bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 		bool TempBool = true;
 		std::list<ABabaBase*>& _List = _Map[TempTile];
 		for (ABabaBase*& Baba : _List) {
-			bool Temp = Baba->BabaPushCheck(_Input, _Vec, _Map);
+			bool Temp = Baba->BabaPushCheck(_Input, _Vec, _Map, OpenCheck());
 			TempBool = (TempBool && Temp);
 		}
 		if (true == TempBool) {

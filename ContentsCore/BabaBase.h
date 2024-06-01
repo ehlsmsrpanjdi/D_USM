@@ -172,8 +172,8 @@ protected:
 	bool OpenCheck();
 	void StateInit(BabaState _State);
 
-	bool BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map);
-	bool BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map);
+	bool BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map, bool IsKey = false);
+	bool BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map, bool IsKey = false);
 	bool BabaNextTileCheck(std::map<TilePoint, std::list<ABabaBase*>>& _Map, TilePoint _Tile);
 
 	TilePoint KeyTileReturn(char _Input);
