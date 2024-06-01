@@ -30,7 +30,7 @@ void ContentsCore::Initialize()
 	GEngine->CreateLevel<SelectGameMode>("SelectGameLevel");
 	GEngine->CreateLevel<TitleGameMode>("Title");
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
-	GEngine->ChangeLevel("PlayLevel");
+	GEngine->ChangeLevel("Title");
 
 }
 
