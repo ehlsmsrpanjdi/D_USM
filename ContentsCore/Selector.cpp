@@ -115,8 +115,6 @@ void Selector::StageCheck()
 				GEngine->ChangeLevel("PlayLevel");
 				ContentsCore::Editor->Load("Stage" + Box->StageName);
 				SizeChange(Box->StageName);
-				Box->RenderOn();
-				Box->NumOffRender();
 			}
 		}
 		break;
@@ -169,27 +167,31 @@ void Selector::SizeChange(std::string_view _Str)
 		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
 	}
 	else if (_Str._Equal("08")) {
-		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
-		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
+		BackGroundImage::Back->Size = float4(20 * 24, 14 * 24);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 24, 14 * 24));
 	}
 	else if (_Str._Equal("09")) {
-		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
-		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
+		BackGroundImage::Back->Size = float4(20 * 24, 14 * 24);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 24, 14 * 24));
 	}
 	else if (_Str._Equal("10")) {
-		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
-		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
+		BackGroundImage::Back->Size = float4(20 * 24, 14 * 24);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 24, 14 * 24));
 	}
 	else if (_Str._Equal("11")) {
-		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
-		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
+		BackGroundImage::Back->Size = float4(20 * 24, 14 * 24);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 24, 14 * 24));
 	}
 	else if (_Str._Equal("12")) {
-		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
-		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
+		BackGroundImage::Back->Size = float4(20 * 24, 14 * 24);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 24, 14 * 24));
 	}
 	else if (_Str._Equal("13")) {
-		BackGroundImage::Back->Size = float4(20 * 16, 14 * 16);
-		BackGroundImage::Back->AddRenderSize(FVector(20 * 16, 14 * 16));
+		BackGroundImage::Back->Size = float4(20 * 28, 14 * 28);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 28, 14 * 28));
+	}
+	else if (_Str._Equal("14")) {
+		BackGroundImage::Back->Size = float4(20 * 24, 14 * 24);
+		BackGroundImage::Back->AddRenderSize(FVector(20 * 24, 14 * 24));
 	}
 }

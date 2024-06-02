@@ -168,14 +168,14 @@
     <ClCompile Include="JellyGameMode.cpp">
       <Filter>Level\GameMode</Filter>
     </ClCompile>
-    <ClCompile Include="TitleGameMode.cpp">
-      <Filter>Level\GameMode</Filter>
-    </ClCompile>
     <ClCompile Include="Text.cpp">
       <Filter>Level\Actor\Gear\Title</Filter>
     </ClCompile>
     <ClCompile Include="TitleButton.cpp">
       <Filter>Level\Actor\Gear\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <Filter>Level\GameMode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

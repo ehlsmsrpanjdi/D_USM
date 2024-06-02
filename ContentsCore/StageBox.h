@@ -39,7 +39,6 @@ public:
 	std::string MapName = "";
 	void SetNextStage(std::string_view _StageName);
 	void SetLine(bool _Right, bool _Up, bool _Left, bool _Down);
-	void RenderOn();
 	void AnimationInit();
 	std::string_view GetMapName() {
 		return MapName;
@@ -51,7 +50,8 @@ public:
 	BoxEnum GetBoxInfo() {
 		return BoxInfo;
 	}
-	void NumOffRender();
+
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

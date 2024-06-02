@@ -471,7 +471,7 @@ bool ABabaBase::StopCheck()
 		Temp = BabaUpdateHelper::ActiveCrab.IsStop || Temp;
 		break;
 	case BabaState::IsJelly:
-		Temp = BabaUpdateHelper::ActiveIce.IsStop || Temp;
+		Temp = BabaUpdateHelper::ActiveJelly.IsStop || Temp;
 		break;
 	case BabaState::IsPillar:
 		Temp = BabaUpdateHelper::ActivePillar.IsStop || Temp;
@@ -624,7 +624,7 @@ void ABabaBase::StateInit(BabaState _State)
 	BState = _State;
 }
 
-bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map, bool IsKey)
+bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map)
 {
 	if (MoveCheck() == false) {
 		return false;
@@ -672,25 +672,32 @@ bool ABabaBase::BabaMoveCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 
 bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::map<TilePoint, std::list<ABabaBase*>>& _Map, bool IsKey)
 {
-	if (StopCheck() == true) {
-		IsChecked = true;
-		CanMove = false;
-		return false;
-	}
 	if (true == GetDead()) {
 		IsChecked = true;
 		CanMove = false;
 		return true;
 	}
 
-	if (IsKey == false) {
-		if (ShutCheck() == true) {
+
+	if (StopCheck() == true) {
+		if (true == PushCheck()) {
+			DustSpawn(_Input);
+			_Vec.push_back(this);
+			CanMove = true;
+			IsChecked = true;
+			return true;
+		}
+		if (IsKey == true && ShutCheck() == true) {
 			IsChecked = true;
 			CanMove = false;
-			return false;
+			return true;
+		}
+		else {
+		IsChecked = true;
+		CanMove = false;
+		return false;
 		}
 	}
-
 
 	if (MoveCheck() == false) {
 		if (false == PushCheck()) {
@@ -699,22 +706,22 @@ bool ABabaBase::BabaPushCheck(char _Input, std::vector<ABabaBase*>& _Vec, std::m
 			return true;
 		}
 	}
+
 	TilePoint TempTile = KeyTileReturn(_Input);
 
-	if (ShutCheck() == true) {
-		std::list<ABabaBase*>& _List = _Map[TempTile];
-		for (ABabaBase* Baba : _List) {
-			if (Baba == nullptr) {
-				continue;
-			}
-			if (Baba->OpenCheck() == true) {
-				IsChecked = true;
-				CanMove = false;
-				return true;
-			}
-		}
-
-	}
+	//if (ShutCheck() == true) {
+	//	std::list<ABabaBase*>& _List = _Map[TempTile];
+	//	for (ABabaBase* Baba : _List) {
+	//		if (Baba == nullptr) {
+	//			continue;
+	//		}
+	//		if (Baba->OpenCheck() == true) {
+	//			IsChecked = true;
+	//			CanMove = false;
+	//			return true;
+	//		}
+	//	}
+	//}
 
 	if (false == BabaMapCheck(_Input)) {
 		IsChecked = true;

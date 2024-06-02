@@ -29,6 +29,7 @@ public:
 	StageBox* SpawnLine(int _X, int _Y, bool _Right, bool _Up, bool _Left, bool _Down);
 protected:
 	void LevelEnd(ULevel* _NextLevel) override;
+	void LevelStart(ULevel* _PrevLevel) override;
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	std::vector<StageBox*> Stage = {nullptr,};

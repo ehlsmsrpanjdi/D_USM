@@ -273,6 +273,7 @@ public:
 	static float EffectTime;
 	static void CoolTimeCheck(float _DeltaTime);
 	static void WordInit();
+	static void WordReset();
 	static void FadeEffectIn(ULevel* _Level);
 	static void FadeEffectOut(ULevel* _Level);
 	static void FadeOutHelper(ULevel* _Level);

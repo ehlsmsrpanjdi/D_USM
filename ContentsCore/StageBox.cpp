@@ -60,28 +60,6 @@ void StageBox::SetLine(bool _Right, bool _Up, bool _Left, bool _Down)
 	BoxInfo = BoxEnum::Line;
 }
 
-void StageBox::RenderOn()
-{
-	for (StageBox* Box : NextStage) {
-		BoxEnum BB = Box->GetBoxInfo();
-		switch (BB)
-		{
-		case BoxEnum::None:
-			break;
-		case BoxEnum::Stage:
-			Box->LRRenderTrue();
-			break;
-		case BoxEnum::Line:
-			Box->RenderTrue();
-			break;
-		case BoxEnum::Map:
-			Box->RenderTrue();
-			break;
-		default:
-			break;
-		}
-	}
-}
 
 void StageBox::AnimationInit()
 {
@@ -199,16 +177,3 @@ void StageBox::NumRender()
 	LRenderer->ChangeAnimation(LeftNum);
 	RRenderer->ChangeAnimation(RightNum);
 }
-
-void StageBox::NumOffRender()
-{
-	if (BoxInfo != BoxEnum::Stage) {
-		return;
-	}
-	std::string LeftNum = StageName.substr(0, 1);
-	std::string RightNum = StageName.substr(1, 1);
-	LRenderer->ChangeAnimation(LeftNum + "Off");
-	RRenderer->ChangeAnimation(RightNum + "Off");
-}
-
-

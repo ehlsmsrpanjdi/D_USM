@@ -33,6 +33,8 @@ APlayGameMode::~APlayGameMode()
 
 void APlayGameMode::LevelEnd(ULevel* _NextLevel)
 {
+	SinkBaba.clear();
+	OpenBaba.clear();
 	float4 BackSize = BackGroundImage::Back->Size;
 	BackGroundImage::Back->AddRenderSize(-BackSize);
 }
@@ -304,6 +306,14 @@ void APlayGameMode::IsReset()
 	BabaUpdateHelper::ActiveLava = BabaUpdateHelper::None;
 	BabaUpdateHelper::ActiveGrass = BabaUpdateHelper::None;
 	BabaUpdateHelper::ActiveIce = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveAlgae = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveBox = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveDoor = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveCrab = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveJelly = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActivePillar = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveKey = BabaUpdateHelper::None;
+	BabaUpdateHelper::ActiveStar = BabaUpdateHelper::None;
 }
 
 void APlayGameMode::DeadReset()
@@ -341,13 +351,13 @@ void APlayGameMode::DeadReset()
 
 void APlayGameMode::IsUpdate()
 {
-	BabaUpdateHelper::ActiveBaba = BabaUpdateHelper::None;
-	BabaUpdateHelper::ActiveRock = BabaUpdateHelper::None;
-	BabaUpdateHelper::ActiveWall = BabaUpdateHelper::None;
-	BabaUpdateHelper::ActiveFlag = BabaUpdateHelper::None;
-	BabaUpdateHelper::ActiveSkull = BabaUpdateHelper::None;
-	BabaUpdateHelper::ActiveGrass = BabaUpdateHelper::None;
-	BabaUpdateHelper::ActiveLava = BabaUpdateHelper::None;
+	//BabaUpdateHelper::ActiveBaba = BabaUpdateHelper::None;
+	//BabaUpdateHelper::ActiveRock = BabaUpdateHelper::None;
+	//BabaUpdateHelper::ActiveWall = BabaUpdateHelper::None;
+	//BabaUpdateHelper::ActiveFlag = BabaUpdateHelper::None;
+	//BabaUpdateHelper::ActiveSkull = BabaUpdateHelper::None;
+	//BabaUpdateHelper::ActiveGrass = BabaUpdateHelper::None;
+	//BabaUpdateHelper::ActiveLava = BabaUpdateHelper::None;
 
 	for (IsWord* _Is : Is_Vec) {
 		_Is->UpCheck(Baba_Actors);

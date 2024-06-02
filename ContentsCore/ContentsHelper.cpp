@@ -102,6 +102,27 @@ void ContentsHelper::WordInit()
 
 }
 
+void ContentsHelper::WordReset()
+{
+	BabaUpdateHelper::Baba = BabaState::IsBaba;
+	BabaUpdateHelper::Rock = BabaState::IsRock;
+	BabaUpdateHelper::Wall = BabaState::IsWall;
+	BabaUpdateHelper::Flag = BabaState::IsFlag;
+	BabaUpdateHelper::Skull = BabaState::IsSkull;
+	BabaUpdateHelper::Water = BabaState::IsWater;
+	BabaUpdateHelper::Lava = BabaState::IsLava;
+	BabaUpdateHelper::Grass = BabaState::IsGrass;
+	BabaUpdateHelper::Ice = BabaState::IsIce;
+	BabaUpdateHelper::Algae = BabaState::IsAlgae;
+	BabaUpdateHelper::Box = BabaState::IsBox;
+	BabaUpdateHelper::Door = BabaState::IsDoor;
+	BabaUpdateHelper::Crab = BabaState::IsCrab;
+	BabaUpdateHelper::Jelly = BabaState::IsJelly;
+	BabaUpdateHelper::Pillar = BabaState::IsPillar;
+	BabaUpdateHelper::Key = BabaState::IsKey;
+	BabaUpdateHelper::Star = BabaState::IsStar;
+}
+
 enum class Fade {
 	FadeNone,
 	FadeIn,
